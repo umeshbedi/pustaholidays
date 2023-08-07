@@ -53,8 +53,8 @@ export default function Slider() {
             >
                 {
                     banner.map((item, index) => (
-                        <SwiperSlide>
-                            <div key={index}>
+                        <SwiperSlide key={index}>
+                            <div >
                                 <div
                                     style={{
                                         width: '100%',

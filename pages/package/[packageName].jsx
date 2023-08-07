@@ -8,7 +8,7 @@ import style from '@/styles/packageName.module.css'
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"))
 
 
-export default function packageName() {
+export default function PackageName() {
     const { query } = useRouter()
     const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
 
@@ -69,7 +69,7 @@ export default function packageName() {
                         <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop:'2rem' }}>
                             <div className={style.packageRow}>
                                 {tileData.map((item, index) => (
-                                    <Tile thumbnail={item.image} name={"Place Name"} slug={item.slug}/>
+                                    <Tile key={index} thumbnail={item.image} name={"Place Name"} slug={item.slug}/>
                                 ))}
                             </div>
                         </div>

@@ -67,8 +67,8 @@ export default function Journey() {
             >
                 {
                     content.map((item, index) => (
-                        <SwiperSlide>
-                            <div key={index}>
+                        <SwiperSlide key={index}>
+                            <div>
                                 <div
                                     onMouseEnter={()=>activeIndex==index?playButton():null}
                                     onMouseOut={()=>activeIndex==index?removePlay():null}

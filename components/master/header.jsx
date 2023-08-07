@@ -3,8 +3,9 @@ import style from './header.module.css'
 import { FaAngleDown } from 'react-icons/fa'
 import { menu } from '../utils/localdb'
 import Image from 'next/image'
+import Link from 'next/link'
 
-export default function header() {
+export default function Header() {
 
     const [menuStyle, setMenuStyle] = useState({ padding: "1.5rem 5%", background: "none" })
 
@@ -22,10 +23,11 @@ export default function header() {
     function Dropdown({ heading="", content=[{name:null, slug:null}] }) {
         return (
             <li>
-                <a href="javascript:void(0)">{heading} ▾</a>
+                <Link href="javascript:void(0)">{heading} ▾</Link>
                 <ul className={style.dropdown}>
                     {content.map((item, index)=>(
-                        <li><a href={item.slug}>{item.name}</a></li>
+                        <li key={index}><Link href={item.slug}>{item.name}</Link></li>
+                        
                     ))}
                 </ul>
             </li>
@@ -44,7 +46,7 @@ export default function header() {
 
             <div className={style.menu}>
                 <ul >
-                    <li><a href="/">Home</a></li>
+                    <li><Link href="/">Home</Link></li>
                     <Dropdown heading='Know' content={menu.know}/>
                     <Dropdown heading='What to see' content={menu.what2see}/>
                     <Dropdown heading='Rentals' content={menu.rentals}/>

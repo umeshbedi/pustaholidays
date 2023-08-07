@@ -8,7 +8,7 @@ import style from '@/styles/packageName.module.css'
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"))
 
 
-export default function pages() {
+export default function Pages() {
     const { query } = useRouter()
     const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
 
