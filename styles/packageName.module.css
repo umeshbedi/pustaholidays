@@ -1,0 +1,17 @@
+.packageRow{
+    display: grid;
+    grid-template-columns: repeat(4,auto);
+    
+    width: 100%;
+    justify-content: center;
+    gap: 2rem;
+    
+}
+.tile{
+    transition: transform .5s ease;
+    box-shadow:3px 5px 10px 2px rgba(0,  0 , 0, .1);
+}
+
+.tile:hover{
+    transform: scale(1.03);
+}
