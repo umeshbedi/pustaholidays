@@ -2,18 +2,34 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import dynamic from 'next/dynamic'
+import { mobile } from '@/components/utils/variables'
+import { useEffect, useState } from 'react'
+import SHome from '@/components/skeleton/SHome'
 
 
 const inter = Inter({ subsets: ['latin'] })
 
-const Menu = dynamic(() => import("@/components/master/header"))
-const Slider = dynamic(() => import("@/components/homepage/Slider"))
-const Journey = dynamic(()=>import('@/components/homepage/Journey'))
-const Counter = dynamic(()=>import('@/components/homepage/Counter'))
-const Testimonials = dynamic(()=>import('@/components/homepage/Testimonials'))
+
+const DivCarousel2 = dynamic(() => import('@/components/homepage/DivCarousel2'), { ssr: false, loading: () => <SHome /> })
+const Menu = dynamic(() => import("@/components/master/header"), { ssr: false, loading: () => <SHome /> })
+const Slider = dynamic(() => import("@/components/homepage/Slider"), { ssr: false, loading: () => <SHome /> })
+const Journey = dynamic(() => import('@/components/homepage/Journey'), { ssr: false, loading: () => <SHome /> })
+const Counter = dynamic(() => import('@/components/homepage/Counter'), { ssr: false, loading: () => <SHome /> })
+const Testimonials = dynamic(() => import('@/components/homepage/Testimonials'), { ssr: false, loading: () => <SHome /> })
+const DivCarousel = dynamic(() => import("@/components/homepage/DivCarousel"), { ssr: false, loading: () => <SHome /> })
+const Authorities = dynamic(() => import("@/components/homepage/Authorities"), { ssr: false, loading: () => <SHome /> })
+const WhatTheySay = dynamic(() => import("@/components/homepage/WhatSay"), { ssr: false, loading: () => <SHome /> })
 
 
 export default function Home() {
+
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(mobile())
+  }, [isMobile])
+
+
   return (
     <>
       <Head>
@@ -27,9 +43,72 @@ export default function Home() {
 
         <div >
           <Slider />
+
+          <div style={{ marginTop: "3rem" }}>
+            {isMobile ? (<></>
+              // <Package
+              //   lightHead={"Destination "}
+              //   darkHead={"in Bali"}
+              //   button={{ name: "All Destination", slug: "/destination" }}
+
+              // />
+            ) : (
+              <DivCarousel
+                lightHead={"Destination "}
+                darkHead={"in Bali"}
+                button={{ name: "All Destination", slug: "/destination" }}
+                backgroundImage={`https://picsum.photos/seed/sdf${Math.random(0, 100)}/1200/720`}
+              />
+
+            )}
+
+
+            {isMobile ? (
+              <></>
+              // <Package
+              //   lightHead={"Destination "}
+              //   darkHead={"in Andaman"}
+              //   button={{ name: "All Destination", slug: "/destination" }}
+
+              // />
+            ) : (
+              <DivCarousel
+                lightHead={"Destination "}
+                darkHead={"in Andaman"}
+                button={{ name: "All Destination", slug: "/destination" }}
+                backgroundImage={`https://picsum.photos/seed/sdf${Math.random(0, 100)}/1200/720`}
+              />
+
+            )}
+
+
+            {isMobile ? (
+              <></>
+              // <Package
+              //   lightHead={"Cruises "}
+              //   darkHead={"in Andaman"}
+              //   button={{ name: "All Hotels", slug: "/destination" }}
+
+              // />
+            ) : (
+              <DivCarousel
+                lightHead={"Cruises "}
+                darkHead={"in Andaman"}
+                button={{ name: "All Cruises", slug: "/cruises" }}
+                backgroundImage={`https://picsum.photos/seed/sdf${Math.random(0, 100)}/1200/720`}
+              />
+
+            )}
+
+            <DivCarousel2 />
+
+          </div>
           <Journey />
-          <Counter/>
-          <Testimonials/>
+
+          <Counter />
+          <Testimonials />
+          <WhatTheySay/>
+          <Authorities />
         </div>
       </main>
     </>

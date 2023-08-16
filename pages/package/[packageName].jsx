@@ -1,11 +1,13 @@
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React from 'react'
-const Menu = dynamic(() => import("@/components/master/header"))
 import style from '@/styles/packageName.module.css'
 
-const HeadImage = dynamic(() => import("@/components/master/HeadImage"))
+import React from 'react'
+import SHeader from '@/components/skeleton/SHeader'
+import SHome from '@/components/skeleton/SHome'
+const Menu = dynamic(() => import("@/components/master/header"), {ssr:false, loading:()=><SHeader/>})
+const HeadImage = dynamic(() => import("@/components/master/HeadImage"), {ssr:false, loading:()=><SHome/>})
 
 
 export default function PackageName() {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { boxShadow, mobile } from '../variables'
-import Title from './Title'
+
+import { mobile } from '../utils/variables'
+import Title from '../master/Title'
 
 export default function Authorities() {
 
@@ -36,11 +37,12 @@ export default function Authorities() {
             backgroundImage: "url('/authorities/auth background.png')",
             display: 'flex', flexDirection: 'column',
             alignItems: 'center',
-            overflowY: 'hidden'
+            overflowY: 'hidden',
+            background:"var(--lightBackground)"
         }}
         >
             <div style={{ display: 'flex', justifyContent: 'center', width:'100%'}}>
-                <Title red={"Accredited"} blue={" By"} center/>
+                <Title title='Accredited By' center/>
             </div>
             
 
@@ -93,7 +95,7 @@ export default function Authorities() {
             }}
             >
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Title red={"Awesome"} blue={" Service"} center/>
+                    <Title title='Awesome Service' center/>
                 </div>
 
                 <div style={{

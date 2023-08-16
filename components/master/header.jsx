@@ -4,10 +4,12 @@ import { FaAngleDown } from 'react-icons/fa'
 import { menu } from '../utils/localdb'
 import Image from 'next/image'
 import Link from 'next/link'
+import { db } from '@/firebase'
 
 export default function Header() {
 
     const [menuStyle, setMenuStyle] = useState({ padding: "1.5rem 5%", background: "none" })
+    const [ferryList, setFerryList] = useState([])
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -20,14 +22,25 @@ export default function Header() {
         })
     }, [])
 
-    function Dropdown({ heading="", content=[{name:null, slug:null}] }) {
+    useEffect(() => {
+        db.collection('ferry').onSnapshot((snap) => {
+          const tempFerry = []
+          snap.forEach((sndata) => {
+            tempFerry.push({ name: sndata.data().name, slug: sndata.data().slug })
+          })
+          setFerryList(tempFerry)
+        })
+      }, [])
+      
+
+    function Dropdown({ heading = "", content = [{ name: null, slug: null }] }) {
         return (
             <li>
                 <Link href="javascript:void(0)">{heading} ▾</Link>
                 <ul className={style.dropdown}>
-                    {content.map((item, index)=>(
-                        <li key={index}><Link href={item.slug}>{item.name}</Link></li>
-                        
+                    {content.map((item, index) => (
+                        <li key={index}><Link target='blank' href={item.slug}>{item.name}</Link></li>
+
                     ))}
                 </ul>
             </li>
@@ -39,19 +52,21 @@ export default function Header() {
 
             <div>
                 {/* <h1 style={{ color: "white", fontSize:"1.5rem" }}>Logo Here</h1> */}
-                <div style={{height:'100%', width:250, position:'relative', background:'inherit'}}> 
-                    <Image fill src={"/Pustaholidays white Horizontal Logo_100 .png"} alt='Pustaholidays white Horizontal Logo' style={{objectFit:"contain"}}/>
+                <div style={{ height: '100%', width: 250, position: 'relative', background: 'inherit' }}>
+                    <Image fill src={"/Pustaholidays white Horizontal Logo_100 .png"} alt='Pustaholidays white Horizontal Logo' style={{ objectFit: "contain" }} />
                 </div>
             </div>
 
             <div className={style.menu}>
                 <ul >
                     <li><Link href="/">Home</Link></li>
-                    <Dropdown heading='Know' content={menu.know}/>
-                    <Dropdown heading='What to see' content={menu.what2see}/>
-                    <Dropdown heading='Rentals' content={menu.rentals}/>
-                    <Dropdown heading='Packages' content={menu.packages}/>
-                    
+                    <Dropdown heading='Know' content={menu.know} />
+                    <Dropdown heading='What to see' content={menu.what2see} />
+                    <li><Link href="/cabs">Rentals</Link></li>
+                    <Dropdown heading='Packages' content={menu.packages} />
+                    <Dropdown heading='Activities' content={[{name:"Andaman", slug:"/activity/Andaman"}, {name:"Bali", slug:"/activity/Bali"},]} />
+                    <Dropdown heading='Cruises' content={ferryList} />
+                    <li><Link href="/contact-us">Contact Us</Link></li>
                 </ul>
             </div>
         </div>

@@ -24,11 +24,11 @@ export const menu = {
     "what2see": [
         {
             "name": "Destination",
-            "slug": "/destination"
+            "slug": "/w2s/destination"
         },
         {
             "name": "attraction",
-            "slug": "/attraction"
+            "slug": "/w2s//attraction"
         },
         {
             "name": "Events",
@@ -217,15 +217,7 @@ export const menu = {
 
 
 
-export const sliderImages = [
-    { name: "Place Name", thumbnail: "/divcarousel/300x400-54.jpg" },
-    { name: "Place Name", thumbnail: "/divcarousel/1-300x400.jpg" },
-    { name: "Place Name", thumbnail: "/divcarousel/300x400-54.jpg" },
-    { name: "Place Name", thumbnail: "/divcarousel/1-300x400.jpg" },
-    { name: "Place Name", thumbnail: "/divcarousel/300x400-54.jpg" },
-    { name: "Place Name", thumbnail: "/divcarousel/1-300x400.jpg" },
-    { name: "Place Name", thumbnail: "/divcarousel/300x400-54.jpg" },
-]
+
 
 export const testimonials = [
     {name:"Test Name", content:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."},

@@ -1,23 +1,25 @@
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
-import style from '@/styles/Home.module.scss'
+
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation } from "swiper";
+import { Pagination, Navigation } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { sliderImages } from '../localdb';
+
 import Image from 'next/image';
-import { ArrowRightOutlined } from '@ant-design/icons';
-import { mobile } from '../variables';
+
 import MyButton from '../utils/MyButton';
+import { mobile } from '../utils/variables';
 
 
 
-export default function DivCarousel2({ lightHead, darkHead, backgroundImage, sliderContent, button }) {
+
+
+export default function DivCarousel({ lightHead, darkHead, backgroundImage, sliderContent, button }) {
 
   const [containerStyle, setContainerStyle] = useState({ width: "90%", borderRadius: "100px 0 0 100px", })
   const [subHeadStyle, setsubHeadStyle] = useState({ display: 'flex' })
@@ -29,6 +31,17 @@ export default function DivCarousel2({ lightHead, darkHead, backgroundImage, sli
 
   const slideRef = useRef()
   const containerRef = useRef()
+
+const sliderImages = [
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
+]
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -119,7 +132,15 @@ export default function DivCarousel2({ lightHead, darkHead, backgroundImage, sli
             {sliderImages.map((item, index) => (
               <SwiperSlide style={{ width: 210, height: isMobile ? 250 : 350 }} key={index} className='singleSwiper'>
                 <div style={{ width: 210, height: isMobile ? 250 : 350 }}>
-                  <Image src={item.thumbnail} alt={item.name} fill style={{ objectFit: 'cover', borderRadius: isMobile ? 25 : 50, position: 'absolute', zIndex: -1 }} />
+                  <Image 
+                  src={item.thumbnail} 
+                  alt={item.name} 
+                  fill 
+                  style={{ objectFit: 'cover', borderRadius: isMobile ? 25 : 50, position: 'absolute', zIndex: -1 }} 
+                  loading='lazy'
+                  placeholder='blur'
+                  blurDataURL={item.thumbnail}
+                  />
                   <h1 style={{
                     color: 'white',
                     fontWeight: 700,

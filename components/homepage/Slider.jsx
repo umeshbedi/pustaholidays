@@ -8,6 +8,7 @@ import { Carousel, Row, Col, Space, Button, Skeleton } from 'antd'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import Image from 'next/image'
+import { mobile } from '../utils/variables';
 
 export default function Slider() {
 
@@ -23,6 +24,13 @@ export default function Slider() {
     const [opacity, setOpactiy] = useState(null)
     const [marginBottom, setMarginBottom] = useState("2rem")
 
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        setIsMobile(mobile())
+    }, [isMobile])
+
+
     useEffect(() => {
         setHeight(document.documentElement.clientHeight - 50)
     }, [])
@@ -36,9 +44,10 @@ export default function Slider() {
                 autoplay={{
                     delay: 3000,
                     disableOnInteraction: false,
+
                     
                 }}
-                
+                grabCursor={true}
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"

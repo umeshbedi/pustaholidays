@@ -51,11 +51,11 @@ export default function Testimonials({ testimonialsData }) {
             </div>
             <div style={{ width: isMobile ? "90%" : "84%", marginTop: 20 }}>
                 <Swiper
-                    // effect={"coverflow"}
+                    effect={"coverflow"}
                     spaceBetween={30}
                     grabCursor={true}
-                    modules={[ Pagination]}
-                    // centeredSlides={true}
+                    modules={[ Pagination, EffectCoverflow]}
+                    centeredSlides={true}
                     slidesPerView={"auto"}
                     coverflowEffect={{
                         rotate: 50,

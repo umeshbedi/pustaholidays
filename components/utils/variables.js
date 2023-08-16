@@ -9,3 +9,5 @@ export function mobile() {
     }
   
   }
+
+  export const boxShadow = '0 0 30px 0 rgba(0, 0, 0, 0.15)'
