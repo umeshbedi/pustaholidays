@@ -34,7 +34,7 @@ export default function ContactUsPage() {
         <main>
             <Menu/>
             <HeadImage title={"Contact Us"}/>
-            <div style={{display:'flex', justifyContent:'center'}}>
+            <div style={{display:'flex', justifyContent:'center', background:'var(--lightBackground)'}}>
                 <div style={{ width: '80%', margin:"3rem 0" }}>
                     <h1 style={{ color: "grey" }}><span style={{ color: "var(--primaryColor)" }}>Connect</span> With Us</h1><br />
                     <p>We would love to respond to your queries and help you succeed.</p>

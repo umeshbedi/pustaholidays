@@ -91,6 +91,31 @@ a {
   text-decoration: none;
 }
 
+input {
+  width: 100%;
+  padding: 4px 11px;
+  line-height: 1.5;
+  font-size: 14px;
+  border: solid 1px #d9d9d9;
+  border-radius: 16px;
+}
+
+input:hover {
+  border: solid 1px var(--primaryColor);
+  outline-style: none;
+  box-shadow: none;
+}
+
+input:focus {
+  outline-style: none;
+  box-shadow: none;
+  border: solid 1px var(--primaryColor);
+}
+
+::placeholder {
+  color: #d9d9d9;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -163,4 +188,10 @@ p{
 
 .contentDiv img{
 width: 100%;
+}
+
+
+
+.jodit-container .jodit-workplace .jodit-wysiwyg {
+  height: 400px !important;
 }
