@@ -8,16 +8,18 @@ import dynamic from 'next/dynamic';
 
 import MenuAdmin from '@/components/admin/MenuAdmin';
 
-// const PageUpdate = dynamic(() => import('../components/admin/PageUpdate'), { ssr: false, loading: () => <Skeleton /> })
+const PageUpdate = dynamic(() => import('../components/admin/PageUpdate'), { ssr: false, loading: () => <Skeleton /> })
+const GeneralInfo = dynamic(() => import('../components/admin/what2see/AddUpdateW2S'), { ssr: false, loading: () => <Skeleton /> })
 // const Dashboard = dynamic(() => import('../components/admin/Dashboard'), { ssr: false, loading: () => <Skeleton /> })
 const Hompage = dynamic(() => import('../components/admin/Hompage'), { ssr: false, loading: () => <Skeleton /> })
 const AdminLogin = dynamic(() => import('../components/admin/AdminLogin'), { ssr: false, loading: () => <Skeleton /> })
-// const AddPackage = dynamic(() => import('../components/admin/AddPackage'), { ssr: false, loading: () => <Skeleton /> })
-// const PackagesDetails = dynamic(() => import('../components/admin/AddPackageDetail'), { ssr: false, loading: () => <Skeleton /> })
+const AddPackage = dynamic(() => import('../components/admin/packages/AddPackage'), { ssr: false, loading: () => <Skeleton /> })
+const PackagesDetails = dynamic(() => import('../components/admin/packages/AddPackageDetail'), { ssr: false, loading: () => <Skeleton /> })
 const Ferry = dynamic(() => import('../components/admin/ferry/Ferry'), { ssr: false, loading: () => <Skeleton /> })
 // const Island = dynamic(() => import('../components/admin/Island'), { ssr: false, loading: () => <Skeleton /> })
 const Media = dynamic(() => import('../components/admin/media/Media'), { ssr: false, loading: () => <Skeleton /> })
-// const Activity = dynamic(() => import('../components/admin/Activity'), { ssr: false, loading: () => <Skeleton /> })
+
+const Activity = dynamic(() => import('../components/admin/activity/Activity'), { ssr: false, loading: () => <Skeleton /> })
 const TestiMonials = dynamic(() => import('../components/admin/AddTestimonials'), { ssr: false, loading: () => <Skeleton /> })
 
 
@@ -77,20 +79,23 @@ export default function Admin() {
     else if (e == 'cruiseslist') {
       alert(e)
     }
-    else if (e == 'Packages') {
-      setContent(<AddPackage />)
+    else if (e == 'packageBali'||e=="packageAndman") {
+      setContent(<AddPackage packageFor={e}/>)
     }
-    else if (e == 'PackagDetail') {
-      setContent(<PackagesDetails />)
+    else if (e == 'packageBaliDetail'||e=="packageAndmanDetail") {
+      setContent(<PackagesDetails packageFor={e=='packageBaliDetail'?'packageBali':'packageAndman'}/>)
     }
     else if (e == 'island') {
       setContent(<Island />)
     }
-    else if (e == 'activity') {
-      setContent(<Activity />)
+    else if (e == 'activityBali'||e=="activityAndaman") {
+      setContent(<Activity activityFor={e}/>)
     }
     else if (e == 'Testimonials') {
       setContent(<TestiMonials />)
+    }
+    else if (e == 'general-information') {
+      setContent(<GeneralInfo />)
     }
 
     else if (e == 'media') {

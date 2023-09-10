@@ -2,24 +2,30 @@ export const menu = {
     "know": [
         {
             "name": "About Us",
-            "slug": "/About-Us"
+            "slug": "/about-us"
         },
-        {
-            "name": "Contact Us",
-            "slug": "/Contact-Us"
-        },
+        
         {
             "name": "About Andaman",
-            "slug": "/About-Andaman"
+            "slug": "/about-andaman"
+        },
+        {
+            "name": "About Bali",
+            "slug": "/about-bali"
         },
         {
             "name": "How to reach Andaman",
-            "slug": "/How-to-reach-Andaman"
+            "slug": "/how-to-reach-Andaman"
         },
         {
             "name": "Do's & Don't",
-            "slug": "/Dos-&-Dont"
+            "slug": "/dos-and-dont"
+        },
+        {
+            "name": "General Information",
+            "slug": "/general-information"
         }
+
     ],
     "what2see": [
         {
@@ -27,13 +33,13 @@ export const menu = {
             "slug": "/w2s/destination"
         },
         {
-            "name": "attraction",
+            "name": "Attraction",
             "slug": "/w2s//attraction"
         },
-        {
-            "name": "Events",
-            "slug": "/events"
-        }
+        // {
+        //     "name": "Events",
+        //     "slug": "/events"
+        // }
         
     ],
     "packages": [

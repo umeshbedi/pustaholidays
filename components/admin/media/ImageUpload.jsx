@@ -4,11 +4,11 @@ import React, { useEffect, useState } from 'react'
 import firebase from 'firebase/compat/app'
 import { db } from '@/firebase'
 
-export default function ImageUpload({ to, groupId, packageId }) {
+export default function ImageUpload({ to, groupId, packageId, packageFor}) {
     const [imageObj, setImageObj] = useState(null)
     const [images, setImages] = useState([])
     const [messageApi, contextHolder] = message.useMessage()
-    const packagedb = db.collection("package").doc(`${groupId}`).collection("singlePackage").doc(`${packageId}`)
+    const packagedb = db.collection(`${packageFor}`).doc(`${groupId}`).collection("singlePackage").doc(`${packageId}`)
 
     useEffect(() => {
         packagedb.onSnapshot((snap) => {
