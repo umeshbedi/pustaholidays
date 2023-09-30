@@ -10,6 +10,12 @@ import MenuAdmin from '@/components/admin/MenuAdmin';
 
 const PageUpdate = dynamic(() => import('../components/admin/PageUpdate'), { ssr: false, loading: () => <Skeleton /> })
 const GeneralInfo = dynamic(() => import('../components/admin/what2see/AddUpdateW2S'), { ssr: false, loading: () => <Skeleton /> })
+const W2sList = dynamic(() => import('../components/admin/what2see/w2sList'), { ssr: false, loading: () => <Skeleton /> })
+
+const AttractionList = dynamic(() => import('../components/admin/what2see/attraction/AttractionList'), { ssr: false, loading: () => <Skeleton /> })
+
+const RentalList = dynamic(() => import('../components/admin/rentals/RentalList'), { ssr: false, loading: () => <Skeleton /> })
+
 // const Dashboard = dynamic(() => import('../components/admin/Dashboard'), { ssr: false, loading: () => <Skeleton /> })
 const Hompage = dynamic(() => import('../components/admin/Hompage'), { ssr: false, loading: () => <Skeleton /> })
 const AdminLogin = dynamic(() => import('../components/admin/AdminLogin'), { ssr: false, loading: () => <Skeleton /> })
@@ -79,23 +85,29 @@ export default function Admin() {
     else if (e == 'cruiseslist') {
       alert(e)
     }
-    else if (e == 'packageBali'||e=="packageAndman") {
-      setContent(<AddPackage packageFor={e}/>)
+    else if (e == 'packageBali' || e == "packageAndman") {
+      setContent(<AddPackage packageFor={e} />)
     }
-    else if (e == 'packageBaliDetail'||e=="packageAndmanDetail") {
-      setContent(<PackagesDetails packageFor={e=='packageBaliDetail'?'packageBali':'packageAndman'}/>)
+    else if (e == 'packageBaliDetail' || e == "packageAndmanDetail") {
+      setContent(<PackagesDetails packageFor={e == 'packageBaliDetail' ? 'packageBali' : 'packageAndman'} />)
     }
     else if (e == 'island') {
       setContent(<Island />)
     }
-    else if (e == 'activityBali'||e=="activityAndaman") {
-      setContent(<Activity activityFor={e}/>)
+    else if (e == 'activityBali' || e == "activityAndaman") {
+      setContent(<Activity activityFor={e} />)
     }
     else if (e == 'Testimonials') {
       setContent(<TestiMonials />)
     }
-    else if (e == 'general-information') {
-      setContent(<GeneralInfo />)
+    else if (e == 'generalInfo' || e == "destinationAndaman" || e == "destinationBali" ) {
+      setContent(<W2sList pageName={e} />)
+    }
+    else if (e == "attractionAndaman" || e == "attractionBali") {
+      setContent(<AttractionList pageName={e} />)
+    }
+    else if (e == "rentalAndaman" || e == "rentalBali") {
+      setContent(<RentalList pageName={e} />)
     }
 
     else if (e == 'media') {

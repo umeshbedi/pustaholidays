@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import JoditEditor from 'jodit-react';
 
 
-export default function AddUpdateW2s({ collection, data }) {
+export default function AttractionItemUpdate({ collection, data , slug}) {
 
     const [title, setTitle] = useState("")
     const [headerImage, setHeaderImage] = useState("")
@@ -21,11 +21,12 @@ export default function AddUpdateW2s({ collection, data }) {
     const metaDescriptionRef = useRef()
     const thumbnailRef = useRef()
 
+    
     function Submit() {
         setLoading(true)
-        db.collection(`${collection}`).add({
+        db.doc(`${collection}`).collection("popularAttraction").add({
             title, headerImage, metaDescription, about, thumbnail,
-            slug: `${collection!="generalInfo"?`/destination/${collection=="destinationBali"?"Bali":"Andaman"}/${title.split(" ").join("-")}`:`/general-info/${title.split(" ").join("-")}`}`
+            slug:`${slug}/${title.split(" ").join("-")}`
         }).then((e) => {
             messageApi.success("Item Added Successfully!")
             setLoading(false)
@@ -36,7 +37,7 @@ export default function AddUpdateW2s({ collection, data }) {
 
     function EditData() {
         setLoading(true)
-        db.collection(`${collection}`).doc(`${data.id}`).update({
+        db.doc(`${collection}`).collection("popularAttraction").doc(`${data.id}`).update({
             title, headerImage, metaDescription, about, thumbnail
         }).then((e) => {
             messageApi.success("Page Updated Successfully!")
@@ -46,11 +47,12 @@ export default function AddUpdateW2s({ collection, data }) {
         })
     }
 
+
     useEffect(() => {
 
         if (data !== undefined) {
 
-            db.collection(`${collection}`).doc(`${data.id}`).get()
+            db.doc(`${collection}`).collection("popularAttraction").doc(`${data.id}`).get()
                 .then((snap) => {
                     const data = snap.data()
                     if (data !== undefined) {
@@ -102,7 +104,7 @@ export default function AddUpdateW2s({ collection, data }) {
                     <input ref={metaDescriptionRef} defaultValue={metaDescription} placeholder='Enter Short Meta Description' onChange={(e) => setmetaDescription(e.target.value)} />
                 </Form.Item>
 
-                <Button loading={loading} onClick={data != undefined ? EditData : Submit} type='primary' style={{ marginBottom: '5%' }}>{data != undefined ? "Update" : "Add New"}</Button>
+                <Button loading={loading} onClick={data != undefined ? EditData : Submit} type='primary' style={{ marginBottom: '5%' }}>{data != undefined ? "Update this Attraction" : "Add Popular Attraction"}</Button>
 
             </Form>
         </div>

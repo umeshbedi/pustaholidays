@@ -57,7 +57,7 @@ export default function Home() {
                 lightHead={"Destination "}
                 darkHead={"in Bali"}
                 button={{ name: "All Destination", slug: "/destination" }}
-                backgroundImage={`https://picsum.photos/seed/sdf${Math.random(0, 100)}/1200/720`}
+                backgroundImage={`https://picsum.photos/seed/sdfpo0097/1200/720`}
               />
 
             )}
@@ -76,7 +76,7 @@ export default function Home() {
                 lightHead={"Destination "}
                 darkHead={"in Andaman"}
                 button={{ name: "All Destination", slug: "/destination" }}
-                backgroundImage={`https://picsum.photos/seed/sdf${Math.random(0, 100)}/1200/720`}
+                backgroundImage={`https://picsum.photos/seed/sdf987gguu77/1200/720`}
               />
 
             )}
@@ -95,7 +95,7 @@ export default function Home() {
                 lightHead={"Cruises "}
                 darkHead={"in Andaman"}
                 button={{ name: "All Cruises", slug: "/cruises" }}
-                backgroundImage={`https://picsum.photos/seed/sdf${Math.random(0, 100)}/1200/720`}
+                backgroundImage={`https://picsum.photos/seed/sdfopi54r43ggkj/1200/720`}
               />
 
             )}

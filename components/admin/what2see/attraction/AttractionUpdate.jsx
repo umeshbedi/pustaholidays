@@ -3,15 +3,16 @@ import { Button, Divider, Form, Input, message } from 'antd';
 import React, { useEffect, useRef, useState } from 'react'
 
 import JoditEditor from 'jodit-react';
+import AttractionItemList from './ItemsList';
 
 
-export default function AddUpdateW2s({ collection, data }) {
+export default function Attraction({ collection, data }) {
 
     const [title, setTitle] = useState("")
     const [headerImage, setHeaderImage] = useState("")
     const [thumbnail, setThumbnail] = useState("")
     const [metaDescription, setmetaDescription] = useState("")
-    const [about, setAbout] = useState("")
+
 
     const [messageApi, contextHolder] = message.useMessage();
     const [loading, setLoading] = useState(false)
@@ -21,11 +22,13 @@ export default function AddUpdateW2s({ collection, data }) {
     const metaDescriptionRef = useRef()
     const thumbnailRef = useRef()
 
+    // console.log(data)
+
     function Submit() {
         setLoading(true)
         db.collection(`${collection}`).add({
-            title, headerImage, metaDescription, about, thumbnail,
-            slug: `${collection!="generalInfo"?`/destination/${collection=="destinationBali"?"Bali":"Andaman"}/${title.split(" ").join("-")}`:`/general-info/${title.split(" ").join("-")}`}`
+            title, headerImage, metaDescription, thumbnail,
+            slug:`/attraction/${collection=="attractionBali"?"Bali":"Andaman"}/${title.split(" ").join("-")}`
         }).then((e) => {
             messageApi.success("Item Added Successfully!")
             setLoading(false)
@@ -37,7 +40,7 @@ export default function AddUpdateW2s({ collection, data }) {
     function EditData() {
         setLoading(true)
         db.collection(`${collection}`).doc(`${data.id}`).update({
-            title, headerImage, metaDescription, about, thumbnail
+            title, headerImage, metaDescription, thumbnail
         }).then((e) => {
             messageApi.success("Page Updated Successfully!")
             setLoading(false)
@@ -57,7 +60,7 @@ export default function AddUpdateW2s({ collection, data }) {
                         const dataLength = Object.keys(data).length
                         if (dataLength != 0) {
                             setTitle(data.title)
-                            setAbout(data.about)
+
                             setmetaDescription(data.metaDescription)
                             setHeaderImage(data.headerImage)
                             setThumbnail(data.thumbnail)
@@ -67,7 +70,7 @@ export default function AddUpdateW2s({ collection, data }) {
                             thumbnailRef.current.value = data.thumbnail
                         } else {
                             setTitle("")
-                            setAbout("")
+
                             setmetaDescription("")
                             setHeaderImage("")
                             titleRef.current.value = ""
@@ -79,6 +82,8 @@ export default function AddUpdateW2s({ collection, data }) {
                 })
         }
     }, [data])
+
+
 
     return (
         <div>
@@ -94,17 +99,19 @@ export default function AddUpdateW2s({ collection, data }) {
                 <Form.Item label="Thumbnail">
                     <input ref={thumbnailRef} defaultValue={thumbnail} placeholder='Enter header Image url' onChange={(e) => setThumbnail(e.target.value)} />
                 </Form.Item>
-                <Form.Item >
-                    <JoditEditor onBlur={e => setAbout(e)} value={about} />
-                </Form.Item>
+
 
                 <Form.Item label="Meta Description">
                     <input ref={metaDescriptionRef} defaultValue={metaDescription} placeholder='Enter Short Meta Description' onChange={(e) => setmetaDescription(e.target.value)} />
                 </Form.Item>
 
+
                 <Button loading={loading} onClick={data != undefined ? EditData : Submit} type='primary' style={{ marginBottom: '5%' }}>{data != undefined ? "Update" : "Add New"}</Button>
 
             </Form>
+            {data !== undefined &&
+                <AttractionItemList collection={collection} id={data.id} slug={data.slug}/>
+            }
         </div>
     )
 }

@@ -42,7 +42,7 @@ export default function ActivityName({ data }) {
       </Head>
       <div>
         <Menu />
-        <HeadImage />
+        <HeadImage image={data.headerImage}/>
 
         <div
           className='backCurve5'
@@ -130,16 +130,22 @@ export default function ActivityName({ data }) {
 
 export async function getStaticPaths() {
   const allpaths = []
-  db.collection("package").get().then((snap) => {
+  db.collection("activityAndaman").get().then((snap) => {
     snap.forEach((sndata) => {
-      db.doc(`package/${sndata.id}`).collection("singlePackage").get().then(data => {
-        data.forEach((path) => {
-          allpaths.push(path.data().slug)
+        sndata.data().data.map(dta => {
+            allpaths.push(dta.slug)
         })
-      })
     })
+})
+db.collection("activityBali").get().then((snap) => {
+  snap.forEach((sndata) => {
+      sndata.data().data.map(dta => {
+          allpaths.push(dta.slug)
+      })
   })
-
+})
+  
+  
   return {
     paths: allpaths.map((path) => (
       { params: { ActivityName: path } }
@@ -150,9 +156,9 @@ export async function getStaticPaths() {
 
 export const getStaticProps = async (context) => {
   const { activityPlace, ActivityName } = context.params;
+  console.log(context.params)
   const activityTest = "Sea-Kart"
-  // console.log(packageGroupName)
-  const res = await db.collection("activity").where("slug", "==", `/activity/${activityTest}`).get()
+  const res = await db.collection(`activity${activityPlace}`).where("slug", "==", `/activity/${activityPlace}/${ActivityName}`).get()
   const entry = res.docs.map((entry) => {
     return ({ id: entry.id, ...entry.data() })
   });

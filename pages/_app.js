@@ -3,10 +3,14 @@ import '@/styles/globals.css'
 import { ConfigProvider } from 'antd';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function App({ Component, pageProps }) {
+
+  const [path, setPath] = useState('/')
+
   useEffect(() => {
+    setPath(window.location.pathname)
     AOS.init();
   }, [])
   return (
@@ -22,7 +26,11 @@ export default function App({ Component, pageProps }) {
       >
 
         <Component {...pageProps} />
-        <Footer />
+
+        {path !== '/admin' &&
+          <Footer />
+        }
+
       </ConfigProvider>
     </>
   )

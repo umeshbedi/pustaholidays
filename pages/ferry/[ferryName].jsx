@@ -59,7 +59,7 @@ export default function Slug({ data }) {
       <div>
         {showMsg}
         <Menu/>
-        <HeadImage/>
+        <HeadImage image={data.image}/>
 
         <div
           className='backCurve5'

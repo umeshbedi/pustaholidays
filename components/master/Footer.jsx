@@ -48,12 +48,12 @@ export default function Footer() {
       <div style={{ height: 200, width:200, position: 'relative', marginTop: "3.5rem", background:'white', borderRadius:150, overflow:'hidden', border:`${borderwidth} solid var(--primaryColor)`, transition:'border 2s ease' }}>
         <Image src={"/PH JPG 1.jpg"} fill style={{ objectFit: 'contain', transform:'scale(.9)' }} alt='Pustaholiday Logo'/>
       </div>
-
+{/* 
       <div style={{ display: 'flex', gap: '4.5rem', justifyContent: 'center', marginTop: '2rem' }}>
         <a style={{ fontSize: "1.2rem", fontWeight: 500, color: 'white' }}>Blogs</a>
         <a style={{ fontSize: "1.2rem", fontWeight: 500, color: 'white' }}>Contact Us</a>
-      </div>
-      <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center' }}>
+      </div> */}
+      <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', marginTop: '2rem' }}>
         {socialArr.map((item, index) => (
           <Social key={index} media={item.icon} />
         ))}
@@ -64,6 +64,7 @@ export default function Footer() {
         <a style={{ fontSize: "1rem", fontWeight: 500, color: 'white' }}>Copyright ©️ 2023 Pusta Holiday. All Rights Reserved TGA</a>
         
       </div>
+      
       <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center' }}>
         <a style={{ fontSize: "1rem", fontWeight: 500, color: 'white' }}>Privacy Policy</a>
         <a style={{ fontSize: "1rem", fontWeight: 500, color: 'white' }}>|</a>

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
-const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
+const headerImage = `https://picsum.photos/seed/sdf123/1280/500`
 
 export default function HeadImage({image=headerImage, title}) {
     
@@ -23,7 +23,7 @@ export default function HeadImage({image=headerImage, title}) {
                 onLoad={()=>setScale(1)}
             />
             <div style={{ position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-                <h1 style={{ color: 'white' }}>{title}</h1>
+                <h1 style={{ color: 'white',textShadow:"2px 2px 4px #000000" }}>{title}</h1>
             </div>
         </div>
     )

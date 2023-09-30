@@ -89,7 +89,7 @@ export default function AddPackageDetail({packageFor=""}) {
 
 
     function submitPackageDetail(val) {
-
+        console.log(val)
         const tempIncludeIcon = []
         tempIcon.forEach((item) => {
             const res = IncludesIconName.find(f => f.name == item)
@@ -209,7 +209,7 @@ export default function AddPackageDetail({packageFor=""}) {
                         <Form.Item name='inclusion' initialValue={sSPD.inclusion} label={"Inclusion"} >
                             <ReactQuill theme='snow' style={{ height: 100, marginBottom: 50 }} />
                         </Form.Item>
-                        <Form.Item name='exclusion' initialValue={sSPD.exclusion} label={"Inclusion"} >
+                        <Form.Item name='exclusion' initialValue={sSPD.exclusion} label={"Exclusion"} >
                             <ReactQuill theme='snow' style={{ height: 100, marginBottom: 50 }} />
                         </Form.Item>
 

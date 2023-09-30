@@ -33,14 +33,14 @@ export default function DivCarousel({ lightHead, darkHead, backgroundImage, slid
   const containerRef = useRef()
 
 const sliderImages = [
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf345/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdwef345/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf345/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf3rrt45/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdfr3345/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdsrtf345/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf345/300/400` },
+    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf36645/300/400` },
 ]
 
   const [isMobile, setIsMobile] = useState(false)

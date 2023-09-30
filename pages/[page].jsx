@@ -3,12 +3,15 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
 import style from '@/styles/packageName.module.css'
+import { db } from '@/firebase'
+import SHome from '@/components/skeleton/SHome'
+import String2Html from '@/components/master/String2Html'
 
 const Menu = dynamic(() => import("@/components/master/header"), {ssr:false})
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), {ssr:false})
 
 
-export default function Pages() {
+export default function Pages({data}) {
     const { query } = useRouter()
     const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
 
@@ -42,6 +45,7 @@ export default function Pages() {
             </div>
         )
     }
+    if(data==undefined)return <SHome/>
     return (
         <div>
             <main>
@@ -49,19 +53,11 @@ export default function Pages() {
 
                 <div>
                     <Menu />
-                    <HeadImage image={headerImage} title={query.page!=undefined?query.page:null}/>
+                    <HeadImage image={data.headerImage} title={data.title}/>
 
                     <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
-                        <h1>This is {query.page} Page</h1>
-                        <p>Indonesia is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
-
-                        {/* <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop:'2rem' }}>
-                            <div className={style.packageRow}>
-                                {tileData.map((item, index) => (
-                                    <Tile thumbnail={item.image} name={"Place Name"} slug={item.slug}/>
-                                ))}
-                            </div>
-                        </div> */}
+                        <h1>{data.title}</h1>
+                        <String2Html id={"pageContent"} string={data.about}/>
                     </div>
 
                 </div>
@@ -70,3 +66,39 @@ export default function Pages() {
         </div>
     )
 }
+
+
+export const getStaticPaths = async () => {
+    const entries = await db.collection("pages").get()
+    const paths = entries.docs.map(entry => ({
+      params: {
+        page: `/${entry.id}`
+      }
+    }));
+    return {
+      paths,
+      fallback: true
+    }
+  }
+
+  export const getStaticProps = async (context) => {
+    const { page } = context.params;
+    const res = await db.collection("pages").doc(`${page}`).get()
+    
+    console.log(res.data())
+  
+    if (res.data() == undefined) {
+      return {
+        notFound: true
+      };
+    }
+  
+    return {
+      props: {
+        data: res.data(),
+      },
+      revalidate: 60,
+  
+    }
+  
+  }

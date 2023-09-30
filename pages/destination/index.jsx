@@ -5,20 +5,22 @@ import React, { useEffect, useState } from 'react'
 import style from '@/styles/packageName.module.css'
 import { Divider } from 'antd'
 import { db } from '@/firebase'
-import SHome from '@/components/skeleton/SHome'
 
-const Menu = dynamic(() => import("@/components/master/header"), { ssr: false })
-const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false })
+const Menu = dynamic(() => import("@/components/master/header"), {ssr:false})
+const HeadImage = dynamic(() => import("@/components/master/HeadImage"), {ssr:false})
 
 
-export default function Rentals() {
+export default function Destination() {
   const { query } = useRouter()
+  const headerImage = `https://picsum.photos/seed/sdfoieusdoi/1280/500`
 
+ 
   const [dataAndaman, setDataAndaman] = useState([])
   const [dataBali, setDataBali] = useState([])
+  
 
   useEffect(() => {
-    db.collection('rentalAndaman').get().then((snap) => {
+    db.collection('destinationAndaman').get().then((snap) => {
       const tempDataAndaman = []
       snap.forEach((data) => {
         if (data != undefined) {
@@ -27,7 +29,7 @@ export default function Rentals() {
       })
       setDataAndaman(tempDataAndaman)
     })
-    db.collection('rentalBali').get().then((snap) => {
+    db.collection('destinationBali').get().then((snap) => {
       const tempDataBali = []
       snap.forEach((data) => {
         if (data != undefined) {
@@ -39,14 +41,6 @@ export default function Rentals() {
 
     
   }, [])
-
-  const tileData = [
-    { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest`, title: "Cabs in Place" },
-    { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest`, title: "Cabs in Place" },
-    { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest`, title: "Cabs in Place" },
-
-  ]
-
 
   function Tile({ thumbnail, name, slug }) {
     return (
@@ -79,8 +73,6 @@ export default function Rentals() {
       </div>
     )
   }
-
-
   return (
     <div>
       <main>
@@ -88,10 +80,10 @@ export default function Rentals() {
 
         <div>
           <Menu />
-          <HeadImage title={"Rentals"} />
+          <HeadImage image={headerImage} title={query.page != undefined ? query.page : null} />
 
-          <div style={{ padding: "3rem 5%", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
-            <h1>Cabs in Andman and Nicobar Island</h1>
+          <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
+            <h1>Andman and Nicobar Island</h1>
             <p>Andman and Nicobar Island is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
@@ -104,15 +96,15 @@ export default function Rentals() {
           </div>
 
 
-          <div style={{ padding: "0 5% 3rem 5%", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
-            <Divider />
-            <h1>Cabs in Bali</h1>
-            <p>Bali is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
+          <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
+          <Divider/>
+            <h1>Bali</h1>
+            <p>Andman and Nicobar Island is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
               <div className={style.packageRow}>
-              {tileData.map((item, index) => (
-                  <Tile key={index} thumbnail={item.image} name={"Place Name"} slug={'/w2s/attraction/Place Name'} />
+                {dataBali.map((item, index) => (
+                  <Tile key={index} thumbnail={item.thumbnail} name={item.title} slug={item.slug} />
                 ))}
               </div>
             </div>
@@ -124,5 +116,3 @@ export default function Rentals() {
     </div>
   )
 }
-
-

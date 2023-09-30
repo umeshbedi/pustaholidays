@@ -39,7 +39,7 @@ export default function AddPackage({packageFor=""}) {
             setPackageItem(packageTemp)
         })
 
-    }, [])
+    }, [packageFor])
     
     function updateSinglePackage(e) {
         packagedb.doc(`${selectedSinglePackage}`)

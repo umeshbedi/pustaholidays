@@ -4,26 +4,31 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import style from '@/styles/packageName.module.css'
 import { Divider } from 'antd'
+import { db } from '@/firebase'
+import SHome from '@/components/skeleton/SHome'
 
 const Menu = dynamic(() => import("@/components/master/header"), { ssr: false })
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false })
 
 
-export default function Activity() {
+export default function Activity({ data }) {
+    
     const { query } = useRouter()
-    const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
+    const headerImage = `https://picsum.photos/seed/sdf55/1280/500`
 
     const tileData = [
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
+        { image: `https://picsum.photos/seed/sdf10/250/350`, slug: `/package/${query.packageName}/abctest` },
+        { image: `https://picsum.photos/seed/sdf11/250/350`, slug: `/package/${query.packageName}/abctest` },
+        { image: `https://picsum.photos/seed/sdf12/250/350`, slug: `/package/${query.packageName}/abctest` },
+        { image: `https://picsum.photos/seed/sdf13/250/350`, slug: `/package/${query.packageName}/abctest` },
+        { image: `https://picsum.photos/seed/sdf14/250/350`, slug: `/package/${query.packageName}/abctest` },
+        { image: `https://picsum.photos/seed/sdf15/250/350`, slug: `/package/${query.packageName}/abctest` },
+        { image: `https://picsum.photos/seed/sdf16/250/350`, slug: `/package/${query.packageName}/abctest` },
+        { image: `https://picsum.photos/seed/sdf17/250/350`, slug: `/package/${query.packageName}/abctest` },
     ]
 
+    if (data == undefined) return <SHome />
+    
     function Tile({ thumbnail, name, slug }) {
         return (
             <div className={style.tile} style={{ height: 350, width: 250, position: 'relative', borderRadius: 40, overflow: 'hidden' }}>
@@ -46,7 +51,9 @@ export default function Activity() {
                     bottom: 20,
                     textAlign: 'center',
                     position: 'absolute',
-                    width: '100% '
+                    width: '100% ',
+                    padding:"0 10px",
+                    textShadow:"2px 2px 4px #000000"
                 }}
                 >
                     {name}
@@ -54,6 +61,7 @@ export default function Activity() {
             </div>
         )
     }
+
     return (
         <div>
             <main>
@@ -69,21 +77,68 @@ export default function Activity() {
 
                         <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
                             <div className={style.packageRow}>
-                                {tileData.map((item, index) => (
-                                    <Tile key={index} thumbnail={item.image} name={"Place Name"} slug={`/activity/${query.activityPlace}/Activity Name`} />
+                                {data.map((item, index) => (
+                                    <Tile key={index} thumbnail={item.thumbnail} name={item.name} slug={item.slug} />
                                 ))}
                             </div>
                         </div>
                     </div>
 
 
-                  
+
 
                 </div>
             </main>
 
         </div>
     )
+}
+
+export const getStaticPaths = async () => {
+    const entriesAndaman = await db.collection("activityAndaman").get()
+    const entriesBali = await db.collection("activityBali").get()
+    const pathsAndaman = entriesAndaman.docs.map(entry => ({
+        params: {
+            activityPlace: entry.data().slug
+        }
+    }));
+    const pathsBali = entriesBali.docs.map(entry => ({
+        params: {
+            activityPlace: entry.data().slug
+        }
+    }));
+    const allPaths = [...pathsAndaman, ...pathsBali]
+    
+    return {
+        paths:allPaths,
+        fallback: true
+    }
+}
+
+export const getStaticProps = async (context) => {
+    const { activityPlace } = context.params;
+
+    const res = await db.collection(`${activityPlace == "Andaman" ? "activityAndaman" : "activityBali"}`).get()
+    // console.log(res)
+
+    const entry = res.docs.map((entry) => {
+        return ({ id: entry.id, ...entry.data() })
+    });
+
+    if (entry.length == 0) {
+        return {
+            notFound: true
+        };
+    }
+
+    return {
+        props: {
+            data: entry,
+        },
+        revalidate: 60,
+
+    }
+
 }
 
 

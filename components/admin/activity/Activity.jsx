@@ -37,7 +37,7 @@ export default function Activity({activityFor}) {
             }))
             setactivityItem(tempactivity)
         })
-    }, [])
+    }, [activityFor])
 
     // console.log(name)
 

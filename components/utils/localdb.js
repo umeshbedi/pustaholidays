@@ -13,28 +13,25 @@ export const menu = {
             "name": "About Bali",
             "slug": "/about-bali"
         },
-        {
-            "name": "How to reach Andaman",
-            "slug": "/how-to-reach-Andaman"
-        },
+       
         {
             "name": "Do's & Don't",
             "slug": "/dos-and-dont"
         },
         {
             "name": "General Information",
-            "slug": "/general-information"
+            "slug": "/general-info"
         }
 
     ],
     "what2see": [
         {
             "name": "Destination",
-            "slug": "/w2s/destination"
+            "slug": "/destination"
         },
         {
             "name": "Attraction",
-            "slug": "/w2s//attraction"
+            "slug": "/attraction"
         },
         // {
         //     "name": "Events",

@@ -13,7 +13,7 @@ export default function WhatSay() {
             <div className={style.SayContainer}>
 
                 <div className={style.SayImage}>
-                    <Image src={`https://picsum.photos/seed/sdf${Math.random(0, 100)}/1000/500`} fill style={{ objectFit: 'cover' }} />
+                    <Image src={`https://picsum.photos/seed/sdf09eedd/1000/500`} fill style={{ objectFit: 'cover' }} />
                 </div>
 
                 <div className={style.SayBox}>
@@ -22,7 +22,7 @@ export default function WhatSay() {
                     <p>{testimonials[0].content.slice(0, 300)}</p>
                     <div className={style.SayAuthor}>
                         <div style={{ width: 80, height: 80, position: 'relative', borderRadius: 100, overflow: 'hidden' }}>
-                            <Image src={`https://picsum.photos/seed/sdf${Math.random(0, 100)}/150/150`} fill style={{ objectFit: 'cover' }} />
+                            <Image src={`https://picsum.photos/seed/sdfsdfjjlkl34/150/150`} fill style={{ objectFit: 'cover' }} />
                         </div>
                         <div>
                             <p style={{ fontWeight: 'bold' }}>by Name Kumar</p>

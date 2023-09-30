@@ -15,10 +15,10 @@ export default function Slider() {
     const [height, setHeight] = useState(null)
 
     const banner = [
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/720`, heading:"Something Heading Caption", btnUrl:"#" },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/720`, heading:"Something Heading Caption", btnUrl:"#" },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/720`, heading:"Something Heading Caption", btnUrl:"#" },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/720`, heading:"Something Heading Caption", btnUrl:"#" },
+        { image: `https://picsum.photos/seed/sdf0934ro/1280/720`, heading:"Something Heading Caption", btnUrl:"#" },
+        { image: `https://picsum.photos/seed/sdf4dfgre5/1280/720`, heading:"Something Heading Caption", btnUrl:"#" },
+        { image: `https://picsum.photos/seed/sder54fr4rf/1280/720`, heading:"Something Heading Caption", btnUrl:"#" },
+        { image: `https://picsum.photos/seed/sdt45645fdfd/1280/720`, heading:"Something Heading Caption", btnUrl:"#" },
     ]
 
     const [opacity, setOpactiy] = useState(null)
