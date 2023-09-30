@@ -28,7 +28,7 @@ export default function Attraction({ collection, data }) {
         setLoading(true)
         db.collection(`${collection}`).add({
             title, headerImage, metaDescription, thumbnail,
-            slug:`/attraction/${collection=="attractionBali"?"Bali":"Andaman"}/${title.split(" ").join("-")}`
+            slug:`/attraction-${collection=="attractionBali"?"Bali":"Andaman"}/${title.split(" ").join("-")}`
         }).then((e) => {
             messageApi.success("Item Added Successfully!")
             setLoading(false)

@@ -40,14 +40,7 @@ export default function Rentals() {
     
   }, [])
 
-  const tileData = [
-    { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest`, title: "Cabs in Place" },
-    { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest`, title: "Cabs in Place" },
-    { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest`, title: "Cabs in Place" },
-
-  ]
-
-
+ 
   function Tile({ thumbnail, name, slug }) {
     return (
       <div className={style.tile} style={{ height: 350, width: 250, position: 'relative', borderRadius: 40, overflow: 'hidden' }}>
@@ -111,8 +104,8 @@ export default function Rentals() {
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
               <div className={style.packageRow}>
-              {tileData.map((item, index) => (
-                  <Tile key={index} thumbnail={item.image} name={"Place Name"} slug={'/w2s/attraction/Place Name'} />
+              {dataBali.map((item, index) => (
+                  <Tile key={index} thumbnail={item.thumbnail} name={item.title} slug={item.slug} />
                 ))}
               </div>
             </div>

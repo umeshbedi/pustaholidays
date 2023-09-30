@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { mobile } from '@/components/utils/variables'
 import { useEffect, useState } from 'react'
 import SHome from '@/components/skeleton/SHome'
+import { db } from '@/firebase'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -21,7 +22,7 @@ const Authorities = dynamic(() => import("@/components/homepage/Authorities"), {
 const WhatTheySay = dynamic(() => import("@/components/homepage/WhatSay"), { ssr: false, loading: () => <SHome /> })
 
 
-export default function Home() {
+export default function Home({testimonials}) {
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -106,11 +107,83 @@ export default function Home() {
           <Journey />
 
           <Counter />
-          <Testimonials />
+          <Testimonials testimonialsData={testimonials}/>
           <WhatTheySay/>
           <Authorities />
         </div>
       </main>
     </>
   )
+}
+
+
+export const getStaticProps = async () => {
+  // const res = await db.doc(`pages/homepage`).get();
+
+  // //Getting Package Data
+  // const pkg = await db.collection("package").get();
+  // const pkgId = pkg.docs.map((pkg, i) => {
+  //   return { id: pkg.id }
+  // })
+
+  // let packageList = []
+  // let offerItems = []
+
+  // for (let i = 0; i < pkgId.length; i++) {
+  //   const pkgd = await db.doc(`package/${pkgId[i].id}`).collection("singlePackage").limit(4).get();
+  //   const pkgdata = pkgd.docs.map((d) => {
+  //     const data = d.data()
+  //     return { title: data.title, thumbnail: data.thumbnail, slug: data.slug }
+  //   })
+  //   packageList.push(pkgdata)
+
+  //   const offer = await db.doc(`package/${pkgId[i].id}`).collection("singlePackage").where("isOffer","==", true).get();
+  //   const offerData = offer.docs.map((d) => {
+  //     const data = d.data()
+  //     return { title: data.title, thumbnail: data.thumbnail, slug: data.slug }
+  //   })
+  //   offerItems.push(offerData)
+  // }
+
+  // //Getting Island Data
+  // const island = await db.collection("island").get();
+  // const islandData = island.docs.map((isl) => {
+  //   const data = isl.data()
+  //   return { name: data.name, slug: data.slug, thumbnail: data.thumbnail }
+  // })
+
+  // //Getting Activity
+  // const actvty = await db.collection("activity").get();
+  // const activityData = actvty.docs.map((act) => {
+  //   const data = act.data()
+  //   return { name: data.name, thumbnail: data.thumbnail, slug: data.slug }
+  // })
+
+  // //Getting Ferry
+  // const ferry = await db.collection("ferry").get();
+  // const ferryData = ferry.docs.map((fer) => {
+  //   const data = fer.data()
+  //   return { name: data.name, thumbnail: data.image, slug: data.slug }
+  // })
+
+  //Getting Testimonials
+  const testimonials = await db.doc(`pages/testimonials`).get()
+
+
+  // console.log(offerItems)
+
+  return {
+    props: {
+      // data: res.data(),
+      // packageList,
+      // islandData,
+      // activityData,
+      // ferryData,
+      // offerItems,
+      testimonials: testimonials.data().testimonials
+    },
+    revalidate: 60,
+
+  }
+
 }

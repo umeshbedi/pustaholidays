@@ -14,9 +14,9 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 
 
 export default function PlaceDetails({ data, dataParent }) {
-  
+
   const { query } = useRouter()
-  const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
+  const headerImage = `https://picsum.photos/seed/sdf09woier/1280/500`
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -27,7 +27,7 @@ export default function PlaceDetails({ data, dataParent }) {
   const tileData = [
     { image: `https://picsum.photos/seed/sdfw3e4/250/350`, slug: `/package/${query.packageName}/abctest` },
     { image: `https://picsum.photos/seed/sdfsdf88/250/350`, slug: `/package/${query.packageName}/abctest` },
-    
+
 
   ]
 
@@ -67,7 +67,7 @@ export default function PlaceDetails({ data, dataParent }) {
     )
   }
 
-  if(data==undefined) return <SHome/>
+  if (data == undefined) return <SHome />
   return (
     <div>
       <main>
@@ -88,7 +88,7 @@ export default function PlaceDetails({ data, dataParent }) {
 
                 <Divider style={{ margin: "0", backgroundColor: style.lightGrey, height: 1 }} />
                 <String2Html id={'aboutPopularAttraction'} string={data.about} />
-                
+
               </div>
 
               <div style={{ width: isMobile ? '100%' : '30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
@@ -109,12 +109,10 @@ export default function PlaceDetails({ data, dataParent }) {
 }
 
 export async function getStaticPaths() {
-  const allpaths = []
-  const somepath = []
-  await db.collection("attractionBali").get().then((snap) => {
+  let allpaths = []
+  db.collection("attractionAndaman").get().then((snap) => {
     snap.forEach((sndata) => {
-      somepath.push(sndata.id)
-      db.doc(`attractionBali/${sndata.id}`).collection("popularAttraction").get().then(data => {
+      db.doc(`attractionAndaman/${sndata.id}`).collection("popularAttraction").get().then(data => {
         data.forEach((path) => {
           allpaths.push(path.data().slug)
         })
@@ -122,27 +120,28 @@ export async function getStaticPaths() {
     })
   })
 
-
   return {
     paths: allpaths.map((path) => (
       { params: { placeDetails: path } }
     )),
     fallback: true
   }
+
+  
 }
 
 export async function getStaticProps(context) {
-  const { place, placeDetails } = context.params
+  const {place, placeDetails } = context.params
   console.log(context.params)
-  const res = await db.collection("attractionBali").where("slug", "==", `/attraction/Bali/${place}`).get()
+  const res = await db.collection(`attractionAndaman`).where("slug", "==", `/attraction-Andaman/${place}`).get()
   const entry = res.docs.map((entry) => {
     return ({ id: entry.id, ...entry.data() })
   });
 
-  const getData = await db.doc(`attractionBali/${entry[0].id}`).collection("popularAttraction").where("slug", "==", `/attraction/Bali/${place}/${placeDetails}`).get()
+  const getData = await db.doc(`attractionAndaman/${entry[0].id}`).collection("popularAttraction").where("slug", "==", `/attraction-Andaman/${place}/${placeDetails}`).get()
   const data = getData.docs.map((d) => (d.data()))
 
-  console.log(entry[0])
+  
   if (data.length == 0) {
     return {
       notFound: true

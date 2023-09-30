@@ -37,7 +37,7 @@ export default function Admin() {
   const [isLoading, setIsLoading] = useState(false)
   const [collapsed, setCollapsed] = useState(false);
   const [user, setUser] = useState([])
-  const [content, setContent] = useState(<>Completed You can see this</>)
+  const [content, setContent] = useState(<>Now You can Edit All the pages from here</>)
 
   const [open, setOpen] = useState(false)
 
@@ -76,9 +76,9 @@ export default function Admin() {
     if (e == 'homepage') {
       setContent(<Hompage />)
     }
-    else if (e == 'dashboard') {
-      setContent(<Dashboard />)
-    }
+    // else if (e == 'dashboard') {
+    //   setContent(<Dashboard />)
+    // }
     else if (e == 'addcruises') {
       setContent(<Ferry />)
     }
@@ -91,9 +91,7 @@ export default function Admin() {
     else if (e == 'packageBaliDetail' || e == "packageAndmanDetail") {
       setContent(<PackagesDetails packageFor={e == 'packageBaliDetail' ? 'packageBali' : 'packageAndman'} />)
     }
-    else if (e == 'island') {
-      setContent(<Island />)
-    }
+    
     else if (e == 'activityBali' || e == "activityAndaman") {
       setContent(<Activity activityFor={e} />)
     }

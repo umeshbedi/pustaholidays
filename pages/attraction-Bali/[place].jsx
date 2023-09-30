@@ -52,7 +52,7 @@ export default function Place({data}) {
         )
     }
 
-    console.log(data)
+
     
     if(data==undefined)return <SHome/>
     return (
@@ -84,38 +84,42 @@ export default function Place({data}) {
 }
 
 export const getStaticPaths = async () => {
-    const entriesAndaman = await db.collection("attractionAndaman").get()
-    const pathsAndaman = entriesAndaman.docs.map(entry => ({
-         params: {
-             place: entry.data().slug
-         }
-     }));
-     
+    
+    const entriesBali = await db.collection("attractionBali").get()
+    
+    const pathsBali = entriesBali.docs.map(entry => ({
+        params: {
+            place: entry.data().slug
+        }
+    }));
+    
      return {
-         paths:pathsAndaman,
+         paths:pathsBali,
          fallback: true
      }
    }
    
    export const getStaticProps = async (context) => {
-     const { place } = context.params;
-     const res = await db.collection("attractionAndaman").where("slug", "==", `/attraction/Andaman/${place}`).get()
-     
+     const {place } = context.params;
+     const res = await db.collection(`attractionBali`).where("slug", "==", `/attraction-Bali/${place}`).get()
+
    
      const entry = res.docs.map((entry) => {
        return ({ id: entry.id, ...entry.data() })
      });
+
+     if (entry.length == 0) {
+        return {
+          notFound: true
+        };
+      }
  
-     const popularAtt = await db.doc(`attractionAndaman/${entry[0].id}`).collection('popularAttraction').get()
+     const popularAtt = await db.doc(`attractionBali/${entry[0].id}`).collection('popularAttraction').get()
      const popularAttData = popularAtt.docs.map((popularAtt) => {
          return ({ id: popularAtt.id, ...popularAtt.data() })
        });
    
-     if (entry.length == 0) {
-       return {
-         notFound: true
-       };
-     }
+     
    
      return {
        props: {

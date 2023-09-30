@@ -4,26 +4,17 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import style from '@/styles/packageName.module.css'
 import { Divider } from 'antd'
+import { db } from '@/firebase'
+import SHome from '@/components/skeleton/SHome'
+import String2Html from '@/components/master/String2Html'
 
 const Menu = dynamic(() => import("@/components/master/header"), {ssr:false})
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), {ssr:false})
 
 
-export default function Place() {
+export default function Place({data}) {
     const { query } = useRouter()
-    const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
-
-    const tileData = [
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-    ]
-
+   
     function Tile({ thumbnail, name, slug }) {
         return (
             <div className={style.tile} style={{ height: 350, width: 250, position: 'relative', borderRadius: 40, overflow: 'hidden' }}>
@@ -52,7 +43,7 @@ export default function Place() {
                             // background:'yellow'
                         }}
                         >
-                            Something Heading
+                            {name}
                         </h1>
 
                     </div>
@@ -60,23 +51,26 @@ export default function Place() {
             </div>
         )
     }
+
+
+    
+    if(data==undefined)return <SHome/>
     return (
 
         <main>
             
             <div>
                 <Menu />
-                <HeadImage image={headerImage} title={query.place != undefined ? query.place : null} />
+                <HeadImage image={data.headerImage} title={data.title} />
 
                 <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
                     {/* <h1>This is {query.place} Page</h1> */}
-                    <p>{query.place} is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
-                    <Divider/>
                     <h1>Popular Attractions</h1>
+                    <Divider/>
                     <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
                         <div className={style.packageRow}>
-                            {tileData.map((item, index) => (
-                                <Tile key={index} thumbnail={item.image} name={"Place Name"} slug={"/w2s/attraction/Place Name/Place Details"} />
+                            {data.popularAttData.map((item, index) => (
+                                <Tile key={index} thumbnail={item.thumbnail} name={item.title} slug={item.slug} />
                             ))}
                         </div>
                     </div>
@@ -88,3 +82,51 @@ export default function Place() {
 
     )
 }
+
+export const getStaticPaths = async () => {
+    
+    const entriesBali = await db.collection("attractionAndaman").get()
+    
+    const pathsBali = entriesBali.docs.map(entry => ({
+        params: {
+            place: entry.data().slug
+        }
+    }));
+    
+     return {
+         paths:pathsBali,
+         fallback: true
+     }
+   }
+   
+   export const getStaticProps = async (context) => {
+     const {place } = context.params;
+     const res = await db.collection(`attractionAndaman`).where("slug", "==", `/attraction-Andaman/${place}`).get()
+
+   
+     const entry = res.docs.map((entry) => {
+       return ({ id: entry.id, ...entry.data() })
+     });
+
+     if (entry.length == 0) {
+        return {
+          notFound: true
+        };
+      }
+ 
+     const popularAtt = await db.doc(`attractionAndaman/${entry[0].id}`).collection('popularAttraction').get()
+     const popularAttData = popularAtt.docs.map((popularAtt) => {
+         return ({ id: popularAtt.id, ...popularAtt.data() })
+       });
+   
+     
+   
+     return {
+       props: {
+         data: {popularAttData, ...entry[0]},
+       },
+       revalidate: 60,
+   
+     }
+   
+   }

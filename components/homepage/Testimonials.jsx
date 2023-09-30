@@ -69,7 +69,7 @@ export default function Testimonials({ testimonialsData }) {
                     className="mySwiper"
 
                 >
-                    {testimonials.map((item, i) => (
+                    {testimonialsData.map((item, i) => (
                         <SwiperSlide
                             key={i}
                             style={{ width: 350 }}

@@ -12,23 +12,13 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 
 
 export default function Activity({ data }) {
-    
+
     const { query } = useRouter()
     const headerImage = `https://picsum.photos/seed/sdf55/1280/500`
 
-    const tileData = [
-        { image: `https://picsum.photos/seed/sdf10/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf11/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf12/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf13/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf14/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf15/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf16/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf17/250/350`, slug: `/package/${query.packageName}/abctest` },
-    ]
 
     if (data == undefined) return <SHome />
-    
+
     function Tile({ thumbnail, name, slug }) {
         return (
             <div className={style.tile} style={{ height: 350, width: 250, position: 'relative', borderRadius: 40, overflow: 'hidden' }}>
@@ -52,8 +42,8 @@ export default function Activity({ data }) {
                     textAlign: 'center',
                     position: 'absolute',
                     width: '100% ',
-                    padding:"0 10px",
-                    textShadow:"2px 2px 4px #000000"
+                    padding: "0 10px",
+                    textShadow: "2px 2px 4px #000000"
                 }}
                 >
                     {name}
@@ -97,20 +87,24 @@ export default function Activity({ data }) {
 export const getStaticPaths = async () => {
     const entriesAndaman = await db.collection("activityAndaman").get()
     const entriesBali = await db.collection("activityBali").get()
-    const pathsAndaman = entriesAndaman.docs.map(entry => ({
-        params: {
-            activityPlace: entry.data().slug
-        }
-    }));
+    const pathsAndaman = entriesAndaman.docs.map(entry => {
+        
+        return ({
+            params: {
+                activityPlace: entry.data().slug
+            }
+        })
+    }
+    );
     const pathsBali = entriesBali.docs.map(entry => ({
         params: {
             activityPlace: entry.data().slug
         }
     }));
     const allPaths = [...pathsAndaman, ...pathsBali]
-    
+
     return {
-        paths:allPaths,
+        paths: allPaths,
         fallback: true
     }
 }

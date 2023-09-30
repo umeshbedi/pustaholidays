@@ -17,31 +17,35 @@ const Header = dynamic(import("@/components/master/header"), { ssr: false, loadi
 // const Footer = dynamic(() => import('@/components/Footer'))
 
 
-export default function Cab({data}) {
-
-    console.log(data)
+export default function Cab({ data }) {
 
     const [isMobile, setIsMobile] = useState(false)
     const [height, setHeight] = useState(null)
+    const [cabsList, setCabsList] = useState([])
+  
 
-    const query = useRouter().query
-
-    
-    const [size, setSize] = useState(115)
-
-    
 
     useEffect(() => {
         setIsMobile(mobile())
-        const heightMobile = document.documentElement.clientWidth
-        const heightDesktop = document.documentElement.clientHeight - 80
-        setHeight(isMobile ? heightMobile : heightDesktop)
+       
     }, [isMobile])
 
+    useEffect(() => {
+        if (data != undefined) {
+            db.doc(`rentalBali/${data.id}`).collection('cabs').get().then((snap)=>{
+                const dataTemp = []
+                snap.forEach(data=>{
+                    dataTemp.push({id:data.id, ...data.data()})
+                })
+
+                setCabsList(dataTemp)
+            })
+            
+        }
+    }, [data])
 
 
-   
-    function SingleCab({thumbnail, title, price, distance}) {
+    function SingleCab({ thumbnail, title, price, distance }) {
         return (
             <div
                 data-aos-anchor-placement="top-bottom"
@@ -75,7 +79,7 @@ export default function Cab({data}) {
                     <div style={{ width: isMobile ? "100%" : "25%", flexDirection: 'column', display: "flex", justifyContent: 'space-between', borderLeft: isMobile ? null : "1px solid #e2e8ee", marginTop: isMobile ? "2.5rem" : null }}>
                         <div style={{ flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
                             <h3>Offer Price:</h3>
-                            <h1 style={{fontSize:'2rem'}}>₹{price}</h1>
+                            <h1 style={{ fontSize: '2rem' }}>₹{price}</h1>
                         </div>
                         <div style={{ height: "3rem", width: '100%', background: "var(--primaryColor)", marginTop: "1.5rem", display: 'flex', alignItems: "center", justifyContent: 'center', cursor: 'pointer', borderRadius: isMobile ? 50 : null }}>
                             <p style={{ fontSize: "1.2rem", color: "white" }}>Enquire Now</p>
@@ -94,21 +98,21 @@ export default function Cab({data}) {
         )
     }
 
-    const cabArr = [1, 1, 1, 1]
-if (data==undefined) return <SHome/>
+    
+    if (data == undefined) return <SHome />
     return (
         <div>
 
             <Header />
 
-            <HeadImage image={data.headerImage}/>
+            <HeadImage image={data.headerImage} />
 
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: "3rem" }}>
                 <div style={{ width: '90%', display: isMobile ? "block" : "flex", gap: '3%', marginTop: '3%' }}>
-                    <div style={{ width: isMobile ? "100%" : "65%", display: 'flex', flexDirection: 'column', gap: "2rem",  overflow:'hidden' }}>
+                    <div style={{ width: isMobile ? "100%" : "65%", display: 'flex', flexDirection: 'column', gap: "2rem", overflow: 'hidden' }}>
                         <h1 style={{ fontWeight: 900, fontSize: isMobile ? "2rem" : "2.5rem" }}>{data.title}</h1>
 
-                        {data.cabData.map((item, index) => (
+                        {cabsList.map((item, index) => (
                             <SingleCab thumbnail={item.thumbnail} price={item.price} title={item.title} distance={item.distance} key={index} />
                         ))}
                     </div>
@@ -119,8 +123,8 @@ if (data==undefined) return <SHome/>
 
                 </div>
             </div>
-            
-            
+
+
             {/* <Footer /> */}
 
 
@@ -130,45 +134,41 @@ if (data==undefined) return <SHome/>
 }
 
 export const getStaticPaths = async () => {
-   const entriesBali = await db.collection("rentalBali").get()
-   const pathsBali = entriesBali.docs.map(entry => ({
+    const entriesBali = await db.collection("rentalBali").get()
+    const pathsBali = entriesBali.docs.map(entry => ({
         params: {
-            cabName: entry.data().slug
+            baliCabName: entry.data().slug
         }
     }));
-    
+
     return {
-        paths:pathsBali,
+        paths: pathsBali,
         fallback: true
     }
-  }
-  
-  export const getStaticProps = async (context) => {
-    const { cabName } = context.params;
-    const res = await db.collection("rentalBali").where("slug", "==", `/cabs/Bali/${cabName}`).get()
-    console.log(cabName)
-  
-    const entry = res.docs.map((entry) => {
-      return ({ id: entry.id, ...entry.data() })
-    });
+}
 
-    const cab = await db.doc(`rentalBali/${entry[0].id}`).collection('cabs').get()
-    const cabData = cab.docs.map((cab) => {
-        return ({ id: cab.id, ...cab.data() })
-      });
-  
+export const getStaticProps = async (context) => {
+    const { baliCabName } = context.params;
+    const res = await db.collection("rentalBali").where("slug", "==", `/cabs/Bali/${baliCabName}`).get()
+
+
+    const entry = res.docs.map((entry) => {
+        return ({ id: entry.id, ...entry.data() })
+    });
+    
+    
     if (entry.length == 0) {
-      return {
-        notFound: true
-      };
+        return {
+            notFound: true
+        };
     }
-  
+
     return {
-      props: {
-        data: {cabData, ...entry[0]},
-      },
-      revalidate: 60,
-  
+        props: {
+            data: entry[0],
+        },
+        revalidate: 60,
+
     }
-  
-  }
+
+}
