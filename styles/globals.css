@@ -195,3 +195,7 @@ width: 100%;
 .jodit-container .jodit-workplace .jodit-wysiwyg {
   height: 400px !important;
 }
+
+.ant-segmented{
+  background-color: white !important;
+}

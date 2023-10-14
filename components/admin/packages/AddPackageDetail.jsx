@@ -89,7 +89,7 @@ export default function AddPackageDetail({packageFor=""}) {
 
 
     function submitPackageDetail(val) {
-        console.log(val)
+        // console.log(val)
         const tempIncludeIcon = []
         tempIcon.forEach((item) => {
             const res = IncludesIconName.find(f => f.name == item)
@@ -107,11 +107,11 @@ export default function AddPackageDetail({packageFor=""}) {
                 exclusion: val.exclusion,
                 metaDescription: val.metaDescription,
                 metaTag: val.metaTag,
-                price:val.price,
+                price:val.price==undefined?null:val.price,
                 status: 'published',
                 includeIcon: tempIcon.length != 0 ? tempIncludeIcon : sSPD.includeIcon,
-                isOffer,
-                isPrice,
+                isOffer:isOffer==undefined?false:isOffer,
+                isPrice:isPrice==undefined?false:isPrice,
                 hotelName:JSON.parse(localStorage.getItem("hotelName"))
 
             })
@@ -123,7 +123,7 @@ export default function AddPackageDetail({packageFor=""}) {
             })
 
     }
-
+// console.log(packageFor,selectedGroup)
     
 
     function AddSinglePackageDetail() {

@@ -23,7 +23,7 @@ export default function MenuAdmin({ menuClick }) {
         },
         {
           key: null, menu: <p><BookOutlined /> Andaman Package</p>, subMenu: [
-            { key: 'packageAndman', menu: <p> <MedicineBoxOutlined /> Add Package Name</p>, subMenu: [] },
+            { key: 'packageAndaman', menu: <p> <MedicineBoxOutlined /> Add Package Name</p>, subMenu: [] },
             { key: 'packageAndmanDetail', menu: <p> <MedicineBoxOutlined /> Add/Update Details</p>, subMenu: [] },
 
           ]

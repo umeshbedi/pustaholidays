@@ -86,7 +86,7 @@ export default function SinglePackage({ data }) {
                 <div style={{ background: 'white', width: '100%' }}>
                     <div style={{ background: "var(--primaryColor)", padding: '5%', display: 'flex', justifyContent: 'space-between' }}>
                         <div>
-                            <h4 style={{ fontSize: '15px', color: "rgba(255,255,255,.7)", textDecoration: 'line-through' }}>₹{(Number(data.price)+(Number(data.price)*30/100)).toFixed(0)}</h4>
+                            <h4 style={{ fontSize: '15px', color: "rgba(255,255,255,.7)", textDecoration: 'line-through' }}>₹{(Number(data.price) + (Number(data.price) * 30 / 100)).toFixed(0)}</h4>
                             <h4 style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Package Cost : ₹{data.price}</h4>
                             <h4 style={{ fontSize: '15px', color: "rgba(255,255,255,.7)" }}>{"(inclusive 5% GST)"}</h4>
                         </div>
@@ -105,8 +105,8 @@ export default function SinglePackage({ data }) {
                         <div style={{ padding: "3px 12px", background: style.primaryColor, color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'fit-content', fontWeight: 'bold', width: 'fit-content', marginBottom: 5 }}>
                             <h4 >Hotels Name</h4>
                         </div>
-                        {data.hotelName.map((item, index)=>(
-                            <p key={index}>{index+1}. {item}</p>
+                        {data.hotelName.map((item, index) => (
+                            <p key={index}>{index + 1}. {item}</p>
                         ))}
                     </div>
                 </div>
@@ -119,93 +119,93 @@ export default function SinglePackage({ data }) {
 
     if (data == undefined) return (<div style={{ height: '30vh', padding: '2%' }}><Skeleton active /></div>)
     return (
-        
-            <main style={{backgroundColor: "#f1f1f1"}}>
+
+        <main style={{ backgroundColor: "#f1f1f1" }}>
 
 
-                <div>
-                    <Menu />
-                    <HeadImage image={headerImage} title={query.page != undefined ? query.page : null} />
+            <div>
+                <Menu />
+                <HeadImage image={data.images[0]} />
 
-                    <div
-                        className='backCurve5'
-                        style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
-                        <div style={{ width: '90%', display: "flex", gap: '4%', marginTop: '3%', flexDirection: isMobile ? "column" : "row" }}>
-                            <div style={{ width: isMobile ? "100%" : "65%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
-                                <h1 id='packageTitle'>
-                                    {data.title}
-                                </h1>
+                <div
+                    className='backCurve5'
+                    style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
+                    <div style={{ width: '90%', display: "flex", gap: '4%', marginTop: '3%', flexDirection: isMobile ? "column" : "row" }}>
+                        <div style={{ width: isMobile ? "100%" : "65%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
+                            <h1 id='packageTitle'>
+                                {data.title}
+                            </h1>
 
-                                <h3 id='packageDetail' ><ClockCircleFilled /> {data.subtitle}</h3>
-                                <Divider style={{ margin: '2%' }} />
+                            <h3 id='packageDetail' ><ClockCircleFilled /> {data.subtitle}</h3>
+                            <Divider style={{ margin: '2%' }} />
 
-                                {isMobile && data.isPrice == true && <CostSection />}
+                            {isMobile && data.isPrice == true && <CostSection />}
 
-                                <div>
-                                    <h2>Includes</h2>
-                                    <div style={{ display: 'grid', gridGap: 20, gridTemplateColumns: `repeat(${isMobile ? "2" : "4"}, auto)`, marginTop: '3%' }}>
-                                        {data.includeIcon.map((item, i) => (
-                                            <Include key={i} icon={item.icon} name={item.name} />
-                                        ))}
+                            <div>
+                                <h2>Includes</h2>
+                                <div style={{ display: 'grid', gridGap: 20, gridTemplateColumns: `repeat(${isMobile ? "2" : "4"}, auto)`, marginTop: '3%' }}>
+                                    {data.includeIcon.map((item, i) => (
+                                        <Include key={i} icon={item.icon} name={item.name} />
+                                    ))}
 
-                                    </div>
                                 </div>
-
-                                <Divider style={{ margin: '2%' }} />
-
-                                <h2>Overview</h2>
-                                <String2Html id={'overview'} string={data.overview} />
-
-                                <Divider style={{ margin: '2%' }} />
-
-                                <h2>Highlights</h2>
-                                <String2Html id={'highlights'} string={data.highlights} />
-
-                                <Divider style={{ margin: '2%' }} />
-
-                                <h2>Travel Journey</h2>
-                                <Collapse size='large' defaultActiveKey={0} accordion={false} style={{ background: 'none' }}>
-                                    {data.travelJourney.map((tj, i) => (
-                                        <Collapse.Panel header={<h4>{tj.heading}</h4>} key={i}>
-                                            <div>
-                                                <p>{tj.content}</p>
-                                            </div>
-                                        </Collapse.Panel>
-                                    ))
-
-                                    }
-                                </Collapse>
-
-                                <Divider style={{ margin: '2%' }} />
-
-                                <h2>Inclusion</h2>
-                                <String2Html id={'inclusion'} string={data.inclusion} />
-
-                                <Divider style={{ margin: '2%' }} />
-
-                                <h2>Exclusions</h2>
-                                <String2Html id={'exclusion'} string={data.exclusion} />
-
-
                             </div>
 
-                            {isMobile && <Divider />}
+                            <Divider style={{ margin: '2%' }} />
+
+                            <h2>Overview</h2>
+                            <String2Html id={'overview'} string={data.overview} />
+
+                            <Divider style={{ margin: '2%' }} />
+
+                            <h2>Highlights</h2>
+                            <String2Html id={'highlights'} string={data.highlights} />
+
+                            <Divider style={{ margin: '2%' }} />
+
+                            <h2>Travel Journey</h2>
+                            <Collapse size='large' defaultActiveKey={0} accordion={false} style={{ background: 'none' }}>
+                                {data.travelJourney.map((tj, i) => (
+                                    <Collapse.Panel header={<h4>{tj.heading}</h4>} key={i}>
+                                        <div>
+                                            <p>{tj.content}</p>
+                                        </div>
+                                    </Collapse.Panel>
+                                ))
+
+                                }
+                            </Collapse>
+
+                            <Divider style={{ margin: '2%' }} />
+
+                            <h2>Inclusion</h2>
+                            <String2Html id={'inclusion'} string={data.inclusion} />
+
+                            <Divider style={{ margin: '2%' }} />
+
+                            <h2>Exclusions</h2>
+                            <String2Html id={'exclusion'} string={data.exclusion} />
 
 
-                            <div style={{ width: isMobile ? '100%' : '35%', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
+                        </div>
 
-                                {!isMobile && data.isPrice == true && <CostSection />}
+                        {isMobile && <Divider />}
 
-                                <div style={{ background: 'white', width: '100%', padding: '5%', }}>
-                                    
-                                    <ContactForm
-                                        packageName={packageName}
-                                        packageDetail={packageDetail}
-                                    />
-                                </div>
-                                <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
 
-                                {/* <div style={{ background: 'white', width: '100%', padding: '5%', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
+                        <div style={{ width: isMobile ? '100%' : '35%', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
+
+                            {!isMobile && data.isPrice == true && <CostSection />}
+
+                            <div style={{ background: 'white', width: '100%', padding: '5%', }}>
+
+                                <ContactForm
+                                    packageName={packageName}
+                                    packageDetail={packageDetail}
+                                />
+                            </div>
+                            <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
+
+                            {/* <div style={{ background: 'white', width: '100%', padding: '5%', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
 
                                     <h2 style={{ textAlign: 'center', padding: "0 10px 20px 10px" }}>Exciting Offers on Ferry Bookings</h2>
                                     {cruize.map((item, i) => (
@@ -228,14 +228,14 @@ export default function SinglePackage({ data }) {
                                         </Link>
                                     ))}
                                 </div> */}
-                            </div>
                         </div>
                     </div>
-
                 </div>
-            </main>
 
-        
+            </div>
+        </main>
+
+
 
     )
 }
@@ -243,9 +243,18 @@ export default function SinglePackage({ data }) {
 
 export async function getStaticPaths() {
     const allpaths = []
-    db.collection("package").get().then((snap) => {
+    db.collection("packageAndaman").get().then((snap) => {
         snap.forEach((sndata) => {
-            db.doc(`package/${sndata.id}`).collection("singlePackage").get().then(data => {
+            db.doc(`packageAndaman/${sndata.id}`).collection("singlePackage").get().then(data => {
+                data.forEach((path) => {
+                    allpaths.push(path.data().slug)
+                })
+            })
+        })
+    })
+    db.collection("packageBali").get().then((snap) => {
+        snap.forEach((sndata) => {
+            db.doc(`packageBali/${sndata.id}`).collection("singlePackage").get().then(data => {
                 data.forEach((path) => {
                     allpaths.push(path.data().slug)
                 })
@@ -255,7 +264,7 @@ export async function getStaticPaths() {
 
     return {
         paths: allpaths.map((path) => (
-            { params: { packageName: path } }
+            { params: { singlePackage: path } }
         )),
         fallback: true
     }
@@ -266,24 +275,30 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
 
-    // const { packageGroupName, packagName } = context.params
-    const packageGroupName = "Family"
-    const packagName = "4-Nights-5-Days--"
-    const res = await db.collection("package").where("slug", "==", `/package/${packageGroupName}`).get()
-    const entry = res.docs.map((entry) => {
-        return ({ id: entry.id, ...entry.data() })
-    });
+    const { packageName, singlePackage } = context.params
 
-    if (entry.length == 0) {
-        return {
-            notFound: true
-        };
+    console.log(context.params)
+
+    const packagegroup = `${packageName == "Andaman" ? "packageAndaman" : packageName == "Bali" ? "packageBali" : null}`
+
+    const res = await db.collection(`package${packageName}`).get()
+    const docSize = res.size
+    const entry = res.docs.map((entry) => {
+        return ({ id: entry.id })
+    });
+    console.log(entry)
+    let finalData = []
+    for (let i = 0; i < entry.length; i++) {
+        const getData = await db.doc(`package${packageName}/${entry[i].id}`).collection("singlePackage").where("slug", "==", `/package/${packageName}/${singlePackage}`).get()
+        const data = getData.docs.map((d) => (d.data()))
+        if (data.length != 0) {
+            finalData = [...data]
+            break
+        }
     }
 
-    const getData = await db.doc(`package/${entry[0].id}`).collection("singlePackage").where("slug", "==", `/package/${packageGroupName}/${packagName}`).get()
-    const data = getData.docs.map((d) => (d.data()))
-
-    if (data.length == 0) {
+    
+    if (finalData.length == 0) {
         return {
             notFound: true
         };
@@ -291,7 +306,7 @@ export async function getStaticProps(context) {
 
     return {
         props: {
-            data: data[0]
+            data: finalData[0]
         },
         revalidate: 10,
     }

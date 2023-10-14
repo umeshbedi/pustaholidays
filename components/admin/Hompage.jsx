@@ -4,15 +4,17 @@ import React, { useEffect, useRef, useState } from 'react'
 // import style from '@/styles/component.module.scss'
 import { db } from '@/firebase'
 
-const hompagedb = db.doc(`pages/homepage`)
 
 export default function Hompage() {
+  
+  const hompagedb = db.doc(`pages/homepage`)
   const [banner, setBanner] = useState([])
   // const [editBanner, setEditBanner] = useState({ index: null, heading: null, subHeading: null, image: null })
 
   const [title, setTitle] = useState("")
   const [metaDescription, setmetaDescription] = useState("")
   const [metaTag, setMetaTag] = useState("")
+  
   const titleRef = useRef()
   const metaDescriptionRef = useRef()
   const metaTagRef = useRef()

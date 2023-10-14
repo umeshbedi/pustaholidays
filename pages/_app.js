@@ -20,8 +20,14 @@ export default function App({ Component, pageProps }) {
           token: {
             colorPrimary: '#15aee8',
             borderRadius: 20,
-
-          }
+          },
+          components: {
+            Segmented: {
+              itemSelectedBg:'#15aee8',
+              itemSelectedColor:"white",
+              
+            },
+          },
         }}
       >
 

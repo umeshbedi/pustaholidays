@@ -115,7 +115,7 @@ export default function AddPackage({packageFor=""}) {
             setSelectedSinglePackage(result.id)
         }
         const pos = packageItem.findIndex(i => i.name == selectedGroup)
-        // console.log(pos)
+        console.log(packageFor)
 
         function addPackage(val) {
             const slug = val.package_name.split(" ").join("-")
@@ -124,7 +124,7 @@ export default function AddPackage({packageFor=""}) {
                 .collection("singlePackage")
                 .add({
                     name: value,
-                    slug: `/package/${packageFor=='packageBaliDetail'?"Bali":"Andman"}/${slug}`,
+                    slug: `/package/${packageFor=='packageBali'?"Bali":"Andaman"}/${slug}`,
                     images: [],
                     thumbnail: "",
                     travelJourney: [],

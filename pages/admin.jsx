@@ -85,11 +85,11 @@ export default function Admin() {
     else if (e == 'cruiseslist') {
       alert(e)
     }
-    else if (e == 'packageBali' || e == "packageAndman") {
+    else if (e == 'packageBali' || e == "packageAndaman") {
       setContent(<AddPackage packageFor={e} />)
     }
     else if (e == 'packageBaliDetail' || e == "packageAndmanDetail") {
-      setContent(<PackagesDetails packageFor={e == 'packageBaliDetail' ? 'packageBali' : 'packageAndman'} />)
+      setContent(<PackagesDetails packageFor={e == 'packageBaliDetail' ? 'packageBali' : 'packageAndaman'} />)
     }
     
     else if (e == 'activityBali' || e == "activityAndaman") {

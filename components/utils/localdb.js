@@ -42,7 +42,7 @@ export const menu = {
     "packages": [
         {
             "name": "Andman",
-            "slug": "/package/Andman"
+            "slug": "/package/Andaman"
         },
         {
             "name": "Bali",

@@ -85,7 +85,7 @@ export const getStaticPaths = async () => {
     const { page } = context.params;
     const res = await db.collection("pages").doc(`${page}`).get()
     
-    console.log(res.data())
+    // console.log(res.data())
   
     if (res.data() == undefined) {
       return {
