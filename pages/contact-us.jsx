@@ -33,7 +33,7 @@ export default function ContactUsPage() {
     return (
         <main>
             <Menu/>
-            <HeadImage title={"Contact Us"}/>
+            <HeadImage image='/contact us page.jpg' title={"Contact Us"}/>
             <div style={{display:'flex', justifyContent:'center', background:'var(--lightBackground)'}}>
                 <div style={{ width: '80%', margin:"3rem 0" }}>
                     <h1 style={{ color: "grey" }}><span style={{ color: "var(--primaryColor)" }}>Connect</span> With Us</h1><br />

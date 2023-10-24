@@ -15,7 +15,7 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 
 export default function InfoDetails({ data }) {
   const { query } = useRouter()
-  console.log(data)
+  // console.log(data)
   const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
 
   const [isMobile, setIsMobile] = useState(false)

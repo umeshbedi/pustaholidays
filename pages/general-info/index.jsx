@@ -5,31 +5,15 @@ import React, { useEffect, useState } from 'react'
 import style from '@/styles/packageName.module.css'
 import { Divider } from 'antd'
 import { db } from '@/firebase'
+import SHome from '@/components/skeleton/SHome'
 
 const Menu = dynamic(() => import("@/components/master/header"), { ssr: false })
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false })
 
 
-export default function Destination() {
-  const { query } = useRouter()
-  const headerImage = `https://picsum.photos/seed/sdfwewe222/1280/500`
-
+export default function Destination({data,banner}) {
  
-
-  const [dataInfo, setdataInfo] = useState([])
-  
-  useEffect(() => {
-    db.collection('generalInfo').get().then((snap) => {
-      const tempdataInfo = []
-      snap.forEach((data) => {
-        if (data != undefined) {
-          tempdataInfo.push({ id: data.id, ...data.data() })
-        }
-      })
-      setdataInfo(tempdataInfo)
-    })
-        
-  }, [])
+  if (data==undefined) return <SHome/>
 
   function Tile({ thumbnail, name, slug }) {
     return (
@@ -70,7 +54,7 @@ export default function Destination() {
 
         <div>
           <Menu />
-          <HeadImage image={headerImage} title={"General Information"} />
+          <HeadImage image={banner} title={"General Information"} />
 
           <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
             <h1>General Information</h1>
@@ -78,7 +62,7 @@ export default function Destination() {
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
               <div className={style.packageRow}>
-                {dataInfo.map((item, index) => (
+                {data.map((item, index) => (
                   <Tile key={index} thumbnail={item.thumbnail} name={item.title} slug={item.slug} />
                 ))}
               </div>
@@ -92,4 +76,23 @@ export default function Destination() {
 
     </div>
   )
+}
+
+
+export const getStaticProps = async () => {
+  const res = await db.collection('generalInfo').get()
+  const entry = res.docs.map((entry) => {
+    return ({ id: entry.id, ...entry.data() })
+});
+
+const banner = (await db.doc(`pages/allPageBanner`).get()).data().GeneralInfoPage;
+
+return {
+    props: {
+      data: entry,
+      banner
+    },
+    revalidate: 60,
+
+  }
 }

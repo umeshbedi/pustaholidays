@@ -3,10 +3,12 @@ import { Button, Form, Input, Modal, message } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 // import style from '@/styles/component.module.scss'
 import { db } from '@/firebase'
+import TravelJourney from './TravelJourney'
+import AllPageBanner from './AllPageBanner'
 
 
 export default function Hompage() {
-  
+
   const hompagedb = db.doc(`pages/homepage`)
   const [banner, setBanner] = useState([])
   // const [editBanner, setEditBanner] = useState({ index: null, heading: null, subHeading: null, image: null })
@@ -14,7 +16,7 @@ export default function Hompage() {
   const [title, setTitle] = useState("")
   const [metaDescription, setmetaDescription] = useState("")
   const [metaTag, setMetaTag] = useState("")
-  
+
   const titleRef = useRef()
   const metaDescriptionRef = useRef()
   const metaTagRef = useRef()
@@ -60,12 +62,12 @@ export default function Hompage() {
   useEffect(() => {
     hompagedb.onSnapshot((snap) => {
       const data = snap.data()
-      if (data!==undefined) {
+      if (data !== undefined) {
         setBanner(data.banner)
-        setTitle(data.title)
+        // setTitle(data.title)
         setmetaDescription(data.metaDescription)
         setMetaTag(data.metaTag)
-        titleRef.current.value = data.title
+        // titleRef.current.value = data.title
         metaDescriptionRef.current.value = data.metaDescription
         metaTagRef.current.value = data.metaTag
       }
@@ -79,33 +81,35 @@ export default function Hompage() {
       <Form style={{ border: "solid 1px lightgrey", padding: '2%' }} onFinish={addBanner}>
         <h2 style={{ color: "grey" }}><i>Add Banner Image</i></h2>
         <br />
-        {banner.length != 0 &&
-          banner.map((item, i) => (
-            <div key={i}>
-              <p style={{ color: "grey", marginBottom: '1%' }}><b><i>
-                #{i + 1}. {item.heading} | {item.subHeading} | {item.image} | <span>
-                  <EditFilled onClick={() => {
-                    setOpen(true)
-                    setTimeout(() => {
-                      headingRef.current.value = item.heading;
-                      setHeading(item.heading)
-                      subHeadingRef.current.value = item.subHeading;
-                      setSubHeading(item.subHeading)
-                      imageRef.current.value = item.image
-                      setImage(item.image)
-                      setIndex(i)
-                    }, 100);
+        <div style={{ height: banner.length > 4 ? 150 : null, overflowY: 'scroll' }}>
+          {banner.length != 0 &&
+            banner.map((item, i) => (
+              <div key={i}>
+                <p style={{ color: "grey", marginBottom: '1%', fontWeight: 400, fontSize: 16 }}><b><i>
+                  #{i + 1}. {item.heading} | {item.subHeading} | {item.image} | <span style={{ color: 'var(--primaryColor)' }}>
+                    <EditFilled onClick={() => {
+                      setOpen(true)
+                      setTimeout(() => {
+                        headingRef.current.value = item.heading;
+                        setHeading(item.heading)
+                        subHeadingRef.current.value = item.subHeading;
+                        setSubHeading(item.subHeading)
+                        imageRef.current.value = item.image
+                        setImage(item.image)
+                        setIndex(i)
+                      }, 100);
 
-                  }} />
-                </span> |
-                <span style={{ color: 'red' }}>
-                  <DeleteFilled
-                    onClick={() => deleteBanner(i)} />
-                </span>
-              </i></b></p>
-            </div>
-          ))
-        }
+                    }} />
+                  </span> |
+                  <span style={{ color: 'red' }}>
+                    <DeleteFilled
+                      onClick={() => deleteBanner(i)} />
+                  </span>
+                </i></b></p>
+              </div>
+            ))
+          }
+        </div>
         <Form.Item name={'heading'} label="Heading">
           <input required type="text" placeholder='Enter Heading...' />
         </Form.Item>
@@ -120,12 +124,12 @@ export default function Hompage() {
       <br />
 
       <Form >
-        <Form.Item label="Homepage Title">
+        {/* <Form.Item label="Homepage Title">
           <input
             ref={titleRef}
             onChange={(e) => setTitle(e.target.value)}
             type="text" placeholder='Enter Title...' />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label="Meta Description">
           <input
             ref={metaDescriptionRef}
@@ -138,9 +142,14 @@ export default function Hompage() {
             onChange={(e) => setMetaTag(e.target.value)}
             type="text" placeholder='Comma Separated tags...' />
         </Form.Item>
-        <Button style={{ marginBottom: '3%' }} onClick={submit} type='primary'>Submit</Button>
+        <Button style={{ marginBottom: '3%' }} onClick={submit} type='primary'>Submit Banner & Meta</Button>
       </Form>
+      <br />
 
+      <TravelJourney />
+      <AllPageBanner />
+
+      {/* Model section here */}
       <Modal
         open={open}
         onCancel={() => setOpen(false)}

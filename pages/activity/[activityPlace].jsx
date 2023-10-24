@@ -11,7 +11,7 @@ const Menu = dynamic(() => import("@/components/master/header"), { ssr: false })
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false })
 
 
-export default function Activity({ data }) {
+export default function Activity({ data, banner }) {
 
     const { query } = useRouter()
     const headerImage = `https://picsum.photos/seed/sdf55/1280/500`
@@ -59,7 +59,7 @@ export default function Activity({ data }) {
 
                 <div>
                     <Menu />
-                    <HeadImage image={headerImage} title={"Activities"} />
+                    <HeadImage image={banner} title={query.activityPlace != undefined ? query.activityPlace + " Activities" : null} />
 
                     <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
                         <h1>Activities in {query.activityPlace}</h1>
@@ -88,7 +88,7 @@ export const getStaticPaths = async () => {
     const entriesAndaman = await db.collection("activityAndaman").get()
     const entriesBali = await db.collection("activityBali").get()
     const pathsAndaman = entriesAndaman.docs.map(entry => {
-        
+
         return ({
             params: {
                 activityPlace: entry.data().slug
@@ -119,6 +119,9 @@ export const getStaticProps = async (context) => {
         return ({ id: entry.id, ...entry.data() })
     });
 
+    const bannerAndaman = (await db.doc(`pages/allPageBanner`).get()).data().ActivityAndamanPage;
+    const bannerBali = (await db.doc(`pages/allPageBanner`).get()).data().ActivityBaliPage;
+
     if (entry.length == 0) {
         return {
             notFound: true
@@ -128,6 +131,7 @@ export const getStaticProps = async (context) => {
     return {
         props: {
             data: entry,
+            banner: activityPlace == "Andaman" ? bannerAndaman : bannerBali
         },
         revalidate: 60,
 

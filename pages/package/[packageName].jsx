@@ -12,24 +12,14 @@ const Menu = dynamic(() => import("@/components/master/header"), { ssr: false, l
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false, loading: () => <SHome /> })
 
 
-export default function PackageName({ data, allData }) {
+export default function PackageName({ data, allData, banner }) {
 
     const { query } = useRouter()
-    const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
+    
 
     const [packageData, setPackageData] = useState([])
     const [tabName, setTabName] = useState([])
 
-    const tileData = [
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-        { image: `https://picsum.photos/seed/sdf${Math.random(0, 100)}/250/350`, slug: `/package/${query.packageName}/abctest` },
-    ]
 
     function Tile({ thumbnail, name, slug }) {
         return (
@@ -79,7 +69,7 @@ export default function PackageName({ data, allData }) {
     data.map((item, index) => {
         tabTemp.push(item.name)
     })
-    
+
     return (
         <div>
             <main>
@@ -87,14 +77,14 @@ export default function PackageName({ data, allData }) {
 
                 <div>
                     <Menu />
-                    <HeadImage image={headerImage} title={query.packageName != undefined ? query.packageName + " Package" : null} />
+                    <HeadImage image={banner} title={query.packageName != undefined ? query.packageName + " Package" : null} />
 
                     <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
                         <h1>The best tour packages are waiting for you</h1>
                         <p>Indonesia is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
 
                         <div style={{ marginTop: '2rem' }}>
-                            <Segmented options={tabTemp} size='large' onChange={fetchData} style={{boxShadow:"0px 0px 20px rgba(0,0,0,.2)"}}/>
+                            <Segmented options={tabTemp} size='large' onChange={fetchData} style={{ boxShadow: "0px 0px 20px rgba(0,0,0,.2)" }} />
                         </div>
                         <div style={{ display: "flex", justifyContent: 'center', width: "100%", }}>
                             <div className={style.packageRow}>
@@ -141,7 +131,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
     const { packageName } = context.params;
     console.log(context)
-    const packagegroup = `${packageName == "Andaman" ? "packageAndaman" : packageName == "Bali" ?"packageBali":null}`
+    const packagegroup = `${packageName == "Andaman" ? "packageAndaman" : packageName == "Bali" ? "packageBali" : null}`
     const res = await db.collection(`${packagegroup}`).get()
     // console.log(res)
 
@@ -150,10 +140,13 @@ export const getStaticProps = async (context) => {
     });
     let allData = []
     for (let i = 0; i < entry.length; i++) {
-        const getData = await db.doc(`${packagegroup}/${entry[i].id}`).collection("singlePackage").where("status","==", "published").get()
+        const getData = await db.doc(`${packagegroup}/${entry[i].id}`).collection("singlePackage").where("status", "==", "published").get()
         const data = getData.docs.map((d) => ({ id: d.id, ...d.data() }))
         allData.push({ parentID: entry[i].id, childData: data })
     }
+
+    const bannerAndaman = (await db.doc(`pages/allPageBanner`).get()).data().PackageAndamanPage;
+    const bannerBali = (await db.doc(`pages/allPageBanner`).get()).data().PackageBaliPage;
 
     if (entry.length == 0) {
         return {
@@ -164,7 +157,8 @@ export const getStaticProps = async (context) => {
     return {
         props: {
             data: entry,
-            allData
+            allData,
+            banner: packageName == "Andaman" ? bannerAndaman : packageName == "Bali" ? bannerBali : null
         },
         revalidate: 60,
 

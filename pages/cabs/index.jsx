@@ -11,36 +11,8 @@ const Menu = dynamic(() => import("@/components/master/header"), { ssr: false })
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false })
 
 
-export default function Rentals() {
-  const { query } = useRouter()
-
-  const [dataAndaman, setDataAndaman] = useState([])
-  const [dataBali, setDataBali] = useState([])
-
-  useEffect(() => {
-    db.collection('rentalAndaman').get().then((snap) => {
-      const tempDataAndaman = []
-      snap.forEach((data) => {
-        if (data != undefined) {
-          tempDataAndaman.push({ id: data.id, ...data.data() })
-        }
-      })
-      setDataAndaman(tempDataAndaman)
-    })
-    db.collection('rentalBali').get().then((snap) => {
-      const tempDataBali = []
-      snap.forEach((data) => {
-        if (data != undefined) {
-          tempDataBali.push({ id: data.id, ...data.data() })
-        }
-      })
-      setDataBali(tempDataBali)
-    })
-
-    
-  }, [])
-
- 
+export default function Rentals({ entryAndaman, entryBali, banner }) {
+  
   function Tile({ thumbnail, name, slug }) {
     return (
       <div className={style.tile} style={{ height: 350, width: 250, position: 'relative', borderRadius: 40, overflow: 'hidden' }}>
@@ -64,7 +36,7 @@ export default function Rentals() {
           textAlign: 'center',
           position: 'absolute',
           width: '100% ',
-          padding:"0 10px",
+          padding: "0 10px",
         }}
         >
           {name}
@@ -73,6 +45,7 @@ export default function Rentals() {
     )
   }
 
+  if (entryAndaman == undefined) return <SHome />
 
   return (
     <div>
@@ -81,7 +54,7 @@ export default function Rentals() {
 
         <div>
           <Menu />
-          <HeadImage title={"Rentals"} />
+          <HeadImage image={banner} title={"Rentals"} />
 
           <div style={{ padding: "3rem 5%", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
             <h1>Cabs in Andman and Nicobar Island</h1>
@@ -89,7 +62,7 @@ export default function Rentals() {
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
               <div className={style.packageRow}>
-                {dataAndaman.map((item, index) => (
+                {entryAndaman.map((item, index) => (
                   <Tile key={index} thumbnail={item.thumbnail} name={item.title} slug={item.slug} />
                 ))}
               </div>
@@ -104,7 +77,7 @@ export default function Rentals() {
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
               <div className={style.packageRow}>
-              {dataBali.map((item, index) => (
+                {entryBali.map((item, index) => (
                   <Tile key={index} thumbnail={item.thumbnail} name={item.title} slug={item.slug} />
                 ))}
               </div>
@@ -119,3 +92,25 @@ export default function Rentals() {
 }
 
 
+export const getStaticProps = async () => {
+  const resAndaman = await db.collection('rentalAndaman').get()
+  const entryAndaman = resAndaman.docs.map((entry) => {
+    return ({ id: entry.id, ...entry.data() })
+  });
+  const resBali = await db.collection('rentalBali').get()
+  const entryBali = resBali.docs.map((entry) => {
+    return ({ id: entry.id, ...entry.data() })
+  });
+
+  const banner = (await db.doc(`pages/allPageBanner`).get()).data().RentalPage;
+
+  return {
+    props: {
+      entryAndaman,
+      entryBali,
+      banner
+    },
+    revalidate: 60,
+
+  }
+}

@@ -9,7 +9,7 @@ import { Navigation } from 'swiper/modules';
 import Image from 'next/image';
 import Title from '../master/Title';
 
-export default function Journey() {
+export default function Journey({youtube}) {
 
     const [video, setVideo] = useState("")
     const [size, setSize] = useState(null)
@@ -43,7 +43,7 @@ export default function Journey() {
     }
 
 
-    
+
 
 
     return (
@@ -61,17 +61,17 @@ export default function Journey() {
                 onSlideChange={(e) => {
                     setActiveIndex(e.activeIndex)
                 }}
-                onNavigationNext={()=>{
-                    
+                onNavigationNext={() => {
+
                 }}
             >
                 {
-                    content.map((item, index) => (
+                    youtube.TravelJourney.map((item, index) => (
                         <SwiperSlide key={index}>
                             <div>
                                 <div
-                                    onMouseEnter={()=>activeIndex==index?playButton():null}
-                                    onMouseOut={()=>activeIndex==index?removePlay():null}
+                                    // onMouseEnter={() => activeIndex == index ? playButton() : null}
+                                    // onMouseOut={() => activeIndex == index ? removePlay() : null}
                                     style={{
                                         width: '100%',
                                         display: 'flex',
@@ -81,18 +81,18 @@ export default function Journey() {
 
                                     }}>
 
-                                    {frameVisible && activeIndex == index ?
+                                    {/* {frameVisible && activeIndex == index ?
                                         (
-                                        <div style={{borderRadius:30, overflow:'hidden', width:'100%'}}>
-                                        <iframe
-                                            width="100%"
-                                            height="450px"
-                                            src={`https://www.youtube.com/embed/${item.video}?rel=0&amp;showinfo=0${video}`}
-                                            frameborder="0"
-                                            allowfullscreen="allowfullscreen"
-                                        >
-                                        </iframe>
-                                        </div>)
+                                            <div style={{ borderRadius: 30, overflow: 'hidden', width: '100%' }}>
+                                                <iframe
+                                                    width="100%"
+                                                    height="450px"
+                                                    src={`https://www.youtube.com/embed/${item.video}?rel=0&amp;showinfo=0${video}`}
+                                                    frameborder="0"
+                                                    allowfullscreen="allowfullscreen"
+                                                >
+                                                </iframe>
+                                            </div>)
                                         : (<Image
                                             src={item.image}
                                             fill
@@ -100,17 +100,28 @@ export default function Journey() {
                                             style={{ objectFit: 'cover', borderRadius: 20, transform: size }}
                                             placeholder='blur'
                                             blurDataURL={item.image}
-                                        />)}
-                                    
-                                    {activeIndex!=index&&
-                                    <div style={{
-                                        height: 450,
-                                        background: "rgba(255,255,255,.6)",
-                                        position: 'absolute',
-                                        width: '100%',
+                                        />)
+                                    } */}
+                                     <div style={{ borderRadius: 30, overflow: 'hidden', width: '100%' }}>
+                                                <iframe
+                                                    width="100%"
+                                                    height="450px"
+                                                    src={`https://www.youtube.com/embed/${item.YoutubeLink.split("v=")[1]}?rel=0&amp;showinfo=0`}
+                                                    frameborder="0"
+                                                    allowfullscreen="allowfullscreen"
+                                                >
+                                                </iframe>
+                                            </div>
 
-                                    }}
-                                    />
+                                    {activeIndex != index &&
+                                        <div style={{
+                                            height: 450,
+                                            background: "rgba(255,255,255,.6)",
+                                            position: 'absolute',
+                                            width: '100%',
+
+                                        }}
+                                        />
                                     }
 
 

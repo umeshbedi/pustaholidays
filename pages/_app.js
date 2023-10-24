@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import { ConfigProvider } from 'antd';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 export default function App({ Component, pageProps }) {
@@ -23,14 +24,17 @@ export default function App({ Component, pageProps }) {
           },
           components: {
             Segmented: {
-              itemSelectedBg:'#15aee8',
-              itemSelectedColor:"white",
-              
+              itemSelectedBg: '#15aee8',
+              itemSelectedColor: "white",
+
             },
           },
         }}
       >
-
+        <Head>
+          <meta name="author" content="Umesh Bedi, Linkedin: https://www.linkedin.com/in/umeshkumarbedi/"></meta>
+          <link rel="icon" href="/Pustaholidays Icons500.png" />
+        </Head>
         <Component {...pageProps} />
 
         {path !== '/admin' &&

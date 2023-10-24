@@ -7,6 +7,11 @@
     transition: padding .5s ease, background .5s ease;
 }
 
+.menuContainer:hover{
+    background: rgba(0,0,0,.3) !important;
+    padding: .5rem 5% !important;
+}
+
 .menu{
     transition:all .5s ease;
     /* background-color: blueviolet; */

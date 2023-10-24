@@ -22,7 +22,12 @@ const Authorities = dynamic(() => import("@/components/homepage/Authorities"), {
 const WhatTheySay = dynamic(() => import("@/components/homepage/WhatSay"), { ssr: false, loading: () => <SHome /> })
 
 
-export default function Home({data, testimonials}) {
+export default function Home({
+  data, 
+  testimonials, 
+  tarvelJourney,
+  InsightBanner
+}) {
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -38,14 +43,12 @@ export default function Home({data, testimonials}) {
         <meta name="description" content={data.metaDescription} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={data.metaTag}></meta>
-        <meta name="author" content="Umesh Bedi, Linkedin: https://www.linkedin.com/in/umeshkumarbedi/"></meta>
-        <link rel="icon" href="/Pustaholidays Icons500.png" />
       </Head>
       <main>
         <Menu />
 
         <div >
-          <Slider sliderData={data.banner}/>
+          <Slider sliderData={data.banner} />
 
           <div style={{ marginTop: "3rem" }}>
             {isMobile ? (<></>
@@ -60,7 +63,7 @@ export default function Home({data, testimonials}) {
                 lightHead={"Destination "}
                 darkHead={"in Bali"}
                 button={{ name: "All Destination", slug: "/destination" }}
-                backgroundImage={`https://picsum.photos/seed/sdfpo0097/1200/720`}
+                backgroundImage={InsightBanner.HomeBaliInsight}
               />
 
             )}
@@ -79,7 +82,7 @@ export default function Home({data, testimonials}) {
                 lightHead={"Destination "}
                 darkHead={"in Andaman"}
                 button={{ name: "All Destination", slug: "/destination" }}
-                backgroundImage={`https://picsum.photos/seed/sdf987gguu77/1200/720`}
+                backgroundImage={InsightBanner.HomeAndamanInsight}
               />
 
             )}
@@ -98,7 +101,7 @@ export default function Home({data, testimonials}) {
                 lightHead={"Cruises "}
                 darkHead={"in Andaman"}
                 button={{ name: "All Cruises", slug: "/cruises" }}
-                backgroundImage={`https://picsum.photos/seed/sdfopi54r43ggkj/1200/720`}
+                backgroundImage={InsightBanner.HomeCruizeInsight}
               />
 
             )}
@@ -106,11 +109,11 @@ export default function Home({data, testimonials}) {
             <DivCarousel2 />
 
           </div>
-          <Journey />
+          <Journey youtube={tarvelJourney} />
 
           <Counter />
-          <Testimonials testimonialsData={testimonials}/>
-          <WhatTheySay/>
+          <Testimonials testimonialsData={testimonials} />
+          <WhatTheySay />
           <Authorities />
         </div>
       </main>
@@ -121,7 +124,7 @@ export default function Home({data, testimonials}) {
 
 export const getStaticProps = async () => {
   const res = await db.doc(`pages/homepage`).get();
-  
+  const InsightBanner = await db.doc(`pages/allPageBanner`).get();
 
   // //Getting Package Data
   // const pkg = await db.collection("package").get();
@@ -172,6 +175,8 @@ export const getStaticProps = async () => {
   //Getting Testimonials
   const testimonials = await db.doc(`pages/testimonials`).get()
 
+  //Getting Travel Journey
+  const tarvelJourney = await db.doc(`pages/travelJourney`).get()
 
   // console.log(offerItems)
 
@@ -183,6 +188,8 @@ export const getStaticProps = async () => {
       // activityData,
       // ferryData,
       // offerItems,
+      InsightBanner: InsightBanner.data(),
+      tarvelJourney: tarvelJourney.data(),
       testimonials: testimonials.data().testimonials
     },
     revalidate: 60,

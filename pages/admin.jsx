@@ -17,7 +17,7 @@ const AttractionList = dynamic(() => import('../components/admin/what2see/attrac
 const RentalList = dynamic(() => import('../components/admin/rentals/RentalList'), { ssr: false, loading: () => <Skeleton /> })
 
 // const Dashboard = dynamic(() => import('../components/admin/Dashboard'), { ssr: false, loading: () => <Skeleton /> })
-const Hompage = dynamic(() => import('../components/admin/Hompage'), { ssr: false, loading: () => <Skeleton /> })
+const Hompage = dynamic(() => import('../components/admin/homepageAdmin/Hompage'), { ssr: false, loading: () => <Skeleton /> })
 const AdminLogin = dynamic(() => import('../components/admin/AdminLogin'), { ssr: false, loading: () => <Skeleton /> })
 const AddPackage = dynamic(() => import('../components/admin/packages/AddPackage'), { ssr: false, loading: () => <Skeleton /> })
 const PackagesDetails = dynamic(() => import('../components/admin/packages/AddPackageDetail'), { ssr: false, loading: () => <Skeleton /> })
