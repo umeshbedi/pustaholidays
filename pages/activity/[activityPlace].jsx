@@ -63,7 +63,18 @@ export default function Activity({ data, banner }) {
 
                     <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
                         <h1>Activities in {query.activityPlace}</h1>
-                        <p>Andman and Nicobar Island is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
+                        {query.activityPlace == "Bali" ?
+                            (<p>{`
+                                Bali, the enchanting island paradise, captivates visitors with its vibrant tapestry of colors and a kaleidoscope of activities that promise an unforgettable experience. Nestled in the heart of Indonesia, this tropical gem is a visual feast for the senses.<br/><br/>
+
+                                Vibrant and alive, Bali's natural landscapes are a breathtaking canvas of lush emerald rice terraces, azure waters lapping against pristine white-sand beaches, and the verdant jungle canopy painted in every shade of green. The island's vibrant flora and fauna add splashes of vivid color, making it a haven for nature enthusiasts.`}
+                            </p>)
+                            :
+                            (
+                                <p>{`The islands offer a kaleidoscope of experiences, from the deep emerald of the dense tropical rainforests to the translucent sapphire of the surrounding seas. Visitors can immerse themselves in the warm golden sands of Radhanagar Beach, explore the ancient mossy greens of the Baratang Caves, or witness the fiery crimson sunsets over Neil Island. The waters surrounding the islands reveal a palette of marine life, featuring coral reefs with vibrant corals, schools of fish in every shade, and the gentle blues of the majestic manta rays.`}</p>
+                            )
+                    }
+
 
                         <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
                             <div className={style.packageRow}>

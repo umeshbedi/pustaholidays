@@ -58,7 +58,7 @@ export default function Rentals({ entryAndaman, entryBali, banner }) {
 
           <div style={{ padding: "3rem 5%", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
             <h1>Cabs in Andman and Nicobar Island</h1>
-            <p>Andman and Nicobar Island is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
+            <p>{`Discover the tropical paradise of Andaman like never before with Pusta Holidays, your ultimate gateway to the best cab facility on the islands. At Pusta Holidays, we take pride in offering an all-encompassing cab service that ensures you experience the breathtaking beauty of Andaman to the fullest.`}</p>
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
               <div className={style.packageRow}>
@@ -73,7 +73,7 @@ export default function Rentals({ entryAndaman, entryBali, banner }) {
           <div style={{ padding: "0 5% 3rem 5%", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
             <Divider />
             <h1>Cabs in Bali</h1>
-            <p>Bali is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
+            <p>{`Experience the pinnacle of convenience and comfort with Pusta Holidays' exclusive Cab Facility in Bali. We take pride in offering the finest transportation services that cover the entirety of this enchanting island. When you choose Pusta Holidays, you're choosing the best way to explore Bali, with a fleet of well-maintained vehicles and expert drivers at your disposal.`}</p>
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
               <div className={style.packageRow}>

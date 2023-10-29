@@ -15,7 +15,7 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 export default function PackageName({ data, allData, banner }) {
 
     const { query } = useRouter()
-    
+
 
     const [packageData, setPackageData] = useState([])
     const [tabName, setTabName] = useState([])
@@ -80,8 +80,19 @@ export default function PackageName({ data, allData, banner }) {
                     <HeadImage image={banner} title={query.packageName != undefined ? query.packageName + " Package" : null} />
 
                     <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
-                        <h1>The best tour packages are waiting for you</h1>
-                        <p>Indonesia is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
+                        {query.packageName == "Bali" ?
+                            (<div>
+                                <h1>The Best Curated Bali Packages</h1>
+                                <p>Discover the ultimate Bali experience with Pusta Holidays, where your dream vacation becomes a reality. Our expertly crafted Bali Packages are designed to immerse you in the enchanting beauty and vibrant culture of Bali, all while ensuring your convenience and comfort.</p>
+                                <p>{`At Pusta Holidays, we leave no stone unturned to provide you with the best Bali has to offer. Our comprehensive Bali Packages cover all the island's hidden gems and iconic destinations, creating an unforgettable journey filled with breathtaking landscapes, pristine beaches, lush rice terraces, and rich cultural encounters.`}</p>
+                            </div>)
+                            :
+                            (<div>
+                                <h1>The Best Curated Andaman Islands Packages</h1>
+                                <p>{`Discover paradise with Pusta Holidays! Our exceptional Andaman Holiday Packages offer an unforgettable journey through the pristine islands of the Andaman archipelago. When you choose Pusta Holidays, you're choosing the very best in Andaman travel experiences. Our meticulously crafted packages provide comprehensive coverage of all that the Andaman Islands have to offer.`}</p>
+                                
+                            </div>)
+                        }
 
                         <div style={{ marginTop: '2rem' }}>
                             <Segmented options={tabTemp} size='large' onChange={fetchData} style={{ boxShadow: "0px 0px 20px rgba(0,0,0,.2)" }} />

@@ -12,10 +12,10 @@ import AddHotelPackage from './AddHotelPackage';
 
 
 
-export default function AddPackageDetail({packageFor=""}) {
-    
+export default function AddPackageDetail({ packageFor = "" }) {
+
     const packagedb = db.collection(`${packageFor}`)
-    
+
     const [packageItem, setPackageItem] = useState([])
     const [singlePackage, setSinglePackage] = useState([])
 
@@ -31,7 +31,6 @@ export default function AddPackageDetail({packageFor=""}) {
     const [isPrice, setIsPrice] = useState(null)
 
     let tempIcon = []
-
 
 
     useEffect(() => {
@@ -78,9 +77,9 @@ export default function AddPackageDetail({packageFor=""}) {
             setsSPD(result)
             setIsOffer(result.isOffer)
             setIsPrice(result.isPrice)
-            if (result.hotelName!=undefined) {
+            if (result.hotelName != undefined) {
                 localStorage.setItem("hotelName", JSON.stringify(result.hotelName))
-            }else{
+            } else {
                 localStorage.clear()
             }
             // setIncludeIcon(result.includeIcon)
@@ -96,9 +95,13 @@ export default function AddPackageDetail({packageFor=""}) {
             tempIncludeIcon.push(res)
         });
 
+        const groupSearch = packageItem.find(f => f.id == selectedGroup)
+        const slug = `${groupSearch.name.split(" ").join("-")}-${sSPD.name.split(" ").join("-")}-${val.packageTitle.split(" ").join("-")}`
+        
         packagedb.doc(`${selectedGroup}`)
             .collection("singlePackage").doc(`${selectedSinglePackage}`)
             .update({
+                slug: `/package/${packageFor == 'packageBali' ? "Bali" : "Andaman"}/${slug}`,
                 title: val.packageTitle,
                 subtitle: val.packageSubTitle,
                 highlights: val.highlights,
@@ -107,12 +110,12 @@ export default function AddPackageDetail({packageFor=""}) {
                 exclusion: val.exclusion,
                 metaDescription: val.metaDescription,
                 metaTag: val.metaTag,
-                price:val.price==undefined?null:val.price,
+                price: val.price == undefined ? null : val.price,
                 status: 'published',
                 includeIcon: tempIcon.length != 0 ? tempIncludeIcon : sSPD.includeIcon,
-                isOffer:isOffer==undefined?false:isOffer,
-                isPrice:isPrice==undefined?false:isPrice,
-                hotelName:JSON.parse(localStorage.getItem("hotelName"))
+                isOffer: isOffer == undefined ? false : isOffer,
+                isPrice: isPrice == undefined ? false : isPrice,
+                hotelName: JSON.parse(localStorage.getItem("hotelName"))
 
             })
             .then(() => {
@@ -123,8 +126,8 @@ export default function AddPackageDetail({packageFor=""}) {
             })
 
     }
-// console.log(packageFor,selectedGroup)
-    
+    // console.log(packageFor,selectedGroup)
+
 
     function AddSinglePackageDetail() {
 
@@ -161,8 +164,8 @@ export default function AddPackageDetail({packageFor=""}) {
                                         <Input type='number' required placeholder='Enter Price' />
                                     </Form.Item>
                                     <Form.Item label={"Hotels"}>
-                                        <AddHotelPackage/>
-                                        
+                                        <AddHotelPackage />
+
                                     </Form.Item>
                                 </>
                             }
@@ -201,7 +204,7 @@ export default function AddPackageDetail({packageFor=""}) {
                             <ReactQuill theme='snow' style={{ height: 100, marginBottom: 50 }} />
                         </Form.Item>
 
-                        <TravelJourney data={sSPD.travelJourney} groupId={selectedGroup} packageId={selectedSinglePackage} packageFor={packageFor}/>
+                        <TravelJourney data={sSPD.travelJourney} groupId={selectedGroup} packageId={selectedSinglePackage} packageFor={packageFor} />
 
                         <Form.Item name='highlights' initialValue={sSPD.highlights} label={"Highlights"} >
                             <ReactQuill theme='snow' style={{ height: 100, marginBottom: 50 }} />
@@ -214,8 +217,8 @@ export default function AddPackageDetail({packageFor=""}) {
                         </Form.Item>
 
 
-                        <ImageUpload to={"Thumbnails"} groupId={selectedGroup} packageId={selectedSinglePackage} packageFor={packageFor}/>
-                        <ImageUpload to={"Images"} groupId={selectedGroup} packageId={selectedSinglePackage} packageFor={packageFor}/>
+                        <ImageUpload to={"Thumbnails"} groupId={selectedGroup} packageId={selectedSinglePackage} packageFor={packageFor} />
+                        <ImageUpload to={"Images"} groupId={selectedGroup} packageId={selectedSinglePackage} packageFor={packageFor} />
 
                         <Divider>Seo Section</Divider>
                         <Form.Item name='metaDescription' initialValue={sSPD.metaDescription} label={"Short Meta Description"} >

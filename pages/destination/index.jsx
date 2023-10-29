@@ -57,8 +57,9 @@ export default function Destination({ entryAndaman, entryBali, banner }) {
           <HeadImage image={banner} title={"Destination"} />
 
           <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
-            <h1>Andman and Nicobar Island</h1>
-            <p>Andman and Nicobar Island is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
+            <h1>Andaman and Nicobar Islands (India)</h1>
+            <p>Experience the Andaman Islands like never before with Pusta Holidays! We are your ultimate gateway to the pristine beauty and adventure that this tropical paradise has to offer. With our unwavering commitment to excellence, we ensure that you explore all the destinations in the Andaman Islands with a perfect and unforgettable experience.</p>
+            <p>Pusta Holidays takes you on a journey through the lush emerald jungles, untouched beaches, and crystal-clear waters of this exotic archipelago. From the bustling streets of Port Blair to the serene shores of Havelock, we leave no stone unturned in curating the ideal itinerary for your dream vacation.</p>
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
               <div className={style.packageRow}>
@@ -72,8 +73,9 @@ export default function Destination({ entryAndaman, entryBali, banner }) {
 
           <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
             <Divider />
-            <h1>Bali</h1>
-            <p>Andman and Nicobar Island is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
+            <h1>Bali (Indonesia)</h1>
+            <p>Welcome to Pusta Holidays, your gateway to an unforgettable Bali experience! At Pusta Holidays, we pride ourselves on being your ultimate guide to exploring every enchanting corner of this tropical paradise. With us, you can be sure of experiencing Bali like never before, all wrapped in perfection.</p>
+            <p>Our commitment to providing the perfect Bali experience extends to every corner of this captivating island. From the tranquil beaches of Seminyak to the vibrant cultural heart of Ubud, we leave no stone unturned in ensuring you have a remarkable journey. We understand that Bali is a diverse tapestry of natural beauty, cultural richness, and thrilling adventures, and we tailor our offerings to encompass all these facets</p>
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
               <div className={style.packageRow}>

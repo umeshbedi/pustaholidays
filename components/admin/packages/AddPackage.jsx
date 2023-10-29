@@ -118,13 +118,12 @@ export default function AddPackage({packageFor=""}) {
         console.log(packageFor)
 
         function addPackage(val) {
-            const slug = val.package_name.split(" ").join("-")
             const value = val.package_name
             packagedb.doc(`${result.id}`)
                 .collection("singlePackage")
                 .add({
                     name: value,
-                    slug: `/package/${packageFor=='packageBali'?"Bali":"Andaman"}/${slug}`,
+                    slug: "",
                     images: [],
                     thumbnail: "",
                     travelJourney: [],
