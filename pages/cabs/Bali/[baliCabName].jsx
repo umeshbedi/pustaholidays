@@ -11,36 +11,37 @@ import SHeader from '@/components/skeleton/SHeader'
 import { boxShadow, mobile } from '@/components/utils/variables'
 import SHome from '@/components/skeleton/SHome'
 import { db } from '@/firebase'
+import Tile from '@/components/master/SingleTile'
 
 const HeadImage = dynamic(import('@/components/master/HeadImage'), { ssr: false, loading: () => <SHome /> })
 const Header = dynamic(import("@/components/master/header"), { ssr: false, loading: () => <SHeader /> })
 // const Footer = dynamic(() => import('@/components/Footer'))
 
 
-export default function Cab({ data }) {
+export default function Cab({ data, sortedData }) {
 
     const [isMobile, setIsMobile] = useState(false)
     const [height, setHeight] = useState(null)
     const [cabsList, setCabsList] = useState([])
-  
+
 
 
     useEffect(() => {
         setIsMobile(mobile())
-       
+
     }, [isMobile])
 
     useEffect(() => {
         if (data != undefined) {
-            db.doc(`rentalBali/${data.id}`).collection('cabs').get().then((snap)=>{
+            db.doc(`rentalBali/${data.id}`).collection('cabs').get().then((snap) => {
                 const dataTemp = []
-                snap.forEach(data=>{
-                    dataTemp.push({id:data.id, ...data.data()})
+                snap.forEach(data => {
+                    dataTemp.push({ id: data.id, ...data.data() })
                 })
 
                 setCabsList(dataTemp)
             })
-            
+
         }
     }, [data])
 
@@ -79,7 +80,7 @@ export default function Cab({ data }) {
                     <div style={{ width: isMobile ? "100%" : "25%", flexDirection: 'column', display: "flex", justifyContent: 'space-between', borderLeft: isMobile ? null : "1px solid #e2e8ee", marginTop: isMobile ? "2.5rem" : null }}>
                         <div style={{ flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
                             <h3>Offer Price:</h3>
-                            <h1 style={{ fontSize: '2rem' }}>₹{price}</h1>
+                            <h1 style={{ fontSize: '2rem' }}>₹{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</h1>
                         </div>
                         <div style={{ height: "3rem", width: '100%', background: "var(--primaryColor)", marginTop: "1.5rem", display: 'flex', alignItems: "center", justifyContent: 'center', cursor: 'pointer', borderRadius: isMobile ? 50 : null }}>
                             <p style={{ fontSize: "1.2rem", color: "white" }}>Enquire Now</p>
@@ -98,7 +99,7 @@ export default function Cab({ data }) {
         )
     }
 
-    
+
     if (data == undefined) return <SHome />
     return (
         <div>
@@ -118,7 +119,14 @@ export default function Cab({ data }) {
                     </div>
 
                     <div style={{ width: isMobile ? "100%" : '35%', height: 'fit-content', marginTop: isMobile ? "4.5rem" : null }} id='ticketCollapse'>
-                        <h2 style={{ marginBottom: '5%', textAlign: 'center' }}>Popular Cruises</h2>
+                        <div style={{ padding: '5%', marginTop: "2rem", display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                            <h2 style={{ textAlign: "center", marginBottom: "1rem", padding: '0 10%' }}>Activities of Bali</h2>
+                            {sortedData.map((item, i) => {
+                                return (<Tile key={i} name={item.title} slug={item.slug} thumbnail={item.thumbnail} />)
+
+                            })
+                            }
+                        </div>
                     </div>
 
                 </div>
@@ -155,8 +163,34 @@ export const getStaticProps = async (context) => {
     const entry = res.docs.map((entry) => {
         return ({ id: entry.id, ...entry.data() })
     });
-    
-    
+
+    const resBali = await db.collection("activityBali").get()
+    const entryBali = resBali.docs.map((entry) => {
+        return ({ id: entry.id, ...entry.data() })
+    });
+
+    let sortedData = []
+
+    function GetRand(num) {
+        var ran = Math.floor(Math.random() * num)
+        if (num > 3 && num - ran >= 3) {
+            for (let index = 0; index < 3; index++) {
+                sortedData.push(entryBali[ran])
+                ran += 1
+
+            }
+        }
+        else if (num <= 3) {
+            for (let index = 0; index < num; index++) {
+                sortedData.push(entryBali[index])
+            }
+        }
+        else { GetRand(num) }
+    }
+
+    GetRand(entryBali.length)
+
+
     if (entry.length == 0) {
         return {
             notFound: true
@@ -166,6 +200,7 @@ export const getStaticProps = async (context) => {
     return {
         props: {
             data: entry[0],
+            sortedData
         },
         revalidate: 60,
 

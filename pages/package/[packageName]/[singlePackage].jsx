@@ -14,7 +14,7 @@ const Menu = dynamic(() => import("@/components/master/header"), { ssr: false })
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false })
 
 
-export default function SinglePackage({ data }) {
+export default function SinglePackage({ data, sortedData }) {
     const { query } = useRouter()
     const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
 
@@ -23,13 +23,13 @@ export default function SinglePackage({ data }) {
 
     const [isMobile, setIsMobile] = useState(false)
 
-    
+    console.log(sortedData)
 
     useEffect(() => {
         setIsMobile(mobile())
     }, [isMobile])
 
-   
+
     function Tile({ thumbnail, name, slug }) {
         return (
             <div
@@ -80,8 +80,8 @@ export default function SinglePackage({ data }) {
                 <div style={{ background: 'white', width: '100%' }}>
                     <div style={{ background: "var(--primaryColor)", padding: '5%', display: 'flex', justifyContent: 'space-between' }}>
                         <div>
-                            <h4 style={{ fontSize: '15px', color: "rgba(255,255,255,.7)", textDecoration: 'line-through' }}>{query.packageName=="Bali"?"IDR":"₹"} {(Number(data.price) + (Number(data.price) * 30 / 100)).toFixed(0)}</h4>
-                            <h4 style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Package Cost : {query.packageName=="Bali"?"IDR":"₹"} {data.price}</h4>
+                            <h4 style={{ fontSize: '15px', color: "rgba(255,255,255,.7)", textDecoration: 'line-through' }}>{query.packageName == "Bali" ? "IDR" : "₹"} {(Number(data.price) + (Number(data.price) * 30 / 100)).toFixed(0)}</h4>
+                            <h4 style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Package Cost : {query.packageName == "Bali" ? "IDR" : "₹"} {data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</h4>
                             <h4 style={{ fontSize: '15px', color: "rgba(255,255,255,.7)" }}>{"(inclusive 5% GST)"}</h4>
                         </div>
                         <div style={{ padding: "3px 12px", background: style.primaryColor, color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'fit-content', fontWeight: 'bold', borderRadius: 20 }}>
@@ -197,29 +197,17 @@ export default function SinglePackage({ data }) {
                             </div>
                             <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
 
-                            {/* <div style={{ background: 'white', width: '100%', padding: '5%', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
+                            <div style={{ background: 'white', width: '100%', padding: '5%', flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
 
-                                    <h2 style={{ textAlign: 'center', padding: "0 10px 20px 10px" }}>Exciting Offers on Ferry Bookings</h2>
-                                    {cruize.map((item, i) => (
-
-                                        <Link
-                                            data-aos="fade-up"
-                                            data-aos-anchor-placement="top-bottom"
-                                            data-aos-duration="2000"
-                                            key={i} target='blank' href={item.link}>
-                                            <div id='cardImage' style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width: 260, marginBottom: 30 }}>
-                                                <Image
-                                                    src={item.thumbnail}
-                                                    alt={item.name}
-                                                    preview={false}
-                                                    width={250}
-                                                    height={250}
-                                                    style={{ objectFit: 'cover', borderTopLeftRadius: 10, borderTopRightRadius: 10 }} />
-                                                <h2 style={{ padding: '5%', textAlign: 'center' }}>{item.name}</h2>
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </div> */}
+                                <h2 style={{ textAlign: 'center', padding: "0 10px 20px 10px" }}>Explore more packages from {query.packageName}</h2>
+                                {sortedData.map((item, i) => {
+                                    if (item.id !== data.id) {
+                                        return (
+                                            <Tile key={i} name={item.title} slug={item.slug} thumbnail={item.thumbnail} />
+                                        )
+                                    }
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -269,12 +257,9 @@ export async function getStaticProps(context) {
 
     const { packageName, singlePackage } = context.params
 
-    // console.log(context.params)
-
     const packagegroup = `${packageName == "Andaman" ? "packageAndaman" : packageName == "Bali" ? "packageBali" : null}`
 
     const res = await db.collection(`package${packageName}`).get()
-    const docSize = res.size
     const entry = res.docs.map((entry) => {
         return ({ id: entry.id })
     });
@@ -282,14 +267,46 @@ export async function getStaticProps(context) {
     let finalData = []
     for (let i = 0; i < entry.length; i++) {
         const getData = await db.doc(`package${packageName}/${entry[i].id}`).collection("singlePackage").where("slug", "==", `/package/${packageName}/${singlePackage}`).get()
-        const data = getData.docs.map((d) => (d.data()))
+        const data = getData.docs.map((d) => ({ id: d.id, ...d.data() }))
         if (data.length != 0) {
             finalData = [...data]
             break
         }
     }
 
-    
+    let allData = []
+    for (let i = 0; i < entry.length; i++) {
+        const getData = await db.doc(`${packagegroup}/${entry[i].id}`).collection("singlePackage").where("status", "==", "published").get()
+        const data = getData.docs.map((d) => ({ id: d.id, ...d.data() }))
+        data.map((item) => {
+            allData.push(item)
+        })
+        // allData.push({ parentID: entry[i].id, childData: data })
+    }
+
+    let sortedData = []
+
+    function GetRand(num) {
+        var ran = Math.floor(Math.random() * num)
+        if (num > 4 && num - ran >= 4) {
+            for (let index = 0; index < 4; index++) {
+                sortedData.push(allData[ran])
+                ran += 1
+
+            }
+        }
+        else if (num <= 4) {
+            for (let index = 0; index < num; index++) {
+                sortedData.push(allData[index])
+            }
+        }
+        else { GetRand(num) }
+    }
+
+    GetRand(allData.length)
+
+
+
     if (finalData.length == 0) {
         return {
             notFound: true
@@ -298,7 +315,8 @@ export async function getStaticProps(context) {
 
     return {
         props: {
-            data: finalData[0]
+            data: finalData[0],
+            sortedData
         },
         revalidate: 10,
     }

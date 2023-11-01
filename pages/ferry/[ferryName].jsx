@@ -12,11 +12,12 @@ import TicketQuery from '@/components/master/TicketQuery'
 import dynamic from 'next/dynamic'
 import SHeader from '@/components/skeleton/SHeader'
 import SHome from '@/components/skeleton/SHome'
+import Tile from '@/components/master/SingleTile'
 
-const Menu = dynamic(() => import("@/components/master/header"), { ssr: false, loading:()=><SHeader/> })
-const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false,loading:()=><SHome/> })
+const Menu = dynamic(() => import("@/components/master/header"), { ssr: false, loading: () => <SHeader /> })
+const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false, loading: () => <SHome /> })
 
-export default function Slug({ data }) {
+export default function Slug({ data, sortedData }) {
 
   const [isMobile, setIsMobile] = useState(false)
   const [msg, showMsg] = message.useMessage()
@@ -58,12 +59,12 @@ export default function Slug({ data }) {
 
       <div>
         {showMsg}
-        <Menu/>
-        <HeadImage image={data.image}/>
+        <Menu />
+        <HeadImage image={data.image} />
 
         <div
           className='backCurve5'
-          style={{ display: 'flex', justifyContent: 'center', background:"var(--lightBackground)"}}>
+          style={{ display: 'flex', justifyContent: 'center', background: "var(--lightBackground)" }}>
 
           <div style={{ width: '90%', display: isMobile ? "block" : "flex", gap: '3%', marginTop: '3%' }}>
             <div style={{ width: isMobile ? "100%" : "65%", background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
@@ -77,7 +78,7 @@ export default function Slug({ data }) {
             </div>
 
             <div style={{ width: isMobile ? "100%" : '35%', height: 'fit-content' }} id='ticketCollapse'>
-              <h2 style={{ marginBottom: '5%' }}>Get Instant Ticket</h2>
+              <h2 style={{ marginBottom: '5%', textAlign: 'center' }}>Get Instant Ticket</h2>
               {data.ticket.map((tk, i) => {
                 const classes = data.classes.filter(f => {
                   return f.ticketId == tk.ticketId
@@ -117,7 +118,7 @@ export default function Slug({ data }) {
                           </div>
                         }
                       >
-                        <div>
+                        <div >
                           {classes.map((cl, j) => (
                             <div key={j} >
                               <div style={{ display: 'flex', gap: '3%' }}>
@@ -154,6 +155,17 @@ export default function Slug({ data }) {
               })
 
               }
+
+              <div style={{ background: 'white', padding: '5%', marginTop: "2rem", display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>Activities of Andaman</h2>
+                {sortedData.map((item, i) => {
+                  return (<Tile key={i} name={item.title} slug={item.slug} thumbnail={item.thumbnail} />)
+                  
+                })
+
+                }
+              </div>
+              
             </div>
           </div>
 
@@ -195,6 +207,34 @@ export const getStaticProps = async (context) => {
     return ({ id: entry.id, ...entry.data() })
   });
 
+
+  const resAndaman = await db.collection("activityAndaman").get()
+  const entryAndaman = resAndaman.docs.map((entry) => {
+    return ({ id: entry.id, ...entry.data() })
+  });
+
+
+  let sortedData = []
+
+  function GetRand(num) {
+    var ran = Math.floor(Math.random() * num)
+    if (num > 4 && num - ran >= 4) {
+      for (let index = 0; index < 4; index++) {
+        sortedData.push(entryAndaman[ran])
+        ran += 1
+
+      }
+    }
+    else if (num <= 4) {
+      for (let index = 0; index < num; index++) {
+        sortedData.push(entryAndaman[index])
+      }
+    }
+    else { GetRand(num) }
+  }
+
+  GetRand(entryAndaman.length)
+
   if (entry.length == 0) {
     return {
       notFound: true
@@ -204,6 +244,7 @@ export const getStaticProps = async (context) => {
   return {
     props: {
       data: entry[0],
+      sortedData
     },
     revalidate: 60,
 

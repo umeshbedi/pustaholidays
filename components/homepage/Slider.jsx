@@ -8,20 +8,13 @@ import { Carousel, Row, Col, Space, Button, Skeleton } from 'antd'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import Image from 'next/image'
-import { mobile } from '../utils/variables';
+import { mobile, textShadow } from '../utils/variables';
 
 export default function Slider({sliderData}) {
 
     const [height, setHeight] = useState(null)
 
-    const banner = [
-        { image: `https://picsum.photos/seed/sdf0934ro/1280/720`, heading: "Something Heading Caption", btnUrl: "#" },
-        { image: `https://picsum.photos/seed/sdf4dfgre5/1280/720`, heading: "Something Heading Caption", btnUrl: "#" },
-        { image: `https://picsum.photos/seed/sder54fr4rf/1280/720`, heading: "Something Heading Caption", btnUrl: "#" },
-        { image: `https://picsum.photos/seed/sdt45645fdfd/1280/720`, heading: "Something Heading Caption", btnUrl: "#" },
-    ]
-
-    const [opacity, setOpactiy] = useState(null)
+      const [opacity, setOpactiy] = useState(null)
     const [marginBottom, setMarginBottom] = useState("2rem")
 
     const [isMobile, setIsMobile] = useState(false)
@@ -99,7 +92,8 @@ export default function Slider({sliderData}) {
                                                     fontWeight: 800,
                                                     marginBottom: marginBottom,
                                                     transition: 'all .5s ease',
-                                                    opacity: opacity
+                                                    opacity: opacity,
+                                                    textShadow:textShadow
                                                 }}
                                             >{item.heading}
                                             </h1>
@@ -109,7 +103,8 @@ export default function Slider({sliderData}) {
                                                 fontWeight: 600,
                                                 marginBottom: marginBottom,
                                                 transition: 'all .5s ease',
-                                                opacity: opacity
+                                                opacity: opacity,
+                                                textAlign:'center'
                                             }}
                                             >{item.subHeading}
                                             </p>

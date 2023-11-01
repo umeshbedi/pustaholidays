@@ -4,7 +4,7 @@ import style from './Title.module.css'
 export default function Title({title="", isdark=false, extra=React.Component, center=false, margin}) {
   return (
     <div className={style.titleContainer} style={{margin:margin}}>
-        <h1 className={style.title} style={{textAlign:center?'center':'left', color:isdark?"white":'black'}}>{title}</h1>
+        <h1 className={style.title} style={{ color:isdark?"white":'black'}}>{title}</h1>
         {extra}
     </div>
   )

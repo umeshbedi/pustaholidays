@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import style from '@/styles/Home.module.css'
-import { Col, Row } from 'antd'
+import { Col, Divider, Row } from 'antd'
 import Image from 'next/image'
 import { FaMap, FaUser } from 'react-icons/fa'
 import { CarFilled } from '@ant-design/icons'
@@ -11,15 +11,14 @@ import SHeader from '@/components/skeleton/SHeader'
 import { boxShadow, mobile } from '@/components/utils/variables'
 import SHome from '@/components/skeleton/SHome'
 import { db } from '@/firebase'
+import Tile from '@/components/master/SingleTile'
 
 const HeadImage = dynamic(import('@/components/master/HeadImage'), { ssr: false, loading: () => <SHome /> })
 const Header = dynamic(import("@/components/master/header"), { ssr: false, loading: () => <SHeader /> })
 // const Footer = dynamic(() => import('@/components/Footer'))
 
 
-export default function Cab({ data }) {
-
-    console.log(data)
+export default function Cab({ data, sortedActivity, sortedFerryData }) {
 
     const [isMobile, setIsMobile] = useState(false)
     const [height, setHeight] = useState(null)
@@ -33,15 +32,15 @@ export default function Cab({ data }) {
 
     useEffect(() => {
         if (data != undefined) {
-            db.doc(`rentalAndaman/${data.id}`).collection('cabs').get().then((snap)=>{
+            db.doc(`rentalAndaman/${data.id}`).collection('cabs').get().then((snap) => {
                 const dataTemp = []
-                snap.forEach(data=>{
-                    dataTemp.push({id:data.id, ...data.data()})
+                snap.forEach(data => {
+                    dataTemp.push({ id: data.id, ...data.data() })
                 })
 
                 setCabsList(dataTemp)
             })
-            
+
         }
     }, [data])
 
@@ -82,7 +81,7 @@ export default function Cab({ data }) {
                     <div style={{ width: isMobile ? "100%" : "25%", flexDirection: 'column', display: "flex", justifyContent: 'space-between', borderLeft: isMobile ? null : "1px solid #e2e8ee", marginTop: isMobile ? "2.5rem" : null }}>
                         <div style={{ flexDirection: 'column', display: 'flex', alignItems: 'center' }}>
                             <h3>Offer Price:</h3>
-                            <h1 style={{ fontSize: '2rem' }}>₹{price}</h1>
+                            <h1 style={{ fontSize: '2rem' }}>₹{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</h1>
                         </div>
                         <div style={{ height: "3rem", width: '100%', background: "var(--primaryColor)", marginTop: "1.5rem", display: 'flex', alignItems: "center", justifyContent: 'center', cursor: 'pointer', borderRadius: isMobile ? 50 : null }}>
                             <p style={{ fontSize: "1.2rem", color: "white" }}>Enquire Now</p>
@@ -110,7 +109,7 @@ export default function Cab({ data }) {
 
             <HeadImage image={data.headerImage} />
 
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: "3rem" }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: "3rem", background: "var(--lightBackground)" }}>
                 <div style={{ width: '90%', display: isMobile ? "block" : "flex", gap: '3%', marginTop: '3%' }}>
                     <div style={{ width: isMobile ? "100%" : "65%", display: 'flex', flexDirection: 'column', gap: "2rem", overflow: 'hidden' }}>
                         <h1 style={{ fontWeight: 900, fontSize: isMobile ? "2rem" : "2.5rem" }}>{data.title}</h1>
@@ -121,7 +120,26 @@ export default function Cab({ data }) {
                     </div>
 
                     <div style={{ width: isMobile ? "100%" : '35%', height: 'fit-content', marginTop: isMobile ? "4.5rem" : null }} id='ticketCollapse'>
-                        <h2 style={{ marginBottom: '5%', textAlign: 'center' }}>Popular Cruises</h2>
+                        <div style={{ padding: '5%', marginTop: "2rem", display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                            <h2 style={{ textAlign: "center", marginBottom: "1rem", padding:'0 10%' }}>Popular Cruises of Andaman</h2>
+                            {sortedFerryData.map((item, i) => {
+                                return (<Tile key={i} name={item.name} slug={item.slug} thumbnail={item.image} />)
+
+                            })
+                            }
+                        </div>
+                        <div style={{padding:'0 20%'}}><Divider /></div>
+                        <div style={{ padding: '5%', marginTop: "2rem", display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                            <h2 style={{ textAlign: "center", marginBottom: "1rem",padding:'0 10%' }}>Activities of Andaman</h2>
+                            {sortedActivity.map((item, i) => {
+                                return (<Tile key={i} name={item.title} slug={item.slug} thumbnail={item.thumbnail} />)
+
+                            })
+                            }
+                        </div>
+
+
+
                     </div>
 
                 </div>
@@ -159,10 +177,60 @@ export const getStaticProps = async (context) => {
     const entry = res.docs.map((entry) => {
         return ({ id: entry.id, ...entry.data() })
     });
-    // const cab = await db.doc(`rentalAndaman/${entry[0].id}`).collection('cabs').get()
-    // const cabData = cab.docs.map((cab) => {
-    //     return ({ id: cab.id, ...cab.data() })
-    // });
+
+    const resAndaman = await db.collection("activityAndaman").get()
+    const entryAndaman = resAndaman.docs.map((entry) => {
+        return ({ id: entry.id, ...entry.data() })
+    });
+
+    let sortedData = []
+
+    function GetRand(num) {
+        var ran = Math.floor(Math.random() * num)
+        if (num > 3 && num - ran >= 3) {
+            for (let index = 0; index < 3; index++) {
+                sortedData.push(entryAndaman[ran])
+                ran += 1
+
+            }
+        }
+        else if (num <= 3) {
+            for (let index = 0; index < num; index++) {
+                sortedData.push(entryAndaman[index])
+            }
+        }
+        else { GetRand(num) }
+    }
+
+    GetRand(entryAndaman.length)
+
+    const resCruise = await db.collection("ferry").get()
+    const entryCruise = resCruise.docs.map((entry) => {
+        return ({ id: entry.id, ...entry.data() })
+    });
+
+    let sortedFerryData = []
+
+    function GetRandFerry(num) {
+        var ran = Math.floor(Math.random() * num)
+        if (num > 3 && num - ran >= 3) {
+            for (let index = 0; index < 3; index++) {
+                sortedFerryData.push(entryCruise[ran])
+                ran += 1
+
+            }
+        }
+        else if (num <= 3) {
+            for (let index = 0; index < num; index++) {
+                sortedFerryData.push(entryCruise[index])
+            }
+        }
+        else { GetRandFerry(num) }
+    }
+
+    GetRandFerry(entryCruise.length)
+
+
 
     if (entry.length == 0) {
         return {
@@ -173,6 +241,8 @@ export const getStaticProps = async (context) => {
     return {
         props: {
             data: entry[0],
+            sortedActivity: sortedData,
+            sortedFerryData
         },
         revalidate: 60,
 

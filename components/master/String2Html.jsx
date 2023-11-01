@@ -7,6 +7,7 @@ export default function String2Html({string, id}) {
     const image = document.getElementsByTagName('img')
     for (let index = 0; index < image.length; index++) {
       image[index].setAttribute("loading", "lazy")
+      
       // console.log(image[index])
     }
 

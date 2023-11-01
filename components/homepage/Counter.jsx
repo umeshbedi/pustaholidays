@@ -46,11 +46,12 @@ export default function Counter() {
             }}
         >
             <div style={{ marginLeft: isMobile ? "5%" : '50%', paddingRight: "5%", zIndex:2 }}>
-                <h1 style={{ fontWeight: 600, fontSize: "2.5rem" }}>Discover with the leader of andaman tourism. We are
-                    <span style={{ fontWeight: 900, color: "var(--primaryColor)" }}><br />Pusta Holidays</span>
+                <h1 style={{ fontWeight: 600}}>Discover with the Leaders of Bali & Andaman tourism.
+                <br />We are<span style={{ fontWeight: 900, color: "var(--primaryColor)" }}> Pusta Holidays</span>
                 </h1>
                 <br />
-                <p style={{ fontSize: "1.2rem", fontWeight: 400, fontStyle: 'italic' }}>Explore Andaman tour & travel packages at best prices on pustaholidays. Find all tourist places in Andaman with best deals and offers. Get custom-designed Andaman holiday packages with us. Book Now!</p>
+                <p style={{  fontWeight: 400, fontStyle: 'italic' }}>Embark on a breathtaking journey that seamlessly combines the tropical paradises of Andaman and Bali with Pusta Holidays. Experience the ultimate blend of tourism like never before, where every moment is an unforgettable adventure.</p>
+                <p style={{  fontWeight: 400, fontStyle: 'italic' }}>{`Pusta Holidays invites you to discover the best of both worlds as you explore the stunning landscapes and cultures of Andaman and Bali. Picture yourself strolling along pristine, sun-kissed beaches with turquoise waters that stretch as far as the eye can see.`}</p>
                 <br />
                 <div style={{ width: 'fit-content' }}><MyButton name={"Know More"} slug={"/about-us"} /></div>
                 <br />

@@ -8,6 +8,7 @@ import SHeader from '@/components/skeleton/SHeader'
 import SHome from '@/components/skeleton/SHome'
 import { db } from '@/firebase'
 import { Segmented } from 'antd'
+import Tile from '@/components/master/SingleTile'
 const Menu = dynamic(() => import("@/components/master/header"), { ssr: false, loading: () => <SHeader /> })
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false, loading: () => <SHome /> })
 
@@ -20,37 +21,6 @@ export default function PackageName({ data, allData, banner }) {
     const [packageData, setPackageData] = useState([])
     const [tabName, setTabName] = useState([])
 
-
-    function Tile({ thumbnail, name, slug }) {
-        return (
-            <div className={style.tile} style={{ height: 350, width: 250, position: 'relative', borderRadius: 40, overflow: 'hidden' }}>
-                <a href={slug}>
-
-                    <Image
-                        src={thumbnail}
-                        alt={name}
-                        fill
-                        style={{ objectFit: 'cover' }}
-                        loading='lazy'
-                        placeholder='blur'
-                        blurDataURL={thumbnail + '?blur'}
-                    />
-                </a>
-                <h1 style={{
-                    color: 'white',
-                    fontWeight: 700,
-                    fontSize: "1.5rem",
-                    bottom: 20,
-                    textAlign: 'center',
-                    position: 'absolute',
-                    width: '100% '
-                }}
-                >
-                    {name}
-                </h1>
-            </div>
-        )
-    }
 
     function fetchData(id) {
         const getID = data.find(f => f.name == id)

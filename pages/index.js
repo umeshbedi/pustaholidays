@@ -6,6 +6,8 @@ import { mobile } from '@/components/utils/variables'
 import { useEffect, useState } from 'react'
 import SHome from '@/components/skeleton/SHome'
 import { db } from '@/firebase'
+import { FloatButton } from 'antd'
+import { FaWhatsapp } from 'react-icons/fa'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,10 +25,15 @@ const WhatTheySay = dynamic(() => import("@/components/homepage/WhatSay"), { ssr
 
 
 export default function Home({
-  data, 
-  testimonials, 
+  data,
+  testimonials,
   tarvelJourney,
-  InsightBanner
+  InsightBanner,
+  ferryData,
+  desEntryAndaman,
+  desEntryBali,
+  activityDataAndaman,
+  activityDataBali
 }) {
 
   const [isMobile, setIsMobile] = useState(false)
@@ -60,10 +67,12 @@ export default function Home({
               // />
             ) : (
               <DivCarousel
-                lightHead={"Destination "}
+                lightHead={"Handpicked Destination "}
                 darkHead={"in Bali"}
                 button={{ name: "All Destination", slug: "/destination" }}
                 backgroundImage={InsightBanner.HomeBaliInsight}
+                category={'destination'}
+                sliderContent={desEntryBali}
               />
 
             )}
@@ -80,9 +89,11 @@ export default function Home({
             ) : (
               <DivCarousel
                 lightHead={"Destination "}
-                darkHead={"in Andaman"}
+                darkHead={"in Andaman (India)"}
                 button={{ name: "All Destination", slug: "/destination" }}
                 backgroundImage={InsightBanner.HomeAndamanInsight}
+                category={'destination'}
+                sliderContent={desEntryAndaman}
               />
 
             )}
@@ -98,15 +109,18 @@ export default function Home({
               // />
             ) : (
               <DivCarousel
-                lightHead={"Cruises "}
-                darkHead={"in Andaman"}
+                lightHead={"Luxury Cruises"}
+                darkHead={" In Andaman (India)"}
                 button={{ name: "All Cruises", slug: "/cruises" }}
                 backgroundImage={InsightBanner.HomeCruizeInsight}
+                sliderContent={ferryData}
+                category={'cruise'}
               />
 
             )}
 
-            <DivCarousel2 />
+            <DivCarousel2 title={"Activities in Bali"} sliderContent={activityDataBali}/>
+            <DivCarousel2 title={"Activities in Andaman (India)"} sliderContent={activityDataAndaman}/>
 
           </div>
           <Journey youtube={tarvelJourney} />
@@ -115,6 +129,7 @@ export default function Home({
           <Testimonials testimonialsData={testimonials} />
           <WhatTheySay />
           <Authorities />
+          
         </div>
       </main>
     </>
@@ -126,51 +141,34 @@ export const getStaticProps = async () => {
   const res = await db.doc(`pages/homepage`).get();
   const InsightBanner = await db.doc(`pages/allPageBanner`).get();
 
-  // //Getting Package Data
-  // const pkg = await db.collection("package").get();
-  // const pkgId = pkg.docs.map((pkg, i) => {
-  //   return { id: pkg.id }
-  // })
+  const desAndaman = await db.collection('destinationAndaman').get()
+  const desEntryAndaman = desAndaman.docs.map((entry) => {
+    return ({ id: entry.id, ...entry.data() })
+  });
+  const desBali = await db.collection('destinationBali').get()
+  const desEntryBali = desBali.docs.map((entry) => {
+    return ({ id: entry.id, ...entry.data() })
+  });
 
-  // let packageList = []
-  // let offerItems = []
+  //Getting Activity
+  const actvtyAndaman = await db.collection("activityAndaman").get();
+  const activityDataAndaman = actvtyAndaman.docs.map((act) => {
+    const data = act.data()
+    return { name: data.name, thumbnail: data.thumbnail, slug: data.slug }
+  })
 
-  // for (let i = 0; i < pkgId.length; i++) {
-  //   const pkgd = await db.doc(`package/${pkgId[i].id}`).collection("singlePackage").limit(4).get();
-  //   const pkgdata = pkgd.docs.map((d) => {
-  //     const data = d.data()
-  //     return { title: data.title, thumbnail: data.thumbnail, slug: data.slug }
-  //   })
-  //   packageList.push(pkgdata)
+  const actvtyBali = await db.collection("activityBali").get();
+  const activityDataBali = actvtyBali.docs.map((act) => {
+    const data = act.data()
+    return { name: data.name, thumbnail: data.thumbnail, slug: data.slug }
+  })
 
-  //   const offer = await db.doc(`package/${pkgId[i].id}`).collection("singlePackage").where("isOffer","==", true).get();
-  //   const offerData = offer.docs.map((d) => {
-  //     const data = d.data()
-  //     return { title: data.title, thumbnail: data.thumbnail, slug: data.slug }
-  //   })
-  //   offerItems.push(offerData)
-  // }
-
-  // //Getting Island Data
-  // const island = await db.collection("island").get();
-  // const islandData = island.docs.map((isl) => {
-  //   const data = isl.data()
-  //   return { name: data.name, slug: data.slug, thumbnail: data.thumbnail }
-  // })
-
-  // //Getting Activity
-  // const actvty = await db.collection("activity").get();
-  // const activityData = actvty.docs.map((act) => {
-  //   const data = act.data()
-  //   return { name: data.name, thumbnail: data.thumbnail, slug: data.slug }
-  // })
-
-  // //Getting Ferry
-  // const ferry = await db.collection("ferry").get();
-  // const ferryData = ferry.docs.map((fer) => {
-  //   const data = fer.data()
-  //   return { name: data.name, thumbnail: data.image, slug: data.slug }
-  // })
+  //Getting Ferry
+  const ferry = await db.collection("ferry").get();
+  const ferryData = ferry.docs.map((fer) => {
+    const data = fer.data()
+    return { name: data.name, thumbnail: data.image, slug: data.slug }
+  })
 
   //Getting Testimonials
   const testimonials = await db.doc(`pages/testimonials`).get()
@@ -178,15 +176,16 @@ export const getStaticProps = async () => {
   //Getting Travel Journey
   const tarvelJourney = await db.doc(`pages/travelJourney`).get()
 
-  // console.log(offerItems)
+  // console.log(activityDataBali)
 
   return {
     props: {
       data: res.data(),
-      // packageList,
-      // islandData,
-      // activityData,
-      // ferryData,
+      desEntryBali,
+      desEntryAndaman,
+      activityDataAndaman,
+      activityDataBali,
+      ferryData,
       // offerItems,
       InsightBanner: InsightBanner.data(),
       tarvelJourney: tarvelJourney.data(),

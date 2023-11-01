@@ -6,6 +6,7 @@ import style from '@/styles/packageName.module.css'
 import { Divider } from 'antd'
 import { db } from '@/firebase'
 import SHome from '@/components/skeleton/SHome'
+import Tile from '@/components/master/SingleTile'
 
 const Menu = dynamic(() => import("@/components/master/header"), { ssr: false })
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false })
@@ -16,37 +17,7 @@ export default function Destination({ entryAndaman, entryBali, banner }) {
 
   if (entryAndaman == undefined) return <SHome />
 
-  function Tile({ thumbnail, name, slug }) {
-    return (
-      <div className={style.tile} style={{ height: 350, width: 250, position: 'relative', borderRadius: 40, overflow: 'hidden' }}>
-        <a href={slug}>
-
-          <Image
-            src={thumbnail}
-            alt={name}
-            fill
-            style={{ objectFit: 'cover' }}
-            loading='lazy'
-            placeholder='blur'
-            blurDataURL={thumbnail + '?blur'}
-          />
-        </a>
-        <h1 style={{
-          color: 'white',
-          fontWeight: 700,
-          fontSize: "1.5rem",
-          bottom: 20,
-          textAlign: 'center',
-          position: 'absolute',
-          width: '100% ',
-          padding: "0 10px",
-        }}
-        >
-          {name}
-        </h1>
-      </div>
-    )
-  }
+  
   return (
     <div>
       <main>

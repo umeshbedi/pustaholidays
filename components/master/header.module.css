@@ -6,6 +6,9 @@
     width: 100%;
     transition: padding .5s ease, background .5s ease;
 }
+.RespMenu p{
+font-weight: bold;
+}
 
 .menuContainer:hover{
     background: rgba(0,0,0,.3) !important;

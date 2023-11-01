@@ -11,6 +11,7 @@ export function mobile() {
   }
 
   export const boxShadow = '0 0 30px 0 rgba(0, 0, 0, 0.15)'
+  export const textShadow = "2px 2px 4px #000000"
 
   export const IncludesIconName = [
     {name:"Breakfast", icon:"/icons/bREAKFAST.png"},

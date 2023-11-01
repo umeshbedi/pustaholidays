@@ -13,19 +13,20 @@ export default function WhatSay() {
             <div className={style.SayContainer}>
 
                 <div className={style.SayImage}>
-                    <Image src={`https://picsum.photos/seed/sdf09eedd/1000/500`} fill style={{ objectFit: 'cover' }} />
+                    <Image src={`/images/What they Say.jpg`} alt='What they say background Image' fill style={{ objectFit: 'fill' }} />
                 </div>
 
                 <div className={style.SayBox}>
                     <div className={style.arrowBox}/>
-                    <h2>The Quiet Atmoshphere of given Place</h2>
-                    <p>{testimonials[0].content.slice(0, 300)}</p>
+                    <h2 style={{fontSize:20, marginBottom:5}}>The Best experience I can have for the Bali and Andaman Trip is via Pusta Holidays only.</h2>
+                    
+                    <p style={{fontSize:18}}> I am a travel enthusiast and i have Traveled to Bali and Andaman During the Pusta Holidays which was unforgettable and i discovered more from the Islands with Local Expertise in depth.  </p>
                     <div className={style.SayAuthor}>
                         <div style={{ width: 80, height: 80, position: 'relative', borderRadius: 100, overflow: 'hidden' }}>
-                            <Image src={`https://picsum.photos/seed/sdfsdfjjlkl34/150/150`} fill style={{ objectFit: 'cover' }} />
+                            <Image src={`/images/Ravindra Patel.jpg`} alt='Ravindra Patel Influencer' fill style={{ objectFit: 'cover' }} />
                         </div>
                         <div>
-                            <p style={{ fontWeight: 'bold' }}>by Name Kumar</p>
+                            <p style={{ fontWeight: 'bold' }}>by Ravindra Patel</p>
                             <p >Influencer</p>
                         </div>
                     </div>

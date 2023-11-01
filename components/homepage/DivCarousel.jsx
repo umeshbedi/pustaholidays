@@ -13,13 +13,13 @@ import "swiper/css/navigation";
 import Image from 'next/image';
 
 import MyButton from '../utils/MyButton';
-import { mobile } from '../utils/variables';
+import { mobile, textShadow } from '../utils/variables';
 
 
 
 
 
-export default function DivCarousel({ lightHead, darkHead, backgroundImage, sliderContent, button }) {
+export default function DivCarousel({ lightHead, darkHead, backgroundImage, sliderContent = [], button, category }) {
 
   const [containerStyle, setContainerStyle] = useState({ width: "90%", borderRadius: "100px 0 0 100px", })
   const [subHeadStyle, setsubHeadStyle] = useState({ display: 'flex' })
@@ -27,21 +27,9 @@ export default function DivCarousel({ lightHead, darkHead, backgroundImage, slid
   const [slides, setSlides] = useState(4.5)
   const [center, setcenter] = useState(true)
 
-  const [buttonFocus, setButtonFocus] = useState(false)
-
   const slideRef = useRef()
   const containerRef = useRef()
 
-const sliderImages = [
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf345/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdwef345/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf345/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf3rrt45/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdfr3345/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdsrtf345/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf345/300/400` },
-    { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf36645/300/400` },
-]
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -91,11 +79,13 @@ const sliderImages = [
             <h1
               data-aos="fade-up"
               data-aos-duration="2000"
-              style={{ color: 'white', fontWeight: 900, fontSize: isMobile ? "2.2rem" : "3.2rem", lineHeight: 1.1, marginBottom: isMobile ? 25 : 40 }}>
+              style={{ color: 'white', fontWeight: 900, lineHeight: 1.1, marginBottom: isMobile ? 25 : 40 }}>
               {lightHead} <span style={{ color: 'white' }}>{darkHead}</span>
             </h1>
-            <div style={{width:'fit-content'}}>
+            <div style={{ width: 'fit-content' }}>
+              {category=="destination"&&
               <MyButton name={button.name} slug={button.slug} />
+              }
             </div>
           </div>
         </div>
@@ -109,54 +99,61 @@ const sliderImages = [
             style={{ padding: isMobile ? "3rem 0 1.5rem 10px" : "2.5rem 0", "--swiper-navigation-color": "#fff", transition: "ease-out" }}
             ref={slideRef}
             effect={"coverflow"}
-            grabCursor={true}
+            // grabCursor={true}
             navigation={true}
             modules={[Pagination, Navigation]}
             centeredSlides={isMobile ? false : center}
-            slidesPerView={isMobile ? 2.1 : slides}
+            slidesPerView={slides}
             spaceBetween={isMobile ? 10 : 30}
             speed={1500}
             onSlideChange={(e) => {
               if (e.activeIndex > 0) {
-                setcenter(false)
+                // setcenter(false)
+                setSlides(4.8)
                 setContainerStyle({ width: '100%', borderRadius: "0px", })
                 setsubHeadStyle({ display: isMobile ? "block" : "none" })
 
               } else {
                 setContainerStyle({ width: '90%', borderRadius: "100px 0 0 100px" })
                 setsubHeadStyle({ display: "flex" })
-                setcenter(true)
+                setSlides(4.3)
+                // setcenter(true)
               }
             }}
           >
-            {sliderImages.map((item, index) => (
-              <SwiperSlide style={{ width: 210, height: isMobile ? 250 : 350 }} key={index} className='singleSwiper'>
-                <div style={{ width: 210, height: isMobile ? 250 : 350 }}>
-                  <Image 
-                  src={item.thumbnail} 
-                  alt={item.name} 
-                  fill 
-                  style={{ objectFit: 'cover', borderRadius: isMobile ? 25 : 50, position: 'absolute', zIndex: -1 }} 
-                  loading='lazy'
-                  placeholder='blur'
-                  blurDataURL={item.thumbnail}
-                  />
-                  <h1 style={{
-                    color: 'white',
-                    fontWeight: 700,
-                    fontSize: isMobile ? "1.5rem" : "2.2rem",
-                    writingMode: 'vertical-lr',
-                    transform: 'rotate(-180deg)',
-                    float: 'bottom',
-                    // background:'yellow',
-                    height: '100%',
-                    paddingTop: 20,
-                    marginLeft: 10
-                  }}
-                  >
-                    Place
-                  </h1>
-                </div>
+            {sliderContent.map((item, index) => (
+              <SwiperSlide style={{ width: 250, height: isMobile ? 250 : 350 }} key={index} className='singleSwiper'>
+                <Link href={item.slug}>
+                  <div style={{ width: 210, height: isMobile ? 250 : 350 }}>
+                    <Image
+                      src={item.thumbnail}
+                      alt={item.name}
+                      fill
+                      style={{ objectFit: 'cover', borderRadius: isMobile ? 25 : 50, position: 'absolute', zIndex: -1 }}
+                      loading='lazy'
+                      placeholder='blur'
+                      blurDataURL={item.thumbnail}
+                    />
+
+                    <h1 style={{
+                      color: 'white',
+                      fontWeight: 700,
+                      fontSize: isMobile ? "1.5rem" : "1.8rem",
+                      writingMode: 'vertical-lr',
+                      transform: 'rotate(-180deg)',
+                      float: 'bottom',
+                      // background:'yellow',
+                      height: '100%',
+                      paddingTop: 20,
+                      marginLeft: 10,
+                      textShadow: textShadow
+                    }}
+                    >
+                      {category=='destination'?item.title: item.name}
+                    </h1>
+
+                  </div>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>

@@ -13,21 +13,15 @@ const Menu = dynamic(() => import("@/components/master/header"), { ssr: false })
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false })
 
 
-export default function DestDetails({data}) {
+export default function DestDetails({data, sortedData}) {
   console.log(data)
   const { query } = useRouter()
-  const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
-
+  
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     setIsMobile(mobile())
   }, [isMobile])
-
-  const tileData = [
-    { image: `https://picsum.photos/seed/sdf234/250/350`, slug: `/package/${query.packageName}/abctest` },
-    { image: `https://picsum.photos/seed/sdf4365/250/350`, slug: `/package/${query.packageName}/abctest` },
-  ]
 
 
   function Tile({ thumbnail, name, slug }) {
@@ -91,11 +85,15 @@ export default function DestDetails({data}) {
               </div>
 
               <div style={{ width: isMobile ? '100%' : '30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center', overflow:'hidden' }}>
-                <h2 style={{ textAlign: 'center' }}>Visit Other Places of {data.title}</h2>
+                <h2 style={{ textAlign: 'center' }}>Visit Other Destinations of Bali</h2>
                 <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
-                {tileData.map((item, i) => (
-                  <Tile key={i} thumbnail={item.image} name={"Place Name"} />
-                ))}
+                {sortedData.map((item, i) => {
+                  if (item.id !== data.id) {
+                    return (
+                      <Tile key={i} name={item.title} slug={item.slug} thumbnail={item.thumbnail} />
+                    )
+                  }
+                })}
               </div>
             </div>
           </div>
@@ -130,6 +128,31 @@ export const getStaticPaths = async () => {
      return ({ id: entry.id, ...entry.data() })
    });
 
+   const resBali = await db.collection("destinationBali").get()
+  const entryBali = resBali.docs.map((entry) => {
+    return ({ id: entry.id, ...entry.data() })
+  });
+
+  let sortedData = []
+
+  function GetRand(num) {
+    var ran = Math.floor(Math.random() * num)
+    if (num > 4 && num - ran >= 4) {
+      for (let index = 0; index < 4; index++) {
+        sortedData.push(entryBali[ran])
+        ran += 1
+
+      }
+    }
+    else if (num <= 4) {
+      for (let index = 0; index < num; index++) {
+        sortedData.push(entryBali[index])
+      }
+    }
+    else { GetRand(num) }
+  }
+
+  GetRand(entryBali.length)
 
    if (entry.length == 0) {
      return {
@@ -140,6 +163,7 @@ export const getStaticPaths = async () => {
    return {
      props: {
        data: entry[0],
+       sortedData
      },
      revalidate: 60,
  

@@ -74,7 +74,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Red Hat Display', sans-serif;
+  font-family: 'Red Hat Display', sans-serif !important;
 }
 
 html,
@@ -126,12 +126,22 @@ main{
   min-height: 100vh;
 }
 h1{
-  font-size: 3rem;
+  font-size: 2.7rem;
   font-weight: 900;
 }
 p{
-  font-size: 1.2rem;
+  font-size: 1.2rem ;
   font-weight: 400;
+  text-align: justify;
+}
+h4{
+  font-size: 1.1rem;
+}
+h3{
+  font-size: 1.2rem;
+}
+li{
+  font-size: 1.2rem;
 }
 /* Change the background color of the active slide */
 .swiper-slide-active {
@@ -198,4 +208,34 @@ width: 100%;
 
 .ant-segmented{
   background-color: white !important;
+}
+
+#WhatsAppButton .ant-float-btn-default .ant-float-btn-body{
+background-color: #00b33e !important;
+
+}
+
+#ticketCollapse>.ant-collapse .ant-collapse-content>.ant-collapse-content-box {
+  background: #e1f1ff;
+}
+
+.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab-active {
+  background: var(--primaryColor);
+
+}
+
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white;
+}
+
+.contentDiv img{
+  border-radius: 20px;
+}
+
+
+
+@media (max-width: 700px) {
+  h1{
+    font-size: 2.3rem;
+  }
 }

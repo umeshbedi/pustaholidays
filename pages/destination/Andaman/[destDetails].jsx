@@ -8,12 +8,13 @@ import { Divider } from 'antd'
 import { db } from '@/firebase'
 import SHome from '@/components/skeleton/SHome'
 import String2Html from '@/components/master/String2Html'
+import Tile from '@/components/master/SingleTile'
 
 const Menu = dynamic(() => import("@/components/master/header"), { ssr: false })
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false })
 
 
-export default function DestDetails({data}) {
+export default function DestDetails({ data, sortedData }) {
   console.log(data)
   const { query } = useRouter()
   const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
@@ -30,42 +31,7 @@ export default function DestDetails({data}) {
   ]
 
 
-  function Tile({ thumbnail, name, slug }) {
-    return (
-      <div
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-bottom"
-        data-aos-duration="2000"
-        className={style.tile} style={{ height: 350, width: 250, position: 'relative', borderRadius: 40, overflow: 'hidden', marginBottom: '2rem' }}>
-        <a href={slug}>
-
-          <Image
-            src={thumbnail}
-            alt={name}
-            fill
-            style={{ objectFit: 'cover' }}
-            loading='lazy'
-            placeholder='blur'
-            blurDataURL={thumbnail + '?blur'}
-          />
-        </a>
-        <h1 style={{
-          color: 'white',
-          fontWeight: 700,
-          fontSize: "1.5rem",
-          bottom: 20,
-          textAlign: 'center',
-          position: 'absolute',
-          width: '100% '
-        }}
-        >
-          {name}
-        </h1>
-      </div>
-    )
-  }
-
-  if(data==undefined)return <SHome/>
+  if (data == undefined) return <SHome />
   return (
     <div>
       <main>
@@ -86,16 +52,20 @@ export default function DestDetails({data}) {
 
                 <Divider style={{ margin: "0", backgroundColor: style.lightGrey, height: 1 }} />
                 {/* <String2Html id={'aboutIsland'} string={islandItem.about} /> */}
-                <String2Html string={data.about} id={"destonationDetail"}/>
+                <String2Html string={data.about} id={"destonationDetail"} />
 
               </div>
 
-              <div style={{ width: isMobile ? '100%' : '30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center', overflow:'hidden' }}>
-                <h2 style={{ textAlign: 'center' }}>Visit Other Places of {data.title}</h2>
+              <div style={{ width: isMobile ? '100%' : '30%', background: 'white', padding: '3%', height: 'fit-content', flexDirection: 'column', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+                <h2 style={{ textAlign: 'center' }}>Visit Other Destinations of Andaman</h2>
                 <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />
-                {tileData.map((item, i) => (
-                  <Tile key={i} thumbnail={item.image} name={"Place Name"} />
-                ))}
+                {sortedData.map((item, i) => {
+                  if (item.id !== data.id) {
+                    return (
+                      <Tile key={i} name={item.title} slug={item.slug} thumbnail={item.thumbnail} />
+                    )
+                  }
+                })}
               </div>
             </div>
           </div>
@@ -110,39 +80,66 @@ export default function DestDetails({data}) {
 export const getStaticPaths = async () => {
   const entriesBali = await db.collection("destinationAndaman").get()
   const pathsBali = entriesBali.docs.map(entry => ({
-       params: {
-        destDetails: entry.data().slug
-       }
-   }));
-   
-   return {
-       paths:pathsBali,
-       fallback: true
-   }
- }
- 
- export const getStaticProps = async (context) => {
-   const { destDetails } = context.params;
-   const res = await db.collection("destinationAndaman").where("slug", "==", `/destination/Andaman/${destDetails}`).get()
-   
- 
-   const entry = res.docs.map((entry) => {
-     return ({ id: entry.id, ...entry.data() })
-   });
+    params: {
+      destDetails: entry.data().slug
+    }
+  }));
+
+  return {
+    paths: pathsBali,
+    fallback: true
+  }
+}
+
+export const getStaticProps = async (context) => {
+  const { destDetails } = context.params;
+  const res = await db.collection("destinationAndaman").where("slug", "==", `/destination/Andaman/${destDetails}`).get()
+
+  const entry = res.docs.map((entry) => {
+    return ({ id: entry.id, ...entry.data() })
+  });
 
 
-   if (entry.length == 0) {
-     return {
-       notFound: true
-     };
-   }
- 
-   return {
-     props: {
-       data: entry[0],
-     },
-     revalidate: 60,
- 
-   }
- 
- }
+  const resAndaman = await db.collection("destinationAndaman").get()
+  const entryAndaman = resAndaman.docs.map((entry) => {
+    return ({ id: entry.id, ...entry.data() })
+  });
+
+  let sortedData = []
+
+  function GetRand(num) {
+    var ran = Math.floor(Math.random() * num)
+    if (num > 4 && num - ran >= 4) {
+      for (let index = 0; index < 4; index++) {
+        sortedData.push(entryAndaman[ran])
+        ran += 1
+
+      }
+    }
+    else if (num <= 4) {
+      for (let index = 0; index < num; index++) {
+        sortedData.push(entryAndaman[index])
+      }
+    }
+    else { GetRand(num) }
+  }
+
+  GetRand(entryAndaman.length)
+
+
+  if (entry.length == 0) {
+    return {
+      notFound: true
+    };
+  }
+
+  return {
+    props: {
+      data: entry[0],
+      sortedData
+    },
+    revalidate: 60,
+
+  }
+
+}

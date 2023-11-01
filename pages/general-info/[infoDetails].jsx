@@ -79,7 +79,7 @@ export default function InfoDetails({ data }) {
 
               <div
                 style={{ width: '100%', background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
-                <h1>About {data.title}</h1>
+                <h1>{data.title}</h1>
 
                 <Divider style={{ margin: "0", backgroundColor: style.lightGrey, height: 1 }} />
                 <String2Html id={'generalInfoPage'} string={data.about} />

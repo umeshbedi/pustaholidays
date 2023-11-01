@@ -32,7 +32,7 @@ export default function Testimonials({ testimonialsData }) {
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#252d35', padding: '4.5rem 0' }}>
             <img src="/images/Google-Reviews.png" alt="Google Reviews" style={{ height: 70 }} />
-            <div style={{ display: 'flex', justifyContent: 'center', width:"100%" }}>
+            <div style={{ display: 'flex', justifyContent: 'center', width: "100%" }}>
                 <Title
                     title={"Pusta Holidays"}
                     isdark
@@ -43,7 +43,7 @@ export default function Testimonials({ testimonialsData }) {
                             <p style={{ textAlign: 'center', color: 'white', padding: "0 10px" }}>You can review us for our services ➡ <span>
                                 <a href='#'
                                     target='blank'
-                                    style={{ color: "red" }}>Click Here
+                                    style={{ color: "var(--primaryColor)" }}>Click Here
                                 </a>
                             </span></p>
                         </div>
@@ -54,7 +54,7 @@ export default function Testimonials({ testimonialsData }) {
                     effect={"coverflow"}
                     spaceBetween={30}
                     grabCursor={true}
-                    modules={[ Pagination, EffectCoverflow]}
+                    modules={[Pagination, EffectCoverflow]}
                     centeredSlides={true}
                     slidesPerView={"auto"}
                     coverflowEffect={{
@@ -78,22 +78,20 @@ export default function Testimonials({ testimonialsData }) {
                             <div
                                 style={{
                                     background: 'white',
-                                    borderRadius: "30px 30px 30px 0",
-                                    padding: "40px 30px 40px 35px"
+                                    borderRadius: "30px 30px 0 0",
+                                    padding: "40px 30px 10px 35px"
                                 }}
                             >
-                                <FaQuoteLeft style={{ fontSize: 35, color: 'lightgrey' }} />
+                                <FaQuoteLeft style={{ fontSize: 35, color: 'var(--primaryColor)' }} />
                                 <div>
                                     <p>{item.content}</p>
                                 </div>
-
+                                
                             </div>
-                            <div>
-                                <img src="/images/curve.svg" style={{ marginTop: -3, height: 40, position: 'absolute' }} />
-                                <div style={{ marginLeft: 40, paddingTop: 10 }}>
-                                    <p style={{ color: 'white' }}><b>{item.name}</b></p>
+                            <div style={{background:'white', borderRadius:'0 0 100px 0', width:'100%'}}>
+                                    <p style={{background:"var(--primaryColor)", borderRadius:'100px 0 100px 0', color: 'white', textAlign:'center', padding:30, fontStyle:'italic', fontWeight:800 }}>— {item.name}</p>
                                 </div>
-                            </div>
+
                         </SwiperSlide>
                     ))}
 
