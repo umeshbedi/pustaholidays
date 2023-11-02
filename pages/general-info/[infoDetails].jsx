@@ -16,7 +16,7 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 export default function InfoDetails({ data }) {
   const { query } = useRouter()
   // console.log(data)
-  const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
+  
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -24,43 +24,9 @@ export default function InfoDetails({ data }) {
     setIsMobile(mobile())
   }, [isMobile])
 
+const datache = "<p style='font-weight:bold'>Lorem Lorem</p> Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem "
 
-
-  function Tile({ thumbnail, name, slug }) {
-    return (
-      <div
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-bottom"
-        data-aos-duration="2000"
-        className={style.tile} style={{ height: 350, width: 250, position: 'relative', borderRadius: 40, overflow: 'hidden', marginBottom: '2rem' }}>
-        <a href={slug}>
-
-          <Image
-            src={thumbnail}
-            alt={name}
-            fill
-            style={{ objectFit: 'cover' }}
-            loading='lazy'
-            placeholder='blur'
-            blurDataURL={thumbnail + '?blur'}
-          />
-        </a>
-        <h1 style={{
-          color: 'white',
-          fontWeight: 700,
-          fontSize: "1.5rem",
-          bottom: 20,
-          textAlign: 'center',
-          position: 'absolute',
-          width: '100% '
-        }}
-        >
-          {name}
-        </h1>
-      </div>
-    )
-  }
-
+  
   if (data == undefined) return <SHome />
 
   return (
@@ -75,15 +41,12 @@ export default function InfoDetails({ data }) {
           <div
             className='backCurve5'
             style={{ display: 'flex', justifyContent: 'center', }} id='packageContainer'>
-            <div style={{ width: '90%', display: isMobile ? "block" : "flex", gap: '4%', marginTop: '3%' }}>
+            <div style={{ width: '90%', display: isMobile ? "block" : "flex", marginTop: '3%' }}>
 
-              <div
-                style={{ width: '100%', background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15 }}>
+            <div
+                style={{ width: '100%', background: 'white', padding: '3%', display: 'flex', flexDirection: 'column', gap: 15, }}>
                 <h1>{data.title}</h1>
-
-                <Divider style={{ margin: "0", backgroundColor: style.lightGrey, height: 1 }} />
-                <String2Html id={'generalInfoPage'} string={data.about} />
-               
+                <String2Html id={"pageContent"} string={data.about} />
               </div>
 
 

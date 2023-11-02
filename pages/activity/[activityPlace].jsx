@@ -15,9 +15,7 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 export default function Activity({ data, banner }) {
 
     const { query } = useRouter()
-    const headerImage = `https://picsum.photos/seed/sdf55/1280/500`
-
-
+    
     if (data == undefined) return <SHome />
 
     return (

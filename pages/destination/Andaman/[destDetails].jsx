@@ -15,21 +15,16 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 
 
 export default function DestDetails({ data, sortedData }) {
-  console.log(data)
+  // console.log(data)
   const { query } = useRouter()
-  const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
-
+  
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     setIsMobile(mobile())
   }, [isMobile])
 
-  const tileData = [
-    { image: `https://picsum.photos/seed/sdf234/250/350`, slug: `/package/${query.packageName}/abctest` },
-    { image: `https://picsum.photos/seed/sdf4365/250/350`, slug: `/package/${query.packageName}/abctest` },
-  ]
-
+  
 
   if (data == undefined) return <SHome />
   return (

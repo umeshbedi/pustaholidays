@@ -14,7 +14,7 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 
 
 export default function DestDetails({data, sortedData}) {
-  console.log(data)
+  // console.log(data)
   const { query } = useRouter()
   
   const [isMobile, setIsMobile] = useState(false)

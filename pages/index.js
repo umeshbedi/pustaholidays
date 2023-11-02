@@ -14,6 +14,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 const DivCarousel2 = dynamic(() => import('@/components/homepage/DivCarousel2'), { ssr: false, loading: () => <SHome /> })
+const DivCarouselMobile = dynamic(() => import('@/components/homepage/DivCarouselMobile'), { ssr: false, loading: () => <SHome /> })
 const Menu = dynamic(() => import("@/components/master/header"), { ssr: false, loading: () => <SHome /> })
 const Slider = dynamic(() => import("@/components/homepage/Slider"), { ssr: false, loading: () => <SHome /> })
 const Journey = dynamic(() => import('@/components/homepage/Journey'), { ssr: false, loading: () => <SHome /> })
@@ -58,13 +59,14 @@ export default function Home({
           <Slider sliderData={data.banner} />
 
           <div style={{ marginTop: "3rem" }}>
-            {isMobile ? (<></>
-              // <Package
-              //   lightHead={"Destination "}
-              //   darkHead={"in Bali"}
-              //   button={{ name: "All Destination", slug: "/destination" }}
-
-              // />
+            {isMobile ? (
+              <DivCarouselMobile
+                lightHead={"Handpicked Destination in Bali"}
+                // darkHead={"in Bali"}
+                button={{ name: "All Destination", slug: "/destination" }}
+                sliderContent={desEntryBali}
+                category={'destination'}
+              />
             ) : (
               <DivCarousel
                 lightHead={"Handpicked Destination "}
@@ -79,13 +81,13 @@ export default function Home({
 
 
             {isMobile ? (
-              <></>
-              // <Package
-              //   lightHead={"Destination "}
-              //   darkHead={"in Andaman"}
-              //   button={{ name: "All Destination", slug: "/destination" }}
-
-              // />
+              <DivCarouselMobile
+                lightHead={"Destination in Andaman (India)"}
+                // darkHead={"in Bali"}
+                button={{ name: "All Destination", slug: "/destination" }}
+                sliderContent={desEntryAndaman}
+                category={'destination'}
+              />
             ) : (
               <DivCarousel
                 lightHead={"Destination "}
@@ -100,13 +102,13 @@ export default function Home({
 
 
             {isMobile ? (
-              <></>
-              // <Package
-              //   lightHead={"Cruises "}
-              //   darkHead={"in Andaman"}
-              //   button={{ name: "All Hotels", slug: "/destination" }}
-
-              // />
+              <DivCarouselMobile
+                lightHead={"Luxury Cruises In Andaman (India)"}
+                // darkHead={"in Bali"}
+                button={{ name: "All Cruises", slug: "#" }}
+                sliderContent={ferryData}
+                category={'cruise'}
+              />
             ) : (
               <DivCarousel
                 lightHead={"Luxury Cruises"}
@@ -119,8 +121,8 @@ export default function Home({
 
             )}
 
-            <DivCarousel2 title={"Activities in Bali"} sliderContent={activityDataBali}/>
-            <DivCarousel2 title={"Activities in Andaman (India)"} sliderContent={activityDataAndaman}/>
+            <DivCarousel2 title={"Activities in Bali"} sliderContent={activityDataBali} />
+            <DivCarousel2 title={"Activities in Andaman (India)"} sliderContent={activityDataAndaman} />
 
           </div>
           <Journey youtube={tarvelJourney} />
@@ -129,7 +131,7 @@ export default function Home({
           <Testimonials testimonialsData={testimonials} />
           <WhatTheySay />
           <Authorities />
-          
+
         </div>
       </main>
     </>

@@ -16,7 +16,7 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 export default function PlaceDetails({ data, dataParent }) {
 
   const { query } = useRouter()
-  const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
+  
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -25,8 +25,7 @@ export default function PlaceDetails({ data, dataParent }) {
   }, [isMobile])
 
   const tileData = [
-    { image: `https://picsum.photos/seed/sdfw3e4/250/350`, slug: `/package/${query.packageName}/abctest` },
-    { image: `https://picsum.photos/seed/sdfsdf88/250/350`, slug: `/package/${query.packageName}/abctest` },
+   
 
 
   ]
@@ -132,7 +131,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const {place, placeDetails } = context.params
-  console.log(context.params)
+  // console.log(context.params)
   const res = await db.collection(`attractionBali`).where("slug", "==", `/attraction-Bali/${place}`).get()
   const entry = res.docs.map((entry) => {
     return ({ id: entry.id, ...entry.data() })

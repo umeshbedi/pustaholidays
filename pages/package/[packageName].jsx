@@ -49,7 +49,7 @@ export default function PackageName({ data, allData, banner }) {
                     <Menu />
                     <HeadImage image={banner} title={query.packageName != undefined ? query.packageName + " Package" : null} />
 
-                    <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
+                    <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem", background:'var(--lightGreyColor)' }}>
                         {query.packageName == "Bali" ?
                             (<div>
                                 <h1>The Best Curated Bali Packages</h1>
@@ -64,7 +64,7 @@ export default function PackageName({ data, allData, banner }) {
                             </div>)
                         }
 
-                        <div style={{ marginTop: '2rem' }}>
+                        <div style={{ marginTop: '2rem', overflowX:'scroll' }} className='segmented'>
                             <Segmented options={tabTemp} size='large' onChange={fetchData} style={{ boxShadow: "0px 0px 20px rgba(0,0,0,.2)" }} />
                         </div>
                         <div style={{ display: "flex", justifyContent: 'center', width: "100%", }}>

@@ -8,14 +8,21 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import Image from 'next/image';
 import Title from '../master/Title';
+import { mobile } from '../utils/variables';
 
 export default function Journey({ youtube }) {
 
     const [activeIndex, setActiveIndex] = useState(1)
+    const [isMobile, setIsMobile] = useState(false)
 
+    useEffect(() => {
+        setIsMobile(mobile())
+
+    }, [isMobile])
+    
     return (
         <div>
-            <Title title={"Journey In Moving Frames"} />
+            <Title title={"Journey In Moving Frames"} center={isMobile?true:false}/>
             <Swiper
 
                 spaceBetween={30}

@@ -14,8 +14,7 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 
 export default function Pages({ data }) {
   const { query } = useRouter()
-  const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
-
+  
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {

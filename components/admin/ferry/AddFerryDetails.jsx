@@ -55,7 +55,7 @@ export default function AddFerryDetails({ details, ferryId }) {
             ticket: firebase.firestore.FieldValue.arrayUnion(ticket)
         }).then(() => {
             updateTicket()
-            console.log("added")
+            // console.log("added")
         })
 
     }
@@ -72,14 +72,14 @@ export default function AddFerryDetails({ details, ferryId }) {
             classes: firebase.firestore.FieldValue.arrayUnion(ticketClass)
         }).then(() => {
             updateTicket()
-            console.log("added")
+            // console.log("added")
         })
     }
 
     function deleteTicket(i) {
 
         const removedClass = classes.filter(f => f.ticketId != ticket[i].ticketId)
-        console.log(removedClass)
+        // console.log(removedClass)
         ferrydb.doc(`${ferryId}`).update({
             classes: removedClass
         })

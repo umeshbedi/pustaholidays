@@ -16,14 +16,13 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 
 export default function SinglePackage({ data, sortedData }) {
     const { query } = useRouter()
-    const headerImage = `https://picsum.photos/seed/sdf${Math.random(0, 100)}/1280/500`
-
+    
     const [packageName, setPackageName] = useState(null)
     const [packageDetail, setPackageDetail] = useState(null)
 
     const [isMobile, setIsMobile] = useState(false)
 
-    console.log(sortedData)
+    // console.log(sortedData)
 
     useEffect(() => {
         setIsMobile(mobile())
@@ -81,7 +80,7 @@ export default function SinglePackage({ data, sortedData }) {
                     <div style={{ background: "var(--primaryColor)", padding: '5%', display: 'flex', justifyContent: 'space-between' }}>
                         <div>
                             <h4 style={{ fontSize: '15px', color: "rgba(255,255,255,.7)", textDecoration: 'line-through' }}>{query.packageName == "Bali" ? "IDR" : "₹"} {(Number(data.price) + (Number(data.price) * 30 / 100)).toFixed(0)}</h4>
-                            <h4 style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Package Cost : {query.packageName == "Bali" ? "IDR" : "₹"} {data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</h4>
+                            <h4 style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Package Cost : {query.packageName == "Bali" ? "IDR" : "₹"}{data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</h4>
                             <h4 style={{ fontSize: '15px', color: "rgba(255,255,255,.7)" }}>{"(inclusive 5% GST)"}</h4>
                         </div>
                         <div style={{ padding: "3px 12px", background: style.primaryColor, color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'fit-content', fontWeight: 'bold', borderRadius: 20 }}>

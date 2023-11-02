@@ -132,7 +132,7 @@ export default function Cab({ data, sortedActivity, sortedFerryData }) {
                         <div style={{ padding: '5%', marginTop: "2rem", display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                             <h2 style={{ textAlign: "center", marginBottom: "1rem",padding:'0 10%' }}>Activities of Andaman</h2>
                             {sortedActivity.map((item, i) => {
-                                return (<Tile key={i} name={item.title} slug={item.slug} thumbnail={item.thumbnail} />)
+                                return (<Tile key={i} name={item.name} slug={item.slug} thumbnail={item.thumbnail} />)
 
                             })
                             }

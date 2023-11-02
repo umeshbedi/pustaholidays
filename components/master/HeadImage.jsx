@@ -1,9 +1,7 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
-const headerImage = `https://picsum.photos/seed/sdf123/1280/500`
-
-export default function HeadImage({image=headerImage, title}) {
+export default function HeadImage({image="", title}) {
     
     const [scale, setScale] = useState(1.5)
 

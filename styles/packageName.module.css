@@ -1,11 +1,12 @@
 .packageRow{
-    display: grid;
-    grid-template-columns: repeat(4,auto);
-    
+    display: flex;
+    /* grid-template-columns: repeat(4,auto); */
+    flex-wrap: wrap;
     width: 100%;
+    /* justify-content: center; */
+    gap: 2.5rem;
+    align-self: center;
     justify-content: center;
-    gap: 2rem;
-    
 }
 .tile{
     transition: transform .5s ease;

@@ -40,16 +40,7 @@ export default function DivCarousel2({ lightHead, darkHead, backgroundImage, sli
 
     }, [isMobile])
 
-    const sliderImages = [
-        { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf09348/1000/1000` },
-        { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdfdfsdfii/1000/1000` },
-        { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf5uio6/1000/1000` },
-        { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdfuio799/1000/1000` },
-        { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf677yut/1000/1000` },
-        { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdoipop/1000/1000` },
-        { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf32423df/1000/1000` },
-        { name: "Place Name", thumbnail: `https://picsum.photos/seed/sdf5645gthy/1000/1000` },
-    ]
+
 
 
     return (
@@ -64,8 +55,9 @@ export default function DivCarousel2({ lightHead, darkHead, backgroundImage, sli
             <div
                 data-aos="fade-up"
                 data-aos-duration="2000"
-                style={{ marginLeft: isMobile ? "2.5rem" : null }}>
-                <Title title={title} />
+                // style={{ marginLeft: isMobile ? "2.5rem" : null }}
+                >
+                <Title title={title} center={isMobile?true:false} />
             </div>
             <div
                 style={{ width: '100%', position: 'relative' }}
