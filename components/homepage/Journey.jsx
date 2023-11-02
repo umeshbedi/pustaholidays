@@ -24,13 +24,13 @@ export default function Journey({ youtube }) {
         <div>
             <Title title={"Journey In Moving Frames"} center={isMobile?true:false}/>
             <Swiper
-
+                style={{padding: isMobile?0:"0 20%"}}
                 spaceBetween={30}
                 // centeredSlides={true}
                 initialSlide={1}
                 navigation={true}
                 modules={[Navigation]}
-                className={style.journeySwiper}
+                // className={style.journeySwiper}
                 rewind
                 onSlideChange={(e) => {
                     setActiveIndex(e.activeIndex)
