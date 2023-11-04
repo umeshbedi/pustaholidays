@@ -88,7 +88,7 @@ export default function Testimonials({ testimonialsData }) {
                                 </div>
                                 
                             </div>
-                            <div style={{background:'white', borderRadius:'0 0 100px 0', width:'100%'}}>
+                            <div style={{background:'white', borderRadius:'0 0 100px 0', width:'100%', marginTop:-2}}>
                                     <p style={{background:"var(--primaryColor)", borderRadius:'100px 0 100px 0', color: 'white', textAlign:'center', padding:30, fontStyle:'italic', fontWeight:800 }}>— {item.name}</p>
                                 </div>
 

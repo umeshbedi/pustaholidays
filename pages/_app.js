@@ -39,8 +39,8 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
         <div id='WhatsAppButton'>
               <FloatButton.Group style={{ left: 10}}>
-            <FloatButton href='https://api.whatsapp.com/send?phone=918757115500' target='blank' tooltip="WhatsApp for Bali" icon={<FaWhatsapp style={{color:'white'}}/>} style={{ color:'red' }} />
-            <FloatButton href='https://api.whatsapp.com/send?phone=918757115500' target='blank' tooltip="WhatsApp for Andaman (India)" icon={<FaWhatsapp style={{color:'white'}}/>} />
+            <FloatButton href='https://api.whatsapp.com/send?phone=6287750233546' target='blank' tooltip="WhatsApp for Bali" icon={<FaWhatsapp style={{color:'white'}}/>} style={{ color:'red' }} />
+            <FloatButton href='https://api.whatsapp.com/send?phone=919434282120' target='blank' tooltip="WhatsApp for Andaman (India)" icon={<FaWhatsapp style={{color:'white'}}/>} />
           </FloatButton.Group>
           </div>
         {path !== '/admin' &&

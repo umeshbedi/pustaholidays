@@ -20,13 +20,13 @@ export default function ContactUsPage() {
         setIsMobile(mobile())
     }, [isMobile])
 
-    function Address({Address, Email, Contact}) {
+    function Address({Address, Locate, Phone}) {
         return (
-            <div style={{ background: "black", padding: '3%', flexDirection: 'column', display: 'flex', gap:"1.5rem" }}>
+            <div style={{ background: "black", padding: '3%', flexDirection: 'column', display: 'flex', gap:"1.5rem",width:"33%" }}>
                 <div style={{ display: 'flex', color: 'white', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
                     <h2 style={{ color: "var(--primaryColor)",alignItems:'center', display:'flex', gap:5 }}><FiMapPin style={{ fontSize: 25 }} />Address</h2>
                     <p style={{ textAlign: 'center', lineHeight: '140%' }}>
-                        Sardar Bhagwan Singh Shopping Complex, Dollygunj, Port Blair, Andaman and Nicobar Islands 744103
+                        {Address}
                     </p>
                     <hr style={{ width: '80%' }} />
                 </div>
@@ -37,12 +37,12 @@ export default function ContactUsPage() {
                     <hr style={{ width: '80%' }} />
                 </div>
                 <div style={{ display: 'flex', color: 'white', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-                    <h2 style={{ color: "var(--primaryColor)",alignItems:'center', display:'flex', gap:5 }}><FiPhone style={{ fontSize: 25 }} />Contact No.</h2>
-                    <p style={{ textAlign: 'center', lineHeight: '140%' }}>+919999999999, +918888888888</p>
+                    <h2 style={{ color: "var(--primaryColor)",alignItems:'center', display:'flex', gap:5 }}><FiPhone style={{ fontSize: 25 }} />Phone/WA:</h2>
+                    <p style={{ textAlign: 'center', lineHeight: '140%' }}>{Phone}</p>
 
                 </div>
                 <div>
-                    <Location location={"11.624503412464316, 92.7231522616873"}/>
+                    <Location location={Locate}/>
                 </div>
             </div>
         )
@@ -55,19 +55,27 @@ export default function ContactUsPage() {
             <div style={{ display: 'flex', justifyContent: 'center', background: 'var(--lightBackground)' }}>
                 <div style={{ width: '90%', margin: "3rem 0" }}>
                     <h1 style={{ color: "grey" }}><span style={{ color: "var(--primaryColor)" }}>Connect</span> With Us</h1><br />
-                    <p>We would love to respond to your queries and help you succeed.</p>
-                    <p>Feel free to get in touch with us.</p>
+                    <p>We would love to respond to your queries and help you get the best packages for Andaman (India) & Bali.</p>
+                    <p>{`Feel free to contact us 24/7 Our Executives are available for you.`}</p>
                     <br />
                     <br />
                     <div style={{ display: 'flex', flexDirection: isMobile ? "column" : "row",background: 'white' }}>
-                        <Address/>
-                        <div style={{ padding: '3%', height: 'fit-content', width:'90%' }}>
+                        <Address
+                        Address={"Jalan Raya Uluwatu-1, No. 9, Jimbaran (Opposite Intercontinental Resort and Hotel), South Kuta, Badung, Bali-80361"}
+                        Phone={"+62 877-5023-3546"}
+                        Locate={"-8.778500839250647, 115.16906022755067"}
+                        />
+                        <div style={{ padding: '3%', height: 'fit-content', width:'33%' }}>
                             <ContactForm
                                 packageName={"Contact Us"}
                                 packageDetail={"Message from Contact Us Page"}
                             />
                         </div>
-                        <Address/>
+                        <Address
+                        Address={"11/2 SN Road Goal Ghar, Opposite Hotel Shreesh, Port Blair, South Andaman"}
+                        Phone={"+91 9434282120"}
+                        Locate={"11.662393665832786, 92.73356481403471"}
+                        />
 
 
                     </div>
