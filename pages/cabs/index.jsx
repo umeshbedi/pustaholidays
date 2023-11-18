@@ -26,7 +26,7 @@ export default function Rentals({ entryAndaman, entryBali, banner }) {
           <HeadImage image={banner} title={"Rentals"} />
 
           <div style={{ padding: "3rem 5%", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
-            <h1>Cabs in Andman (India)</h1>
+            <h1>Cabs in Andaman (India)</h1>
             <p>{`Discover the tropical paradise of Andaman like never before with Pusta Holidays, your ultimate gateway to the best cab facility on the islands. At Pusta Holidays, we take pride in offering an all-encompassing cab service that ensures you experience the breathtaking beauty of Andaman to the fullest.`}</p>
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>

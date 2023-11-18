@@ -29,7 +29,7 @@ export default function ContactForm({ packageName, packageDetail, to, data }) {
     async function sendEmail(e) {
         const emailBody = {
             "sender": { "name": "Pusta Holidays", "email": "no-reply@pustaholidays.com" },
-            "to": [{ "email": "umeshkumarbedi@gmail.com", "name": "Pustaholidays" }],
+            "to": [{ "email": "pustaholidays@gmail.com", "name": "Pustaholidays" }],
             "htmlContent": `<!DOCTYPE html> 
           <html> 
           <head>

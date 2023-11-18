@@ -58,8 +58,8 @@ export default function Attraction({ entryAndaman, entryBali, banner }) {
           <HeadImage image={banner} title={"Attraction"} />
 
           <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
-            <h1>Andman and Nicobar Island</h1>
-            <p>Andman and Nicobar Island is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
+            <h1>Andaman and Nicobar Island</h1>
+            <p>Andaman and Nicobar Island is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
               <div className={style.packageRow}>

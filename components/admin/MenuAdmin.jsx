@@ -45,7 +45,7 @@ export default function MenuAdmin({ menuClick }) {
     {
       key: null, menu: <p><FaNewspaper /> Know</p>, subMenu: [
         { key: 'about-us', menu: <p >About Us</p>, subMenu: [] },
-        { key: 'about-andman', menu: <p >About Andman</p>, subMenu: [] },
+        { key: 'about-andman', menu: <p >About Andaman</p>, subMenu: [] },
         { key: 'about-bali', menu: <p >About Bali</p>, subMenu: [] },
         { key: 'dos-and-dont', menu: <p >{"Do's & Don't"}</p>, subMenu: [] },
         { key: 'generalInfo', menu: <p >{"General information"}</p>, subMenu: [] },
