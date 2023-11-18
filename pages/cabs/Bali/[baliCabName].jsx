@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import style from '@/styles/Home.module.css'
-import { Col, Row } from 'antd'
+import { Col, Row, Modal, Divider } from 'antd'
 import Image from 'next/image'
 import { FaMap, FaUser } from 'react-icons/fa'
 import { CarFilled } from '@ant-design/icons'
@@ -12,6 +12,7 @@ import { boxShadow, mobile } from '@/components/utils/variables'
 import SHome from '@/components/skeleton/SHome'
 import { db } from '@/firebase'
 import Tile from '@/components/master/SingleTile'
+import ContactForm from '@/components/master/ContactForm'
 
 const HeadImage = dynamic(import('@/components/master/HeadImage'), { ssr: false, loading: () => <SHome /> })
 const Header = dynamic(import("@/components/master/header"), { ssr: false, loading: () => <SHeader /> })
@@ -23,7 +24,8 @@ export default function Cab({ data, sortedData }) {
     const [isMobile, setIsMobile] = useState(false)
     const [height, setHeight] = useState(null)
     const [cabsList, setCabsList] = useState([])
-
+    const [activityDetails, setActivityDetails] = useState({})
+    const [open, setOpen] = useState(false)
 
 
     useEffect(() => {
@@ -82,8 +84,17 @@ export default function Cab({ data, sortedData }) {
                             <h3>Offer Price:</h3>
                             <h1 style={{ fontSize: '2rem' }}>IDR {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</h1>
                         </div>
-                        <div style={{ height: "3rem", width: '100%', background: "var(--primaryColor)", marginTop: "1.5rem", display: 'flex', alignItems: "center", justifyContent: 'center', cursor: 'pointer', borderRadius: isMobile ? 50 : null }}>
-                            <p style={{ fontSize: "1.2rem", color: "white" }}>Enquire Now</p>
+                        <div style={{ height: "3rem", width: '100%', background: "var(--primaryColor)", marginTop: "1.5rem", display: 'flex', alignItems: "center", justifyContent: 'center', cursor: 'pointer', borderRadius: isMobile ? 50 : null }}
+                        onClick={() => {
+                            setOpen(true);
+                            setActivityDetails({
+                                name: title,
+                                distance: distance,
+                                price: `IDR ${price}`
+                            })
+                        }}
+                        >
+                            <p style={{ fontSize: "1.2rem", color: "white" }}>Book Now</p>
                         </div>
 
                     </div>
@@ -134,7 +145,24 @@ export default function Cab({ data, sortedData }) {
 
 
             {/* <Footer /> */}
-
+            <Modal
+                open={open}
+                onCancel={() => setOpen(false)}
+                footer={[]}
+            >
+                <h2>Booking:</h2>
+                <Divider style={{ margin: '1%' }} />
+                <h1 style={{ margin: '1% 0', fontSize: '2rem' }}>{activityDetails.price}</h1>
+                <ContactForm
+                    to={'activity'}
+                    packageName={`Cab | ${data.title}`}
+                    packageDetail={`
+          <p>Cab Name: ${activityDetails.name}</p>
+          <p>Price: ${activityDetails.price}</p>
+          <p>Distance: ${activityDetails.distance} kms</p>
+        `}
+                />
+            </Modal>
 
 
         </div>

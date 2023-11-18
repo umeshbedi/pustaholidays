@@ -31,14 +31,14 @@ export default function Slider({sliderData}) {
     return (
         <div>
             <Swiper
+            
                 spaceBetween={30}
                 centeredSlides={true}
                 speed={2000}
                 autoplay={{
                     delay: 3000,
-                    disableOnInteraction: false,
-
-
+                    disableOnInteraction: true,
+                    pauseOnMouseEnter:true
                 }}
                 grabCursor={true}
                 navigation={true}

@@ -1,6 +1,7 @@
 import { DeleteFilled, PlusOutlined } from '@ant-design/icons'
 import { Button, DatePicker, Form, Input, Modal, Select, Space } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { mobile } from '../utils/variables'
 
 export default function ContactForm({ packageName, packageDetail, to, data }) {
     const [date, setDate] = useState(null)
@@ -16,10 +17,19 @@ export default function ContactForm({ packageName, packageDetail, to, data }) {
     const [psGender, setPsGender] = useState(null)
     const [psAadhar, setPsAadhar] = useState(null)
 
+    const [isMobile, setIsMobile] = useState(false)
+
+    // console.log(sortedData)
+
+    useEffect(() => {
+        setIsMobile(mobile())
+    }, [isMobile])
+    
+
     async function sendEmail(e) {
         const emailBody = {
-            "sender": { "name": "Ronit Holidays", "email": "no-reply@ronitholidays.com" },
-            "to": [{ "email": "ronitholidays1@gmail.com", "name": "Ronitholidays" }],
+            "sender": { "name": "Pusta Holidays", "email": "no-reply@pustaholidays.com" },
+            "to": [{ "email": "umeshkumarbedi@gmail.com", "name": "Pustaholidays" }],
             "htmlContent": `<!DOCTYPE html> 
           <html> 
           <head>
@@ -75,8 +85,8 @@ export default function ContactForm({ packageName, packageDetail, to, data }) {
           </div>
           </body> </html>`,
 
-            "subject": "New Query from ronhitholidays.com",
-            "replyTo": { "email": "no-reply@ronitholidays.com", "name": "Ronitholidays" },
+            "subject": "New Query from pustaholidays.com",
+            "replyTo": { "email": "no-reply@pustaholidays.com", "name": "Pustaholidays" },
             "tags": ["hotel", "room"]
         }
         setLoading(true)
@@ -165,7 +175,7 @@ export default function ContactForm({ packageName, packageDetail, to, data }) {
                                     }}
                                         style={{ color: 'red', cursor: 'pointer', marginLeft: 5 }} /></p>
                             ))}
-                            <Space>
+                            <Space direction={isMobile?"vertical":"horizontal"}>
                                 <Input placeholder='Full Name' required onChange={(e) => setPsName(e.target.value)} />
                                 <Input type='number' placeholder='Age' required onChange={(e) => setPsAge(e.target.value)} />
                                 <Select

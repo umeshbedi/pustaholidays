@@ -210,10 +210,14 @@ width: 100%;
   background-color: white !important;
 }
 
-#WhatsAppButton .ant-float-btn-default .ant-float-btn-body{
+.WhatsAppButton div{
 background-color: #00b33e !important;
-
+border-radius: 50px;
+height: 35px;
+width: 35px;
 }
+
+
 
 #ticketCollapse>.ant-collapse .ant-collapse-content>.ant-collapse-content-box {
   background: #e1f1ff;

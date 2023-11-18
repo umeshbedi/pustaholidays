@@ -6,8 +6,9 @@ import { mobile } from '@/components/utils/variables'
 import { useEffect, useState } from 'react'
 import SHome from '@/components/skeleton/SHome'
 import { db } from '@/firebase'
-import { FloatButton } from 'antd'
+import { Button, FloatButton, Tooltip } from 'antd'
 import { FaWhatsapp } from 'react-icons/fa'
+import Link from 'next/link'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -43,6 +44,8 @@ export default function Home({
     setIsMobile(mobile())
   }, [isMobile])
 
+
+  // if (data == undefined) return <SHome />
 
   return (
     <>
@@ -132,7 +135,18 @@ export default function Home({
           <WhatTheySay />
           <Authorities />
 
+          {/* <div >
+            <FloatButton.Group style={{ left: 10 }}>
+              <FloatButton href='https://api.whatsapp.com/send?phone=6287750233546' target='blank' tooltip="WhatsApp for Bali" icon={<FaWhatsapp style={{ color: 'white' }} />} style={{ color: 'red' }}/>
+              <FloatButton href='https://api.whatsapp.com/send?phone=919434282120' target='blank' tooltip="WhatsApp for Andaman (India)" icon={<FaWhatsapp style={{ color: 'white' }} />} />
+            </FloatButton.Group>
+
+          </div> */}
+          
+
         </div>
+
+        
       </main>
     </>
   )

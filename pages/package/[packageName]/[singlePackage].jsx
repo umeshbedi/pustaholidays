@@ -9,6 +9,7 @@ import { ClockCircleFilled } from '@ant-design/icons'
 import { db } from '@/firebase'
 import String2Html from '@/components/master/String2Html'
 import ContactForm from '@/components/master/ContactForm'
+import { FaBed, FaTag, FaTags } from 'react-icons/fa'
 
 const Menu = dynamic(() => import("@/components/master/header"), { ssr: false })
 const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: false })
@@ -16,7 +17,7 @@ const HeadImage = dynamic(() => import("@/components/master/HeadImage"), { ssr: 
 
 export default function SinglePackage({ data, sortedData }) {
     const { query } = useRouter()
-    
+
     const [packageName, setPackageName] = useState(null)
     const [packageDetail, setPackageDetail] = useState(null)
 
@@ -77,7 +78,8 @@ export default function SinglePackage({ data, sortedData }) {
         return (
             <>
                 <div style={{ background: 'white', width: '100%' }}>
-                    <div style={{ background: "var(--primaryColor)", padding: '5%', display: 'flex', justifyContent: 'space-between' }}>
+                    <img src='/images/tripadvisor.jpg' alt='tripadvisor' style={{ width: '100%' }} loading='lazy' />
+                    {/* <div style={{ background: "var(--primaryColor)", padding: '5%', display: 'flex', justifyContent: 'space-between' }}>
                         <div>
                             <h4 style={{ fontSize: '15px', color: "rgba(255,255,255,.7)", textDecoration: 'line-through' }}>{query.packageName == "Bali" ? "IDR" : "₹"} {(Number(data.price) + (Number(data.price) * 30 / 100)).toFixed(0)}</h4>
                             <h4 style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Package Cost : {query.packageName == "Bali" ? "IDR" : "₹"}{data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</h4>
@@ -86,18 +88,19 @@ export default function SinglePackage({ data, sortedData }) {
                         <div style={{ padding: "3px 12px", background: style.primaryColor, color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'fit-content', fontWeight: 'bold', borderRadius: 20 }}>
                             <h4 style={{ fontSize: 16 }}>Save 30%</h4>
                         </div>
-                    </div>
+                    </div> */}
                     <div style={{ padding: '5%' }}>
-                        <h4 style={{ fontWeight: 'bold', color: style.primaryColor }}>Number of Persons</h4>
-                        <p>Number Of Adult - 2</p>
-                        <p>Number Of Child (5-12) -0</p>
-                        <p>Number Of Child (0-5) - 0</p>
+                        <p style={{ fontWeight: '800', color: "var(--primaryColor)", fontSize: 20, marginBottom: 5 }}><FaTags /> Without Hotel</p>
+                        {data.hotelExName != undefined &&
+                            data.hotelExName.map((item, index) => (
+                                <p key={index}>{item}</p>
+                            ))}
                         <Divider style={{ backgroundColor: style.lightGrey, margin: "10px 0" }} />
-                        <h4 style={{ fontWeight: 'bold', color: style.primaryColor }}>Number of Rooms: 1</h4>
-                        <Divider style={{ backgroundColor: style.lightGrey, margin: "10px 0" }} />
-                        <h4 style={{ fontWeight: 'bold', color: style.primaryColor }}>Hotels Name: </h4>
+                        {/* <p style={{ fontWeight: '800', color: "var(--primaryColor)", fontSize:20, marginBottom:5 }}>Without Hotel</p>
+                        <Divider style={{ backgroundColor: style.lightGrey, margin: "10px 0" }} /> */}
+                        <p style={{ fontWeight: '800', color: "var(--primaryColor)", fontSize: 20, marginBottom: 5 }}><FaBed /> Include Hotel</p>
                         {data.hotelName.map((item, index) => (
-                            <p key={index}>{index + 1}. {item}</p>
+                            <p key={index}>{item}</p>
                         ))}
                     </div>
                 </div>
@@ -109,6 +112,10 @@ export default function SinglePackage({ data, sortedData }) {
 
 
     if (data == undefined) return (<div style={{ height: '30vh', padding: '2%' }}><Skeleton active /></div>)
+
+    let travelArr = []
+    data.travelJourney.map((d, i) => { travelArr.push(i) })
+    
     return (
 
         <main style={{ backgroundColor: "#f1f1f1" }}>
@@ -155,11 +162,12 @@ export default function SinglePackage({ data, sortedData }) {
                             <Divider style={{ margin: '2%' }} />
 
                             <h2>Travel Journey</h2>
-                            <Collapse size='large' defaultActiveKey={0} accordion={false} style={{ background: 'none' }}>
+                            <Collapse size='large' defaultActiveKey={travelArr} accordion={false} style={{ background: 'none' }} >
                                 {data.travelJourney.map((tj, i) => (
-                                    <Collapse.Panel header={<h4>{tj.heading}</h4>} key={i}>
+                                    <Collapse.Panel header={<h4>{tj.heading}</h4>} key={i} >
                                         <div>
                                             <p>{tj.content}</p>
+                                            <img src={tj.image} alt={tj.heading} loading='lazy' style={{ width: '100%', borderRadius: '20px', marginTop: 10 }} />
                                         </div>
                                     </Collapse.Panel>
                                 ))
@@ -190,8 +198,8 @@ export default function SinglePackage({ data, sortedData }) {
                             <div style={{ background: 'white', width: '100%', padding: '5%', }}>
 
                                 <ContactForm
-                                    packageName={packageName}
-                                    packageDetail={packageDetail}
+                                    packageName={data.title}
+                                    packageDetail={data.subtitle}
                                 />
                             </div>
                             <Divider style={{ backgroundColor: style.lightGrey, height: 1 }} />

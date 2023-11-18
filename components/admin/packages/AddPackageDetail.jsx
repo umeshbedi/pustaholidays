@@ -9,6 +9,7 @@ import TravelJourney from './TravelJourney';
 import { IncludesIconName } from '@/components/utils/variables';
 import { FaCross } from 'react-icons/fa';
 import AddHotelPackage from './AddHotelPackage';
+import AddExHotelPackage from './AddExHotelPackage';
 
 
 
@@ -97,7 +98,7 @@ export default function AddPackageDetail({ packageFor = "" }) {
 
         const groupSearch = packageItem.find(f => f.id == selectedGroup)
         const slug = `${groupSearch.name.split(" ").join("-")}-${sSPD.name.split(" ").join("-")}-${val.packageTitle.split(" ").join("-")}`
-        
+
         packagedb.doc(`${selectedGroup}`)
             .collection("singlePackage").doc(`${selectedSinglePackage}`)
             .update({
@@ -115,7 +116,8 @@ export default function AddPackageDetail({ packageFor = "" }) {
                 includeIcon: tempIcon.length != 0 ? tempIncludeIcon : sSPD.includeIcon,
                 isOffer: isOffer == undefined ? false : isOffer,
                 isPrice: isPrice == undefined ? false : isPrice,
-                hotelName: JSON.parse(localStorage.getItem("hotelName"))
+                hotelName: JSON.parse(localStorage.getItem("hotelName")),
+                hotelExName: JSON.parse(localStorage.getItem("hotelExName"))
 
             })
             .then(() => {
@@ -150,25 +152,29 @@ export default function AddPackageDetail({ packageFor = "" }) {
                                 onChange={(e) => setIsOffer(e.target.checked)}
                             />
                         </Form.Item>
+                        
 
 
                         <div style={{ padding: '1%', border: "solid .3px rgba(0,0,0,.2)", marginBottom: '2rem' }}>
-                            <Form.Item name={"isPrice"} label={"Is Price"}>
+                            {/* <Form.Item name={"isPrice"} label={"Is Price"}>
                                 <Input type='checkbox' style={{ width: 'fit-content' }} checked={isPrice != undefined ? isPrice : null}
                                     onChange={(e) => setIsPrice(e.target.checked)}
                                 />
-                            </Form.Item>
-                            {isPrice != undefined && isPrice &&
+                            </Form.Item> */}
+                            {/* {isPrice != undefined && isPrice && */}
                                 <>
-                                    <Form.Item name='price' initialValue={sSPD.price} label={"Price"}>
+                                    {/* <Form.Item name='price' initialValue={sSPD.price} label={"Price"}>
                                         <Input type='number' required placeholder='Enter Price' />
+                                    </Form.Item> */}
+                                    <Form.Item label={"Without Hotel"}>
+                                        <AddExHotelPackage />
+                                    
                                     </Form.Item>
-                                    <Form.Item label={"Hotels"}>
+                                    <Form.Item label={"Inlclude Hotel"}>
                                         <AddHotelPackage />
-
                                     </Form.Item>
                                 </>
-                            }
+                            {/* } */}
 
                         </div>
 

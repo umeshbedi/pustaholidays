@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import style from '@/styles/Home.module.css'
-import { Col, Divider, Row } from 'antd'
+import { Col, Divider, Modal, Row } from 'antd'
 import Image from 'next/image'
 import { FaMap, FaUser } from 'react-icons/fa'
 import { CarFilled } from '@ant-design/icons'
@@ -12,6 +12,7 @@ import { boxShadow, mobile } from '@/components/utils/variables'
 import SHome from '@/components/skeleton/SHome'
 import { db } from '@/firebase'
 import Tile from '@/components/master/SingleTile'
+import ContactForm from '@/components/master/ContactForm'
 
 const HeadImage = dynamic(import('@/components/master/HeadImage'), { ssr: false, loading: () => <SHome /> })
 const Header = dynamic(import("@/components/master/header"), { ssr: false, loading: () => <SHeader /> })
@@ -24,6 +25,8 @@ export default function Cab({ data, sortedActivity, sortedFerryData }) {
     const [height, setHeight] = useState(null)
     const [cabsList, setCabsList] = useState([])
 
+    const [activityDetails, setActivityDetails] = useState({})
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
         setIsMobile(mobile())
@@ -83,8 +86,17 @@ export default function Cab({ data, sortedActivity, sortedFerryData }) {
                             <h3>Offer Price:</h3>
                             <h1 style={{ fontSize: '2rem' }}>₹{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</h1>
                         </div>
-                        <div style={{ height: "3rem", width: '100%', background: "var(--primaryColor)", marginTop: "1.5rem", display: 'flex', alignItems: "center", justifyContent: 'center', cursor: 'pointer', borderRadius: isMobile ? 50 : null }}>
-                            <p style={{ fontSize: "1.2rem", color: "white" }}>Enquire Now</p>
+                        <div style={{ height: "3rem", width: '100%', background: "var(--primaryColor)", marginTop: "1.5rem", display: 'flex', alignItems: "center", justifyContent: 'center', cursor: 'pointer', borderRadius: isMobile ? 50 : null }}
+                            onClick={() => {
+                                setOpen(true);
+                                setActivityDetails({
+                                    name: title,
+                                    distance: distance,
+                                    price: `₹${price}`
+                                })
+                            }}
+                        >
+                            <p style={{ fontSize: "1.2rem", color: "white" }}>Book Now</p>
                         </div>
 
                     </div>
@@ -121,16 +133,16 @@ export default function Cab({ data, sortedActivity, sortedFerryData }) {
 
                     <div style={{ width: isMobile ? "100%" : '35%', height: 'fit-content', marginTop: isMobile ? "4.5rem" : null }} id='ticketCollapse'>
                         <div style={{ padding: '5%', marginTop: "2rem", display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                            <h2 style={{ textAlign: "center", marginBottom: "1rem", padding:'0 10%' }}>Popular Cruises of Andaman</h2>
+                            <h2 style={{ textAlign: "center", marginBottom: "1rem", padding: '0 10%' }}>Popular Cruises of Andaman</h2>
                             {sortedFerryData.map((item, i) => {
                                 return (<Tile key={i} name={item.name} slug={item.slug} thumbnail={item.image} />)
 
                             })
                             }
                         </div>
-                        <div style={{padding:'0 20%'}}><Divider /></div>
+                        <div style={{ padding: '0 20%' }}><Divider /></div>
                         <div style={{ padding: '5%', marginTop: "2rem", display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                            <h2 style={{ textAlign: "center", marginBottom: "1rem",padding:'0 10%' }}>Activities of Andaman</h2>
+                            <h2 style={{ textAlign: "center", marginBottom: "1rem", padding: '0 10%' }}>Activities of Andaman</h2>
                             {sortedActivity.map((item, i) => {
                                 return (<Tile key={i} name={item.name} slug={item.slug} thumbnail={item.thumbnail} />)
 
@@ -148,6 +160,24 @@ export default function Cab({ data, sortedActivity, sortedFerryData }) {
 
             {/* <Footer /> */}
 
+            <Modal
+                open={open}
+                onCancel={() => setOpen(false)}
+                footer={[]}
+            >
+                <h2>Booking:</h2>
+                <Divider style={{ margin: '1%' }} />
+                <h1 style={{ margin: '1% 0', fontSize: '2rem' }}>{activityDetails.price}</h1>
+                <ContactForm
+                    to={'activity'}
+                    packageName={`Cab | ${data.title}`}
+                    packageDetail={`
+          <p>Cab Name: ${activityDetails.name}</p>
+          <p>Price: ${activityDetails.price}</p>
+          <p>Distance: ${activityDetails.distance} kms</p>
+        `}
+                />
+            </Modal>
 
 
         </div>

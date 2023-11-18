@@ -4,12 +4,12 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 
 
-export default function AddHotelPackage() {
+export default function AddExHotelPackage() {
     const [hotels, setHotels] = useState([])
 
     useEffect(() => {
         setTimeout(() => {
-            const localData = localStorage.getItem("hotelName")
+            const localData = localStorage.getItem("hotelExName")
             if (localData != null) {
                 setHotels(JSON.parse(localData))
             }
@@ -18,12 +18,12 @@ export default function AddHotelPackage() {
     }, [])
 
     function addHotels() {
-        const hotelName = document.getElementById("hotelName")
+        const hotelExName = document.getElementById("hotelExName")
         const tempHotel = [...hotels]
-        tempHotel.push(hotelName.value)
+        tempHotel.push(hotelExName.value)
 
         setHotels(tempHotel)
-        localStorage.setItem("hotelName", JSON.stringify(tempHotel))
+        localStorage.setItem("hotelExName", JSON.stringify(tempHotel))
     }
 
     function removeHotel(i) {
@@ -36,7 +36,7 @@ export default function AddHotelPackage() {
             })
             console.log(tempHotel)
             setHotels(tempHotel)
-            localStorage.setItem("hotelName", JSON.stringify(tempHotel))
+            localStorage.setItem("hotelExName", JSON.stringify(tempHotel))
         }
     }
 
@@ -46,7 +46,7 @@ export default function AddHotelPackage() {
             {hotels.map((items, index) => (
                 <p key={index}>{items} <CloseCircleFilled onClick={() => removeHotel(index)} /></p>
             ))}
-            <Input id='hotelName' placeholder='Enter something...' />
+            <Input id='hotelExName' placeholder='Enter something...' />
             <Button type='dashed'
                 onClick={addHotels}
 

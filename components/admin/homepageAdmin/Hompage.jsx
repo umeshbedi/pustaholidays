@@ -64,10 +64,10 @@ export default function Hompage() {
       const data = snap.data()
       if (data !== undefined) {
         setBanner(data.banner)
-        // setTitle(data.title)
+        setTitle(data.title)
         setmetaDescription(data.metaDescription)
         setMetaTag(data.metaTag)
-        // titleRef.current.value = data.title
+        titleRef.current.value = data.title
         metaDescriptionRef.current.value = data.metaDescription
         metaTagRef.current.value = data.metaTag
       }
@@ -124,12 +124,12 @@ export default function Hompage() {
       <br />
 
       <Form >
-        {/* <Form.Item label="Homepage Title">
+        <Form.Item label="Homepage Title">
           <input
             ref={titleRef}
             onChange={(e) => setTitle(e.target.value)}
             type="text" placeholder='Enter Title...' />
-        </Form.Item> */}
+        </Form.Item>
         <Form.Item label="Meta Description">
           <input
             ref={metaDescriptionRef}
