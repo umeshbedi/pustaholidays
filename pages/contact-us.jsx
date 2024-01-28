@@ -22,7 +22,7 @@ export default function ContactUsPage() {
 
     function Address({Address, Locate, Phone}) {
         return (
-            <div style={{ background: "black", padding: '3%', flexDirection: 'column', display: 'flex', gap:"1.5rem",width:"33%" }}>
+            <div style={{ background: "black", padding: '3%', flexDirection: 'column', display: 'flex', gap:"1.5rem",width:isMobile ?"100%":"33%" }}>
                 <div style={{ display: 'flex', color: 'white', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
                     <h2 style={{ color: "var(--primaryColor)",alignItems:'center', display:'flex', gap:5 }}><FiMapPin style={{ fontSize: 25 }} />Address</h2>
                     <p style={{ textAlign: 'center', lineHeight: '140%' }}>
@@ -65,7 +65,7 @@ export default function ContactUsPage() {
                         Phone={"+62 877-5023-3546"}
                         Locate={"-8.778500839250647, 115.16906022755067"}
                         />
-                        <div style={{ padding: '3%', height: 'fit-content', width:'33%' }}>
+                        <div style={{ padding: '3%', height: 'fit-content', width:isMobile ? '100%':'33%' }}>
                             <ContactForm
                                 packageName={"Contact Us"}
                                 packageDetail={"Message from Contact Us Page"}
