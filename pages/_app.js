@@ -8,15 +8,20 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
+import Suspended from '@/components/utils/Suspended';
 
 export default function App({ Component, pageProps }) {
 
   const [path, setPath] = useState('/')
+  const [isSuspended, setIsSuspended] = useState(true)
 
   useEffect(() => {
     setPath(window.location.pathname)
     AOS.init();
   }, [])
+
+  if(isSuspended)return <Suspended/>
+
   return (
     <>
       <ConfigProvider
