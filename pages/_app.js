@@ -22,6 +22,8 @@ export default function App({ Component, pageProps }) {
 
   if(isSuspended)return <Suspended/>
 
+  //here I have to add auto suspend facilities
+
   return (
     <>
       <ConfigProvider
