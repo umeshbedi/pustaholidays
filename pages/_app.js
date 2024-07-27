@@ -13,7 +13,7 @@ import Suspended from '@/components/utils/Suspended';
 export default function App({ Component, pageProps }) {
 
   const [path, setPath] = useState('/')
-  const [isSuspended, setIsSuspended] = useState(true)
+  const [isSuspended, setIsSuspended] = useState(false)
 
   useEffect(() => {
     setPath(window.location.pathname)

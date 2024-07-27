@@ -194,7 +194,7 @@ export default function Header() {
             <div>
                 <div style={{ height: '100%', width: isMobile ? 200 : 250, position: 'relative', background: 'inherit' }}>
                     <Link href='/'>
-                        <Image fill src={"/Pustaholidays white Horizontal Logo_100 .png"} alt='Pustaholidays white Horizontal Logo' style={{ objectFit: "contain" }} />
+                        <Image fill src={"/MH Logo For Website.png"} alt='MH Logo' style={{ objectFit: "contain" }} />
                     </Link>
                 </div>
             </div>
