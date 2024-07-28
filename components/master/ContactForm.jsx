@@ -28,8 +28,8 @@ export default function ContactForm({ packageName, packageDetail, to, data }) {
 
     async function sendEmail(e) {
         const emailBody = {
-            "sender": { "name": "Pusta Holidays", "email": "no-reply@pustaholidays.com" },
-            "to": [{ "email": "pustaholidays@gmail.com", "name": "Pustaholidays" }],
+            "sender": { "name": "Mohi Holidays", "email": "no-reply@mohiholidays.com" },
+            "to": [{ "email": "infomohiholidays@gmail.com", "name": "Mohiholidays" }],
             "htmlContent": `<!DOCTYPE html> 
           <html> 
           <head>
@@ -85,8 +85,8 @@ export default function ContactForm({ packageName, packageDetail, to, data }) {
           </div>
           </body> </html>`,
 
-            "subject": "New Query from pustaholidays.com",
-            "replyTo": { "email": "no-reply@pustaholidays.com", "name": "Pustaholidays" },
+            "subject": "New Query from Mohiholidays.com",
+            "replyTo": { "email": "no-reply@mohiholidays.com", "name": "Mohiholidays" },
             "tags": ["hotel", "room"]
         }
         setLoading(true)

@@ -10,7 +10,7 @@ export default function FloatingButton({ label, icon, link, top = "inherit", lef
                 </Link>
             </div>
 
-            <p
+            {/* <p
                 style={{
                     backgroundColor: 'black',
                     color: 'white',
@@ -21,7 +21,7 @@ export default function FloatingButton({ label, icon, link, top = "inherit", lef
                     zIndex: -2
                 }}
             >
-                {label}</p>
+                {label}</p> */}
         </div>
     )
 }

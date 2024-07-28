@@ -33,12 +33,12 @@ export default function ContactUsPage() {
                 <div style={{ display: 'flex', color: 'white', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
                     
                     <h2 style={{ color: "var(--primaryColor)", alignItems:'center', display:'flex', gap:5 }}><FiMail style={{ fontSize: 25 }} />Email</h2>
-                    <p style={{ textAlign: 'center', lineHeight: '140%' }}>pustaholidays@gmail.com</p>
+                    <p style={{ textAlign: 'center', lineHeight: '140%' }}>infomohiholidays@gmail.com</p>
                     <hr style={{ width: '80%' }} />
                 </div>
                 <div style={{ display: 'flex', color: 'white', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
                     <h2 style={{ color: "var(--primaryColor)",alignItems:'center', display:'flex', gap:5 }}><FiPhone style={{ fontSize: 25 }} />Phone/WA:</h2>
-                    <p style={{ textAlign: 'center', lineHeight: '140%' }}>{Phone}</p>
+                    <p style={{ textAlign: 'center', lineHeight: '140%' }}>7695032900</p>
 
                 </div>
                 <div>
