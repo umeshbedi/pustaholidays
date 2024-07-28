@@ -46,7 +46,7 @@ export default function App({ Component, pageProps }) {
           <link rel="icon" href="/Pustaholidays Icons500.png" />
         </Head>
         <Component {...pageProps} />
-        <FloatingButton link={'https://api.whatsapp.com/send?phone=919434282120'} icon={<FaWhatsapp style={{ color: 'white' }} size={25}/>} right='20px' bottom='50px' label={"Andaman"}/>
+        <FloatingButton link={'https://api.whatsapp.com/send?phone=917695032900'} icon={<FaWhatsapp style={{ color: 'white' }} size={25}/>} right='20px' bottom='50px' label={"Andaman"}/>
         {/* <FloatingButton link={'https://api.whatsapp.com/send?phone=6287750233546'} icon={<FaWhatsapp style={{ color: 'white' }} />} left='10px' bottom='50px' label={"Bali"}/> */}
         {path !== '/admin' &&
           <Footer />
