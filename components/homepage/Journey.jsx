@@ -22,7 +22,7 @@ export default function Journey({ youtube }) {
     
     return (
         <div>
-            <Title title={"Journey In Moving Frames"} center={isMobile?true:false}/>
+            <Title title={"Witness the epic The Andaman Islands"} center={true}/>
             <Swiper
                 style={{padding: isMobile?0:"0 20%"}}
                 spaceBetween={30}

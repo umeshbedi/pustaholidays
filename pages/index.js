@@ -64,7 +64,7 @@ export default function Home({
           <div style={{ marginTop: "3rem" }}>
             {isMobile ? (
               <DivCarouselMobile
-                lightHead={"Handpicked Destination in Bali"}
+                lightHead={"Handpicked Destination in Port Blair"}
                 // darkHead={"in Bali"}
                 button={{ name: "All Destination", slug: "/destination" }}
                 sliderContent={desEntryBali}
@@ -73,7 +73,7 @@ export default function Home({
             ) : (
               <DivCarousel
                 lightHead={"Handpicked Destination "}
-                darkHead={"in Bali"}
+                darkHead={"in BPort Blair"}
                 button={{ name: "All Destination", slug: "/destination" }}
                 backgroundImage={InsightBanner.HomeBaliInsight}
                 category={'destination'}
@@ -85,7 +85,7 @@ export default function Home({
 
             {isMobile ? (
               <DivCarouselMobile
-                lightHead={"Destination in Andaman (India)"}
+                lightHead={"Handpicked Destination in Havelock Island"}
                 // darkHead={"in Bali"}
                 button={{ name: "All Destination", slug: "/destination" }}
                 sliderContent={desEntryAndaman}
@@ -93,8 +93,8 @@ export default function Home({
               />
             ) : (
               <DivCarousel
-                lightHead={"Destination "}
-                darkHead={"in Andaman (India)"}
+                lightHead={"Handpicked Destination "}
+                darkHead={"in Havelock Island"}
                 button={{ name: "All Destination", slug: "/destination" }}
                 backgroundImage={InsightBanner.HomeAndamanInsight}
                 category={'destination'}
@@ -106,7 +106,7 @@ export default function Home({
 
             {isMobile ? (
               <DivCarouselMobile
-                lightHead={"Luxury Cruises In Andaman (India)"}
+                lightHead={"Luxury Cruises In Andaman"}
                 // darkHead={"in Bali"}
                 button={{ name: "All Cruises", slug: "#" }}
                 sliderContent={ferryData}
@@ -115,7 +115,7 @@ export default function Home({
             ) : (
               <DivCarousel
                 lightHead={"Luxury Cruises"}
-                darkHead={" In Andaman (India)"}
+                darkHead={" In Andaman"}
                 button={{ name: "All Cruises", slug: "/cruises" }}
                 backgroundImage={InsightBanner.HomeCruizeInsight}
                 sliderContent={ferryData}
@@ -124,7 +124,6 @@ export default function Home({
 
             )}
 
-            <DivCarousel2 title={"Activities in Bali"} sliderContent={activityDataBali} />
             <DivCarousel2 title={"Activities in Andaman (India)"} sliderContent={activityDataAndaman} />
 
           </div>

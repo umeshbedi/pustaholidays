@@ -66,14 +66,14 @@ export default function DivCarouselMobile({ lightHead, darkHead, backgroundImage
 
           <h1
             data-aos="fade-up"
-            data-aos-duration="2000"
+            data-aos-duration="1000"
             style={{ color: style.primaryColor, fontWeight: 900, lineHeight: 1.1, marginBottom: 20 }}>
             {lightHead} <span style={{ color: 'grey' }}>{darkHead}</span>
           </h1>
 
           <div
             data-aos="fade-up"
-            data-aos-duration="2000"
+            data-aos-duration="1000"
             style={{ width: 'fit-content' }}>
             <MyButton name={button.name} slug={button.slug} />
           </div>

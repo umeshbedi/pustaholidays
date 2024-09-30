@@ -78,7 +78,7 @@ export default function DivCarousel({ lightHead, darkHead, backgroundImage, slid
 
             <h1
               data-aos="fade-up"
-              data-aos-duration="2000"
+              data-aos-duration="1000"
               style={{ color: 'white', fontWeight: 900, lineHeight: 1.1, marginBottom: isMobile ? 25 : 40 }}>
               {lightHead} <span style={{ color: 'white' }}>{darkHead}</span>
             </h1>

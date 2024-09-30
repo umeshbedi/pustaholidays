@@ -53,7 +53,7 @@ export default function Cab({ data, sortedData }) {
             <div
                 data-aos-anchor-placement="top-bottom"
                 data-aos="fade-up"
-                data-aos-duration="2000"
+                data-aos-duration="1000"
                 style={{ backgroundColor: 'white', borderRadius: 30, boxShadow: boxShadow, }}>
                 <div
                     style={{

@@ -18,9 +18,9 @@ export default function WhatSay() {
 
                 <div className={style.SayBox}>
                     <div className={style.arrowBox}/>
-                    <h2 style={{fontSize:20, marginBottom:5}}>The Best experience I can have for the Bali and Andaman Trip is via Pusta Holidays only.</h2>
+                    <h2 style={{fontSize:20, marginBottom:5}}>The Best experience I can have for the Bali and Andaman Trip is via Mohi Holidays Leisures only.</h2>
                     
-                    <p style={{fontSize:18}}> I am a travel enthusiast and i have Traveled to Bali and Andaman During the Pusta Holidays which was unforgettable and i discovered more from the Islands with Local Expertise in depth.  </p>
+                    <p style={{fontSize:18}}> I am a travel enthusiast and i have Traveled to Bali and Andaman During the Mohi Holidays Leisures which was unforgettable and i discovered more from the Islands with Local Expertise in depth.  </p>
                     <div className={style.SayAuthor}>
                         <div style={{ width: 80, height: 80, position: 'relative', borderRadius: 100, overflow: 'hidden' }}>
                             <Image src={`/images/Ravindra Patel.jpg`} alt='Ravindra Patel Influencer' fill style={{ objectFit: 'cover' }} />

@@ -36,7 +36,7 @@ export default function PlaceDetails({ data, dataParent }) {
       <div
         data-aos="fade-up"
         data-aos-anchor-placement="top-bottom"
-        data-aos-duration="2000"
+        data-aos-duration="1000"
         className={style.tile} style={{ height: 350, width: 250, position: 'relative', borderRadius: 40, overflow: 'hidden', marginBottom: '2rem' }}>
         <a href={slug}>
 

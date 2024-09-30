@@ -53,18 +53,18 @@ export default function PackageName({ data, allData, banner }) {
                         {query.packageName == "Bali" ?
                             (<div>
                                 <h1>The Best Curated Bali Packages</h1>
-                                <p>Discover the ultimate Bali experience with Pusta Holidays, where your dream vacation becomes a reality. Our expertly crafted Bali Packages are designed to immerse you in the enchanting beauty and vibrant culture of Bali, all while ensuring your convenience and comfort.</p>
-                                <p>{`At Pusta Holidays, we leave no stone unturned to provide you with the best Bali has to offer. Our comprehensive Bali Packages cover all the island's hidden gems and iconic destinations, creating an unforgettable journey filled with breathtaking landscapes, pristine beaches, lush rice terraces, and rich cultural encounters.`}</p>
+                                <p>Discover the ultimate Bali experience with Mohi Holidays Leisures, where your dream vacation becomes a reality. Our expertly crafted Bali Packages are designed to immerse you in the enchanting beauty and vibrant culture of Bali, all while ensuring your convenience and comfort.</p>
+                                <p>{`At Mohi Holidays Leisures, we leave no stone unturned to provide you with the best Bali has to offer. Our comprehensive Bali Packages cover all the island's hidden gems and iconic destinations, creating an unforgettable journey filled with breathtaking landscapes, pristine beaches, lush rice terraces, and rich cultural encounters.`}</p>
                             </div>)
                             :
                             (<div>
                                 <h1>The Best Curated Andaman Islands Packages</h1>
-                                <p>{`Discover paradise with Pusta Holidays! Our exceptional Andaman Holiday Packages offer an unforgettable journey through the pristine islands of the Andaman archipelago. When you choose Pusta Holidays, you're choosing the very best in Andaman travel experiences. Our meticulously crafted packages provide comprehensive coverage of all that the Andaman Islands have to offer.`}</p>
+                                <p>{`Discover paradise with Mohi Holidays Leisures! Our exceptional Andaman Holiday Packages offer an unforgettable journey through the pristine islands of the Andaman archipelago. When you choose Mohi Holidays Leisures, you're choosing the very best in Andaman travel experiences. Our meticulously crafted packages provide comprehensive coverage of all that the Andaman Islands have to offer.`}</p>
                                 
                             </div>)
                         }
 
-                        <div style={{ marginTop: '2rem', overflowX:'scroll' }} className='segmented'>
+                        <div style={{ marginTop: '2rem', overflowX:'scroll', padding:20 }} className='segmented'>
                             <Segmented options={tabTemp} size='large' onChange={fetchData} style={{ boxShadow: "0px 0px 20px rgba(0,0,0,.2)" }} />
                         </div>
                         <div style={{ display: "flex", justifyContent: 'center', width: "100%", }}>

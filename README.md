@@ -1,5 +1,5 @@
-# Pusta Holidays
-This is an Andaman and Bali traveling website. I designed this website to make people aware of Andaman’s and Bali's tourist places, Activities, packages, etc. People can also contact the agent for booking.
+# Mohi Holidays Leisures
+This is an Andaman  traveling website. I designed this website to make people aware of Andaman’s 's tourist places, Activities, packages, etc. People can also contact the agent for booking.
 
 - Created an Admin panel to update Activities, Tickets, and packages
 

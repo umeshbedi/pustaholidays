@@ -55,7 +55,7 @@ export default function Cab({ data, sortedActivity, sortedFerryData }) {
             <div
                 data-aos-anchor-placement="top-bottom"
                 data-aos="fade-up"
-                data-aos-duration="2000"
+                data-aos-duration="1000"
                 style={{ backgroundColor: 'white', borderRadius: 30, boxShadow: boxShadow, margin: "0 20px 20px 20px" }}>
                 <div
                     style={{

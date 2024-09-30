@@ -54,10 +54,10 @@ export default function DivCarousel2({ lightHead, darkHead, backgroundImage, sli
         >
             <div
                 data-aos="fade-up"
-                data-aos-duration="2000"
+                data-aos-duration="1000"
                 // style={{ marginLeft: isMobile ? "2.5rem" : null }}
                 >
-                <Title title={title} center={isMobile?true:false} />
+                <Title title={title} center={true} />
             </div>
             <div
                 style={{ width: '100%', position: 'relative' }}

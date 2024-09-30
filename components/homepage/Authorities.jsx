@@ -17,7 +17,7 @@ export default function Authorities() {
             <div
                 data-aos-anchor-placement="top-bottom"
                 data-aos="fade-up"
-                data-aos-duration="2000"
+                data-aos-duration="900"
                 id='cardImage' style={{ width: isMobile&&!service?160: 270, height: service ? "auto" : 250, background: 'rgba(255,255,255, 0.7)', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: 10 }}>
                 <div style={{ width: 120, height: 120, borderRadius: 100, boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.1)', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20, background: 'white' }}>
                     <img src={imgUrl} alt={image} style={{ height: service ? 50 : "auto" }} />
@@ -95,7 +95,7 @@ export default function Authorities() {
             }}
             >
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Title title='Awesome Service' center/>
+                    <Title title='Our Commitment' center/>
                 </div>
 
                 <div style={{

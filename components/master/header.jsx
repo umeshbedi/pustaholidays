@@ -17,6 +17,7 @@ export default function Header() {
     const [open, setOpen] = useState(false);
     const [active, setActive] = useState('home')
     const [isMobile, setIsMobile] = useState(false)
+    const [logoImage, setLogoImage] = useState("/MH Logo For Website.png")
 
     useEffect(() => {
         setIsMobile(mobile())
@@ -41,10 +42,12 @@ export default function Header() {
     useEffect(() => {
         window.addEventListener("scroll", () => {
             if (window.scrollY > 100) {
-                setMenuStyle({ padding: ".5rem 5%", background: "rgba(0,0,0,.3)" })
+                setMenuStyle({ padding: ".5rem 5%", background: "rgba(0,0,0,.5)" })
+                setLogoImage("/white-mohi-holidays-logo.png")
             }
             else {
                 setMenuStyle({ padding: "1.5rem 5%", background: "none" })
+                setLogoImage("/MH Logo For Website.png")
             }
         })
     }, [])
@@ -109,7 +112,7 @@ export default function Header() {
                     </Menu.SubMenu>
 
 
-                    <Menu.SubMenu title={<p >What to see{isMobile ? null : <FaAngleDown />}</p>}>
+                    <Menu.SubMenu title={<p >Popular Islands{isMobile ? null : <FaAngleDown />}</p>}>
                         {
                             menu.what2see.map((name, key) => (
                                 <Menu.Item key={name.name + key}>
@@ -148,7 +151,7 @@ export default function Header() {
                     </Menu.SubMenu>
 
                     
-                    <Menu.SubMenu title={<p >Cruises{isMobile ? null : <FaAngleDown />}</p>}>
+                    <Menu.SubMenu title={<p >Ferry{isMobile ? null : <FaAngleDown />}</p>}>
                         {
                             ferryList.map((ferry, key) => (
                                 <Menu.Item key={key}>
@@ -177,7 +180,10 @@ export default function Header() {
     }
 
     return (
-        <div className={style.menuContainer} style={menuStyle}>
+        <div className={style.menuContainer} style={menuStyle}
+        onMouseEnter={()=>setLogoImage("/white-mohi-holidays-logo.png")}
+        onMouseLeave={()=>setLogoImage("/MH Logo For Website.png")} 
+        >
 
             <Drawer
                 placement='right'
@@ -194,7 +200,7 @@ export default function Header() {
             <div>
                 <div style={{ height: '100%', width: isMobile ? 200 : 250, position: 'relative', background: 'inherit' }}>
                     <Link href='/'>
-                        <Image fill src={"/MH Logo For Website.png"} alt='MH Logo' style={{ objectFit: "contain" }} />
+                        <Image fill src={logoImage} alt='MH Logo' style={{ objectFit: "contain" }} />
                     </Link>
                 </div>
             </div>
@@ -212,11 +218,13 @@ export default function Header() {
                         <ul >
                             <li><Link href="/">Home</Link></li>
                             <Dropdown heading='Know' content={menu.know} />
-                            <Dropdown heading='What to see' content={menu.what2see} />
+                            <Dropdown heading='Popular Islands' content={menu.what2see} />
                             <li><Link href="/cabs">Rentals</Link></li>
-                            <Dropdown heading='Packages' content={menu.packages} />
-                            <Dropdown heading='Activities' content={menu.activity} />
-                            <Dropdown heading='Cruises' content={ferryList} />
+                            <li><Link href="/package/Andaman">Packages</Link></li>
+                            <li><Link href="/activity/Andaman">Activities</Link></li>
+                            {/* <Dropdown heading='Packages' content={menu.packages} /> */}
+                            {/* <Dropdown heading='Activities' content={menu.activity} /> */}
+                            <Dropdown heading='Ferry' content={ferryList} />
                             <li><Link href="/contact-us">Contact Us</Link></li>
                         </ul>
                     )

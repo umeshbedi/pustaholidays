@@ -68,7 +68,7 @@ export default function ActivityName({ data, sortedData }) {
                   <div
                     data-aos="fade-up"
                     data-aos-anchor-placement="top-bottom"
-                    data-aos-duration="2000"
+                    data-aos-duration="1000"
                     key={i} id='cardImage'
                     style={{ borderRadius: 10, background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: boxShadow, width: "100%", marginBottom: i != (data.data.length - 1) ? 30 : 0 }}>
                     <img

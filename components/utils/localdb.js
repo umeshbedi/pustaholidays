@@ -9,10 +9,7 @@ export const menu = {
             "name": "About Andaman",
             "slug": "/about-andaman"
         },
-        {
-            "name": "About Bali",
-            "slug": "/about-bali"
-        },
+        
        
         {
             "name": "Do's & Don't",

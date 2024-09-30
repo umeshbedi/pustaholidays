@@ -46,12 +46,12 @@ export default function Counter() {
             }}
         >
             <div style={{ marginLeft: isMobile ? "5%" : '50%', paddingRight: "5%", zIndex:2 }}>
-                <h1 style={{ fontWeight: 600}}>Discover with the Leaders of Bali & Andaman tourism.
-                <br />We are<span style={{ fontWeight: 900, color: "var(--primaryColor)" }}> Pusta Holidays</span>
+                <h1 style={{ fontWeight: 600}}>Discover with the Leaders of Andaman tourism. We are
+                <br /><span style={{ fontWeight: 900, color: "var(--primaryColor)" }}>Mohi Holidays Leisures</span>
                 </h1>
                 <br />
-                <p style={{  fontWeight: 400, fontStyle: 'italic' }}>Embark on a breathtaking journey that seamlessly combines the tropical paradises of Andaman and Bali with Pusta Holidays. Experience the ultimate blend of tourism like never before, where every moment is an unforgettable adventure.</p>
-                <p style={{  fontWeight: 400, fontStyle: 'italic' }}>{`Pusta Holidays invites you to discover the best of both worlds as you explore the stunning landscapes and cultures of Andaman and Bali. Picture yourself strolling along pristine, sun-kissed beaches with turquoise waters that stretch as far as the eye can see.`}</p>
+                <p style={{  fontWeight: 400, fontStyle: 'italic' }}>Embark on a breathtaking journey that seamlessly combines the tropical paradises of Andaman  with Mohi Holidays Leisures. Experience the ultimate blend of tourism like never before, where every moment is an unforgettable adventure.</p>
+                <p style={{  fontWeight: 400, fontStyle: 'italic' }}>{`Mohi Holidays Leisures invites you to discover the best of both worlds as you explore the stunning landscapes and cultures of Andaman . Picture yourself strolling along pristine, sun-kissed beaches with turquoise waters that stretch as far as the eye can see.`}</p>
                 <br />
                 <div style={{ width: 'fit-content' }}><MyButton name={"Know More"} slug={"/about-us"} /></div>
                 <br />

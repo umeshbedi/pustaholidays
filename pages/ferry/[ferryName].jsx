@@ -87,7 +87,7 @@ export default function Slug({ data, sortedData }) {
                   <div
                     data-aos="fade-up"
                     data-aos-anchor-placement="top-bottom"
-                    data-aos-duration="2000"
+                    data-aos-duration="1000"
                     id='ticketCollapse'
                     key={i}
                   >
