@@ -26,7 +26,7 @@ export default function Rentals({ entryAndaman, entryBali, banner }) {
           <HeadImage image={banner} title={"Rentals"} />
 
           <div style={{ padding: "3rem 5%", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
-            <h1>Cabs in Andaman (India)</h1>
+            <h1>Cabs in Andaman</h1>
             <p>{`Discover the tropical paradise of Andaman like never before with Mohi Holidays Leisures, your ultimate gateway to the best cab facility on the islands. At Mohi Holidays Leisures, we take pride in offering an all-encompassing cab service that ensures you experience the breathtaking beauty of Andaman to the fullest.`}</p>
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
@@ -39,7 +39,7 @@ export default function Rentals({ entryAndaman, entryBali, banner }) {
           </div>
 
 
-          <div style={{ padding: "0 5% 3rem 5%", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
+          {/* <div style={{ padding: "0 5% 3rem 5%", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
             <Divider />
             <h1>Cabs in Bali</h1>
             <p>{`Experience the pinnacle of convenience and comfort with Mohi Holidays Leisures' exclusive Cab Facility in Bali. We take pride in offering the finest transportation services that cover the entirety of this enchanting island. When you choose Mohi Holidays Leisures, you're choosing the best way to explore Bali, with a fleet of well-maintained vehicles and expert drivers at your disposal.`}</p>
@@ -51,7 +51,7 @@ export default function Rentals({ entryAndaman, entryBali, banner }) {
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
 
         </div>
       </main>
@@ -66,17 +66,14 @@ export const getStaticProps = async () => {
   const entryAndaman = resAndaman.docs.map((entry) => {
     return ({ id: entry.id, ...entry.data() })
   });
-  const resBali = await db.collection('rentalBali').get()
-  const entryBali = resBali.docs.map((entry) => {
-    return ({ id: entry.id, ...entry.data() })
-  });
+
 
   const banner = (await db.doc(`pages/allPageBanner`).get()).data().RentalPage;
 
   return {
     props: {
       entryAndaman,
-      entryBali,
+      
       banner
     },
     revalidate: 60,

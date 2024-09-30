@@ -89,7 +89,11 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
     const { activityPlace } = context.params;
 
-    const res = await db.collection(`${activityPlace == "Andaman" ? "activityAndaman" : "activityBali"}`).get()
+    const res = await db
+    .collection(`${activityPlace == "Andaman" ? "activityAndaman" : "activityBali"}`)
+    .orderBy("order", "asc")
+    .get()
+    
     // console.log(res)
 
     const entry = res.docs.map((entry) => {

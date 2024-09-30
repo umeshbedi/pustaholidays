@@ -28,7 +28,7 @@ export default function Destination({ entryAndaman, entryBali, banner }) {
           <HeadImage image={banner} title={"Destination"} />
 
           <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
-            <h1>Andaman and Nicobar Islands (India)</h1>
+            <h1>Andaman and Nicobar Island</h1>
             <p>Experience the Andaman Islands like never before with Mohi Holidays Leisures! We are your ultimate gateway to the pristine beauty and adventure that this tropical paradise has to offer. With our unwavering commitment to excellence, we ensure that you explore all the destinations in the Andaman Islands with a perfect and unforgettable experience.</p>
             <p>Mohi Holidays Leisures takes you on a journey through the lush emerald jungles, untouched beaches, and crystal-clear waters of this exotic archipelago. From the bustling streets of Port Blair to the serene shores of Havelock, we leave no stone unturned in curating the ideal itinerary for your dream vacation.</p>
 
@@ -42,7 +42,7 @@ export default function Destination({ entryAndaman, entryBali, banner }) {
           </div>
 
 
-          <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
+          {/* <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
             <Divider />
             <h1>Bali (Indonesia)</h1>
             <p>Welcome to Mohi Holidays Leisures, your gateway to an unforgettable Bali experience! At Mohi Holidays Leisures, we pride ourselves on being your ultimate guide to exploring every enchanting corner of this tropical paradise. With us, you can be sure of experiencing Bali like never before, all wrapped in perfection.</p>
@@ -55,7 +55,7 @@ export default function Destination({ entryAndaman, entryBali, banner }) {
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
 
         </div>
       </main>

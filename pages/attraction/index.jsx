@@ -55,10 +55,10 @@ export default function Attraction({ entryAndaman, entryBali, banner }) {
 
         <div>
           <Menu />
-          <HeadImage image={banner} title={"Attraction"} />
+          <HeadImage image={banner} />
 
           <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
-            <h1>Andaman and Nicobar Island</h1>
+            <h1>Attractions of Andaman</h1>
             <p>Andaman and Nicobar Island is a huge nation comprised of hundreds of cultures derived from local regions, making it one of the most diverse countries in the world. Explore the unique culture and heritage of each region in Indonesia!</p>
 
             <div style={{ display: "flex", justifyContent: 'center', width: "100%", marginTop: '2rem' }}>
@@ -70,7 +70,7 @@ export default function Attraction({ entryAndaman, entryBali, banner }) {
             </div>
           </div>
 
-
+{/* 
           <div style={{ padding: "5% 3rem", width: "100%", display: 'flex', flexDirection: 'column', gap: "1rem" }}>
             <Divider />
             <h1>Bali</h1>
@@ -83,7 +83,7 @@ export default function Attraction({ entryAndaman, entryBali, banner }) {
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
 
         </div>
       </main>
